@@ -19,5 +19,21 @@ public class CustomizedExceptionHandler {
         error.setMessage(e.getMessage());
         return error;
     }
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiError notFoundExceptionHandler(NotFoundException e){
+        ApiError error = new ApiError();
+        error.setDataErrore(LocalDate.now());
+        error.setMessage(e.getMessage());
+        return error;
+    }
+    @ExceptionHandler(UnAuthorizeException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ApiError UnAuthorizedException(UnAuthorizeException e){
+        ApiError error= new ApiError();
+        error.setDataErrore(LocalDate.now());
+        error.setMessage(e.getMessage());
+        return error;
+    }
 
 }
