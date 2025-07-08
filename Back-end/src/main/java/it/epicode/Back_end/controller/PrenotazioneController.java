@@ -20,7 +20,7 @@ public class PrenotazioneController {
     @GetMapping("/{id}")
     public Prenotazione prendiPrenotazione(@PathVariable Long id) throws NotFoundException {
         return prenotazioneService.prendiPrenotazione(id);
-    }v
+    }
 
     @GetMapping()
     public List<Prenotazione> prendiPrenotazioni(){
