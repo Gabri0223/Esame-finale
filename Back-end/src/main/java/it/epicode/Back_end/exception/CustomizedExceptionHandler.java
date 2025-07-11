@@ -29,10 +29,19 @@ public class CustomizedExceptionHandler {
     }
     @ExceptionHandler(UnAuthorizeException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public ApiError UnAuthorizedException(UnAuthorizeException e){
+    public ApiError UnAuthorizedExceptionHandler(UnAuthorizeException e){
         ApiError error= new ApiError();
         error.setDataErrore(LocalDate.now());
         error.setMessage(e.getMessage());
+        return error;
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiError IllegalArgumentExceptionHandler(IllegalArgumentException e){
+        ApiError error =new ApiError();
+        error.setMessage(e.getMessage());
+        error.setDataErrore(LocalDate.now());
         return error;
     }
 
