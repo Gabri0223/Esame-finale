@@ -7,7 +7,9 @@ import it.epicode.Back_end.repository.UtenteRepository;
 import it.epicode.Back_end.security.JwtTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AuthService {
     @Autowired
     private UtenteRepository utenteRepository;
