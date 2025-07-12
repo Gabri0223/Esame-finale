@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
+
 public class Attrezzatura extends Prodotto{
 
     @Id

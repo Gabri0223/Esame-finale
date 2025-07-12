@@ -34,6 +34,7 @@ public class UtenteService {
         nuovoUtente.setUsername(utenteDto.getUsername());
         String hasledPassword=encoder.encode(utenteDto.getPassword());
         nuovoUtente.setPassword(hasledPassword);
+        nuovoUtente.setImgUrl(utenteDto.getImgUrl());
         nuovoUtente.setRuolo(StatoRuolo.Utente);
         return utenteRepository.save(nuovoUtente);
     }
@@ -43,6 +44,7 @@ public class UtenteService {
         utenteDaModificare.setNome(utenteDto.getNome());
         utenteDaModificare.setCognome(utenteDto.getCognome());
         utenteDaModificare.setUsername(utenteDto.getUsername());
+        utenteDaModificare.setImgUrl(utenteDto.getImgUrl());
         if(!encoder.matches(utenteDto.getPassword(), utenteDaModificare.getPassword())){
             utenteDaModificare.setPassword(encoder.encode(utenteDto.getPassword()));
         }

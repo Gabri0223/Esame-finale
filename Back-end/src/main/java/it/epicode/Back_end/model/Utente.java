@@ -28,6 +28,7 @@ public class Utente implements UserDetails {
     private String username;
     @NotBlank(message = "la password non può essere vuota")
     private String password;
+    private String imgUrl;
     @Enumerated(value = EnumType.STRING)
     private StatoRuolo ruolo;
 

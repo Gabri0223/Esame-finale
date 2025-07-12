@@ -8,4 +8,5 @@ public class UtenteDto{
     private String cognome;
     private String username;
     private String password;
+    private String imgUrl;
 }

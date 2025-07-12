@@ -32,6 +32,10 @@
     font-size: 1.8rem;
 }
 
+a {
+    text-decoration: none !important;
+}
+
 .accedi{
     font-family: 'Libertinus Math', serif;
     color:#37533E
@@ -41,3 +45,50 @@
     color: #37533E;
     font-size: 1.8rem;
 }
+
+.login-container{
+    background: linear-gradient(135deg, #ffe2c1, #FAE2C6);
+    height: 100vh;
+}
+
+.form-container{
+    width: 35%;
+    background: linear-gradient(135deg, #ff98ab, #FF506F);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+.titolo{
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.form{
+  padding: 1rem 1.2rem !important;
+  box-shadow:0 6px 16px #FF506F;
+}
+
+.form:focus{
+  outline: #6B2144 !important;
+  border: 2px solid #FF506F !important; /* rosa scuro coordinato */
+  box-shadow:0 6px 16px #9a0e27 !important; /* alone rosa tenue */
+}
+
+.bottone{
+  background-color: #6B2144!important;
+  color: #f0f9ff;
+  font-weight: 700;
+  border: none !important;
+  border-radius: 14px;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(84, 7, 7, 0.7);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.bottone:hover {
+  background-color: #6B2144;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px #6B2144;
+}
+
