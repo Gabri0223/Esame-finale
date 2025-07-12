@@ -45,4 +45,13 @@ public class CustomizedExceptionHandler {
         return error;
     }
 
+    @ExceptionHandler(UtenteGiaEsistenteException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiError UtenteGiaEsistenteExceptionHandler(UtenteGiaEsistenteException e){
+        ApiError error =new ApiError();
+        error.setDataErrore(LocalDate.now());
+        error.setMessage(e.getMessage());
+        return error;
+    }
+
 }
