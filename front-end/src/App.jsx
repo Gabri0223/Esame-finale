@@ -6,6 +6,7 @@ import BarraNera from "../component/BarraNera.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "../component/Login.jsx";
 import Registrazione from "../component/Registrazione.jsx";
+import React from "react";
 function App() {
   return (
     <Routes>

@@ -2,7 +2,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell as faBellRegular } from "@fortawesome/free-regular-svg-icons";
 import { faMessage } from "@fortawesome/free-regular-svg-icons";
-
+import React from "react";
 const BarraNera = () => {
   return (
     <Container fluid className="bg-dark">

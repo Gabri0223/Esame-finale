@@ -43,12 +43,14 @@ public class UtenteService {
         Utente utenteDaModificare= getUtente(id);
         utenteDaModificare.setNome(utenteDto.getNome());
         utenteDaModificare.setCognome(utenteDto.getCognome());
+        if(utenteRepository.existsByUsername(utenteDto.getUsername())){
+
+        }
         utenteDaModificare.setUsername(utenteDto.getUsername());
         utenteDaModificare.setImgUrl(utenteDto.getImgUrl());
-        if(!encoder.matches(utenteDto.getPassword(), utenteDaModificare.getPassword())){
+        if (!encoder.matches(utenteDto.getPassword(), utenteDaModificare.getPassword())) {
             utenteDaModificare.setPassword(encoder.encode(utenteDto.getPassword()));
         }
-        utenteDaModificare.setPassword(utenteDto.getPassword());
         return utenteRepository.save(utenteDaModificare);
 
     }

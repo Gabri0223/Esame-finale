@@ -70,8 +70,8 @@ a {
 
 .form:focus{
   outline: #6B2144 !important;
-  border: 2px solid #FF506F !important; /* rosa scuro coordinato */
-  box-shadow:0 6px 16px #9a0e27 !important; /* alone rosa tenue */
+  border: 2px solid #FF506F !important; 
+  box-shadow:0 6px 16px #9a0e27 !important; 
 }
 
 .bottone{
