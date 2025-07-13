@@ -30,15 +30,18 @@ const Registrazione = () => {
       });
 
       if (!response.ok) {
-        setErrore("Login fallito");
+        console.error(response);
+        const data = await response.json(); // <-- qui puoi accedere a data.message
+        setErrore(data.message || "Registrazione fallita");
         return;
       }
 
       const data = await response.json();
+      console.log(data);
       localStorage.setItem("token", data.token);
       navigate("/");
     } catch (error) {
-      setErrore("Errore di rete o server non disponibile");
+      setErrore(error.message);
     }
   };
 
@@ -48,6 +51,7 @@ const Registrazione = () => {
         <h2 className="text-center text-white titolo">
           Registrati a Zompettando
         </h2>
+        {errore && <div className="alert alert-danger">{errore}</div>}
         <Form
           onSubmit={handleSubmit}
           className="w-100 d-flex flex-column align-items-center"

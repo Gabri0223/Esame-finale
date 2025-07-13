@@ -4,6 +4,7 @@ import it.epicode.Back_end.dto.LoginDto;
 import it.epicode.Back_end.dto.TokenResponseDto;
 import it.epicode.Back_end.dto.UtenteDto;
 import it.epicode.Back_end.exception.NotFoundException;
+import it.epicode.Back_end.exception.UtenteGiaEsistenteException;
 import it.epicode.Back_end.exception.ValidationException;
 import it.epicode.Back_end.model.Utente;
 import it.epicode.Back_end.security.JwtTool;
@@ -25,7 +26,7 @@ public class AuthController {
     private JwtTool jwtTool;
 
     @PostMapping("/register")
-    public TokenResponseDto registrazione(@RequestBody @Validated UtenteDto utenteDto, BindingResult bindingResult) throws ValidationException {
+    public TokenResponseDto registrazione(@RequestBody @Validated UtenteDto utenteDto, BindingResult bindingResult) throws ValidationException, UtenteGiaEsistenteException {
         if (bindingResult.hasErrors()){
             throw new ValidationException(bindingResult.getAllErrors().stream()
                     .map(objectError -> objectError.getDefaultMessage())
