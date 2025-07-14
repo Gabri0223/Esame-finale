@@ -92,3 +92,29 @@ a {
   box-shadow: 0 10px 20px #6B2144;
 }
 
+#dropdown-basic{
+    background-color:#FAE2C6 ;
+    border: none;
+}
+
+.dropdown-toggle::after {
+  color: #37533E; 
+}
+
+.logOutDropdown{
+     min-width: auto !important;
+    background-color:#37533E !important;
+    width: 100px !important
+}
+
+.logOutButton{
+    background-color:  #37533E ;
+    width: 100%;
+    border: none;
+    font-size: 0.8em;
+    color: #FAE2C6;
+}
+
+.logOutDropdown .dropdown-item:hover{
+  background-color: transparent !important;
+}

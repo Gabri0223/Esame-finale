@@ -31,27 +31,31 @@ const Registrazione = () => {
 
       if (!response.ok) {
         console.error(response);
-        const data = await response.json(); // <-- qui puoi accedere a data.message
-        setErrore(data.message || "Registrazione fallita");
+        const data = await response.json();
+        setErrore(data.message);
         return;
       }
 
       const data = await response.json();
-      console.log(data);
       localStorage.setItem("token", data.token);
       navigate("/");
     } catch (error) {
-      setErrore(error.message);
+      setErrore("Errore durante la registrazione: " + error.message);
     }
   };
 
   return (
     <div className="login-container pt-1 ">
       <div className="mx-auto mt-2 pt-5 px-5 pb-4 form-container">
-        <h2 className="text-center text-white titolo">
+        <h2 className="text-center text-white titolo mb-5">
           Registrati a Zompettando
         </h2>
-        {errore && <div className="alert alert-danger">{errore}</div>}
+        {errore && (
+          <div className="alert alert-danger mb-1 d-flex align-items-center">
+            <span className=" mb-1">⚠️</span>
+            {errore}
+          </div>
+        )}
         <Form
           onSubmit={handleSubmit}
           className="w-100 d-flex flex-column align-items-center"
@@ -60,7 +64,7 @@ const Registrazione = () => {
             required
             type="text"
             placeholder="Nome"
-            className="mt-5 form"
+            className="form"
             onChange={(e) => setNome(e.target.value)}
           />
           <Form.Control

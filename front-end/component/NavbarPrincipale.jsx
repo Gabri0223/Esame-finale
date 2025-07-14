@@ -1,11 +1,11 @@
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
 import Navbar from "react-bootstrap/Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
+import LinkAccedi from "../component/LinkAccedi";
+import BarraDiRicerca from "./BarraDiRicerca";
+
 const NavbarPrincipale = () => {
   return (
     <Navbar expand="lg" className="navBar">
@@ -25,19 +25,10 @@ const NavbarPrincipale = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <div className="d-flex align-items-center cerca">
-            <div className="w-100 me-3 d-flex justify-content-center align-items-center ">
-              <Form.Control
-                type="text"
-                placeholder="Cosa cerchi per il tuo amico peloso? "
-              />
-              <FontAwesomeIcon icon={faMagnifyingGlass} className="lente" />
-            </div>
+            <BarraDiRicerca />
           </div>
           <div className="w-25 d-flex ms-5 align-items-center">
-            <a href="/login" className="d-flex align-items-center ">
-              <FontAwesomeIcon icon={faUser} className="utente" />
-              <p className="accedi ms-1 my-0 me-4">Accedi o Registrati</p>
-            </a>
+            <LinkAccedi />
             <FontAwesomeIcon icon={faCartShopping} className="carrello ms-5" />
           </div>
         </Navbar.Collapse>

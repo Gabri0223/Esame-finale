@@ -23,7 +23,7 @@ public class AuthService {
         if (encoder.matches(loginDto.getPassword(),utente.getPassword())){
             return jwtTool.creazioneToken(utente);
         }else{
-            throw new NotFoundException("Password non corretta");
+            throw new IllegalArgumentException("Password non corretta");
         }
     }
 }
