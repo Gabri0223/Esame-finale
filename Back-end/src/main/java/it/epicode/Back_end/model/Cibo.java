@@ -10,9 +10,6 @@ import lombok.Data;
 @Entity
 public class Cibo extends Prodotto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @Enumerated(EnumType.STRING)
     private TipoCibo tipoCibo;
     @Enumerated(EnumType.STRING)

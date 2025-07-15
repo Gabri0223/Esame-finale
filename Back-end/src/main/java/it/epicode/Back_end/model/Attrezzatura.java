@@ -8,10 +8,6 @@ import lombok.Data;
 @Entity
 public class Attrezzatura extends Prodotto{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Enumerated(value = EnumType.STRING)
     private TipoAttrezzatura tipoAttrezzatura;
 }

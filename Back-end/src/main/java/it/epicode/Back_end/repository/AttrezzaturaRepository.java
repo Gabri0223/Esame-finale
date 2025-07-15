@@ -6,5 +6,5 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AttrezzaturaRepository extends JpaRepository<Attrezzatura,Long> {
-    Page<Attrezzatura>findByNomeContaingIgnoreCase(String nome, Pageable pageable);
+    Page<Attrezzatura>findByNomeContainingIgnoreCase(String nome, Pageable pageable);
 }

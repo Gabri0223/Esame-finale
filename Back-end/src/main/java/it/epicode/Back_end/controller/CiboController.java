@@ -45,7 +45,7 @@ public class CiboController {
     }
 
     @GetMapping("/search")
-    public Page<CiboDto> cercaPerNome(@RequestParam(required = false,defaultValue = "") String nome,
+    public Page<CiboDto> cercaPerNome(@RequestParam(name = "query",required = false,defaultValue = "") String nome,
                                               @RequestParam(defaultValue = "0") int page,
                                               @RequestParam(defaultValue = "10") int size){
         return ciboService.cercaPerNome(nome,page,size);

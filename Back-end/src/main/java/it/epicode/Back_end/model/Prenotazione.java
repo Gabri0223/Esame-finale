@@ -15,7 +15,7 @@ public class Prenotazione {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotNull
+    @NotNull(message = "La data non può essere nulla")
     private LocalDate dataPrenotazione;
     @Enumerated(EnumType.STRING)
     private TipoSpecialista specialista;

@@ -37,7 +37,7 @@ public class SecurityConfig {
         //serve per bloccare richieste che provengono da domini (indirizzi ip e porta) esterni a quelli di servizio
         httpSecurity.cors(Customizer.withDefaults());
 
-        httpSecurity.authorizeHttpRequests(http->http.requestMatchers("/","/auth/**").permitAll());
+        httpSecurity.authorizeHttpRequests(http->http.requestMatchers("/","/auth/**","/cibo/**").permitAll());
         httpSecurity.authorizeHttpRequests(http->http.requestMatchers("/admin/**").hasRole("ADMIN"));
         httpSecurity.authorizeHttpRequests(http->http.anyRequest().authenticated());
         return httpSecurity.build();

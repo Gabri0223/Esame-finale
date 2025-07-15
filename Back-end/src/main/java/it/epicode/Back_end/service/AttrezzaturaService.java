@@ -89,7 +89,7 @@ public class AttrezzaturaService {
 
     public Page<AttrezzaturaDto> cercaPerNome(String nome,int pagine, int size){
         Pageable pageable= PageRequest.of(pagine,size, Sort.by("prezzo").ascending());
-        return attrezzaturaRepository.findByNomeContaingIgnoreCase(nome,pageable).map(attrezzatura -> convertiInDto(attrezzatura) );
+        return attrezzaturaRepository.findByNomeContainingIgnoreCase(nome,pageable).map(attrezzatura -> convertiInDto(attrezzatura) );
     }
 
     private AttrezzaturaDto convertiInDto(Attrezzatura att) {

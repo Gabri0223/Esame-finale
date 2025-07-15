@@ -21,8 +21,8 @@
 
 .lente{
     position: absolute;
-    top: 44%;
-    left: 71%;
+    top: 27%;
+    left: 95%;
     font-size: 1.1rem;
     color: #fca3f5
 }
@@ -117,4 +117,12 @@ a {
 
 .logOutDropdown .dropdown-item:hover{
   background-color: transparent !important;
+}
+
+.contenitoreRisultati{
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    top: 100%;
+    left: 0;
 }

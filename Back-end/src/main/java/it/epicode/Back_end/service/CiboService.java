@@ -39,7 +39,8 @@ public class CiboService {
         Cibo cibo = new Cibo();
         cibo.setNome(ciboDto.getNome());
         cibo.setPrezzo(ciboDto.getPrezzo());
-        cibo.setMarca(cibo.getMarca());
+        cibo.setMarca(ciboDto.getMarca());
+        cibo.setDescrizione(ciboDto.getDescrizione());
 
         try {
             cibo.setTipoAnimale(TipoAnimale.valueOf(ciboDto.getTipoAnimale().toUpperCase()));
@@ -112,7 +113,7 @@ public class CiboService {
     private CiboDto convertiInDto(Cibo cibo) {
         CiboDto cibodto = new CiboDto();
 
-        cibodto.setId(cibodto.getId());
+        cibodto.setId(cibo.getId());
         cibodto.setNome(cibo.getNome());
         cibodto.setMarca(cibo.getMarca());
         cibodto.setPrezzo(cibo.getPrezzo());
