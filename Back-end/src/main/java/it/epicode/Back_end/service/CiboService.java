@@ -34,14 +34,14 @@ public class CiboService {
     }
 
 
-    public Cibo salvaCibo(CiboDto ciboDto) {
+    public Cibo salvaCibo(CiboDto ciboDto,String imageUrl) {
 
         Cibo cibo = new Cibo();
         cibo.setNome(ciboDto.getNome());
         cibo.setPrezzo(ciboDto.getPrezzo());
         cibo.setMarca(ciboDto.getMarca());
         cibo.setDescrizione(ciboDto.getDescrizione());
-
+        cibo.setImmagineurl(imageUrl);
         try {
             cibo.setTipoAnimale(TipoAnimale.valueOf(ciboDto.getTipoAnimale().toUpperCase()));
         }catch (IllegalArgumentException | NullPointerException e){
@@ -74,6 +74,7 @@ public class CiboService {
         ciboDaModificare.setNome(ciboDto.getNome());
         ciboDaModificare.setPrezzo(ciboDto.getPrezzo());
         ciboDaModificare.setMarca(ciboDto.getMarca());
+        ciboDaModificare.setDescrizione(ciboDto.getDescrizione());
         try {
             ciboDaModificare.setTipoAnimale(TipoAnimale.valueOf(ciboDto.getTipoAnimale().toUpperCase()));
         } catch (IllegalArgumentException | NullPointerException e) {

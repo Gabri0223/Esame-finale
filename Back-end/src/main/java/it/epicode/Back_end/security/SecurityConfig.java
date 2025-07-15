@@ -27,20 +27,11 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-
-        httpSecurity.formLogin(http->http.disable());
-        //serve per evitare la possibilità di utilizzi aperte
-        httpSecurity.csrf(http->http.disable());
-        //
-        httpSecurity.sessionManagement(http->http.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        //serve per bloccare richieste che provengono da domini (indirizzi ip e porta) esterni a quelli di servizio
-        httpSecurity.cors(Customizer.withDefaults());
-
-        httpSecurity.authorizeHttpRequests(http->http.requestMatchers("/","/auth/**","/cibo/**").permitAll());
-        httpSecurity.authorizeHttpRequests(http->http.requestMatchers("/admin/**").hasRole("ADMIN"));
-        httpSecurity.authorizeHttpRequests(http->http.anyRequest().authenticated());
-        return httpSecurity.build();
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
+        return http.build();
     }
 
     @Bean

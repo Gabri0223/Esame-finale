@@ -23,5 +23,6 @@ public abstract class Prodotto {
     private String descrizione;
     @Enumerated(EnumType.STRING)
     private TipoAnimale tipoAnimale;
-
+    @NotBlank
+    private String Immagineurl;
 }

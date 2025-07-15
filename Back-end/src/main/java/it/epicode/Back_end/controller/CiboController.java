@@ -1,15 +1,20 @@
 package it.epicode.Back_end.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import it.epicode.Back_end.dto.AttrezzaturaDto;
 import it.epicode.Back_end.dto.CiboDto;
 import it.epicode.Back_end.exception.NotFoundException;
 import it.epicode.Back_end.model.Cibo;
 import it.epicode.Back_end.service.CiboService;
+import it.epicode.Back_end.service.CloudinaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -17,6 +22,9 @@ import java.util.List;
 public class CiboController {
     @Autowired
     private CiboService ciboService;
+    @Autowired
+    private CloudinaryService cloudinaryService;
+
 
     @GetMapping("{id}")
     public Cibo prendiCibo(@PathVariable Long id) throws NotFoundException {
@@ -29,9 +37,13 @@ public class CiboController {
         return ciboService.prendiCibi(page,size);
     }
 
-    @PostMapping()
-    public Cibo salvaCibo(@RequestBody @Validated CiboDto ciboDto){
-        return ciboService.salvaCibo(ciboDto);
+    @PostMapping(value = "", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public Cibo salvaCibo(@RequestPart("cibo") String ciboJson,
+                          @RequestPart("immagine") MultipartFile file) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        CiboDto ciboDto = mapper.readValue(ciboJson, CiboDto.class);
+        String imageUrl = cloudinaryService.uploadImage(file);
+        return ciboService.salvaCibo(ciboDto, imageUrl);
     }
 
     @PutMapping("{id}")
