@@ -7,6 +7,10 @@ import it.epicode.Back_end.exception.NotFoundException;
 import it.epicode.Back_end.model.Attrezzatura;
 import it.epicode.Back_end.repository.AttrezzaturaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,8 +50,9 @@ public class AttrezzaturaService {
 
     }
 
-    public List<Attrezzatura> prendiAttrezzature(){
-        return attrezzaturaRepository.findAll();
+    public Page<Attrezzatura> prendiAttrezzature(int page, int size){
+        Pageable pageable= PageRequest.of(page,size, Sort.by("nome").descending());
+        return attrezzaturaRepository.findAll(pageable);
     }
 
     public Attrezzatura prendiAttrezzatura(Long id) throws NotFoundException {
@@ -81,5 +86,22 @@ public class AttrezzaturaService {
     public void eliminaAttrezzatura(Long id) throws NotFoundException {
         attrezzaturaRepository.delete(prendiAttrezzatura(id));
     }
+
+    public Page<AttrezzaturaDto> cercaPerNome(String nome,int pagine, int size){
+        Pageable pageable= PageRequest.of(pagine,size, Sort.by("prezzo").ascending());
+        return attrezzaturaRepository.findByNomeContaingIgnoreCase(nome,pageable).map(attrezzatura -> convertiInDto(attrezzatura) );
+    }
+
+    private AttrezzaturaDto convertiInDto(Attrezzatura att) {
+        AttrezzaturaDto attrezzaturaDto = new AttrezzaturaDto();
+        attrezzaturaDto.setNome(att.getNome());
+        attrezzaturaDto.setMarca(att.getMarca());
+        attrezzaturaDto.setPrezzo(att.getPrezzo());
+        attrezzaturaDto.setDescrizione(att.getDescrizione());
+        attrezzaturaDto.setTipoAnimale(att.getTipoAnimale().toString());
+        attrezzaturaDto.setTipoAttrezzatura(att.getTipoAttrezzatura().toString());
+        return attrezzaturaDto;
+    }
 }
+
 

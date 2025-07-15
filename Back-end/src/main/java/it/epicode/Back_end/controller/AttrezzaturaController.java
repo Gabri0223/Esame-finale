@@ -5,6 +5,7 @@ import it.epicode.Back_end.exception.NotFoundException;
 import it.epicode.Back_end.model.Attrezzatura;
 import it.epicode.Back_end.service.AttrezzaturaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,8 +24,9 @@ public class AttrezzaturaController {
     }
 
     @GetMapping
-    public List<Attrezzatura> prendiAttrezzature(){
-        return attrezzaturaService.prendiAttrezzature();
+    public Page<Attrezzatura> prendiAttrezzature(@RequestParam(defaultValue = "0") int page,
+                                                 @RequestParam(defaultValue = "10") int size){
+        return attrezzaturaService.prendiAttrezzature(page,size);
     }
 
     @PostMapping("{id}")
@@ -42,4 +44,10 @@ public class AttrezzaturaController {
         attrezzaturaService.eliminaAttrezzatura(id);
     }
 
+    @GetMapping("/{search}")
+    public Page<AttrezzaturaDto> cercaPerNome(@RequestParam(required = false,defaultValue = "") String nome,
+                                              @RequestParam(defaultValue = "0") int page,
+                                              @RequestParam(defaultValue = "10") int size){
+        return attrezzaturaService.cercaPerNome(nome,page,size);
+    }
 }

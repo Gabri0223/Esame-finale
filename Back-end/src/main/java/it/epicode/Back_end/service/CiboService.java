@@ -9,6 +9,11 @@ import it.epicode.Back_end.exception.NotFoundException;
 import it.epicode.Back_end.model.Cibo;
 import it.epicode.Back_end.repository.CiboRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.bind.DefaultValue;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,8 +24,9 @@ public class CiboService {
     @Autowired
     private CiboRepository ciboRepository;
 
-    public List<Cibo> prendiCibi() {
-        return ciboRepository.findAll();
+    public Page<Cibo> prendiCibi(int page,int size) {
+        Pageable pageable=PageRequest.of(page,size,Sort.by("nome").ascending());
+        return ciboRepository.findAll(pageable);
     }
 
     public Cibo prendiCIbo(Long id) throws NotFoundException {
@@ -97,4 +103,26 @@ public class CiboService {
     public void eliminaCibo(Long id) throws NotFoundException {
         ciboRepository.delete(prendiCIbo(id));
     }
+
+    public Page<CiboDto>cercaPerNome(String nome, int page, int size){
+        Pageable pageable= PageRequest.of(page,size, Sort.by("prezzo").ascending());
+        return ciboRepository.findByNomeContainingIgnoreCase(nome,pageable).map(cibo->convertiInDto(cibo));
+    }
+
+    private CiboDto convertiInDto(Cibo cibo) {
+        CiboDto cibodto = new CiboDto();
+
+        cibodto.setId(cibodto.getId());
+        cibodto.setNome(cibo.getNome());
+        cibodto.setMarca(cibo.getMarca());
+        cibodto.setPrezzo(cibo.getPrezzo());
+        cibodto.setDescrizione(cibo.getDescrizione());
+        cibodto.setTipoAnimale(cibo.getTipoAnimale().toString());
+        cibodto.setTipoCibo(cibo.getTipoCibo().toString());
+        cibodto.setEtaAnimale(cibo.getEtaAnimale().toString());
+        cibodto.setTagliaAnimale(cibo.getTagliaAnimale().toString());
+        return cibodto;
+    }
+
+
 }

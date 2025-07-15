@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class CiboDto {
 
+    private Long id;
     private String nome;
     private String marca;
     private double prezzo;
