@@ -25,4 +25,6 @@ public abstract class Prodotto {
     private TipoAnimale tipoAnimale;
     @NotBlank(message="Immagineurl non può essere vuota")
     private String immagineUrl;
+    @NotBlank(message = "il tipo prodotto non può essere vuoto")
+    private String tipoProdotto;
 }

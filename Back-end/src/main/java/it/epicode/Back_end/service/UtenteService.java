@@ -48,12 +48,9 @@ public class UtenteService {
         Utente utenteDaModificare= getUtente(id);
         utenteDaModificare.setNome(utenteDto.getNome());
         utenteDaModificare.setCognome(utenteDto.getCognome());
-        if(utenteRepository.existsByUsername(utenteDto.getUsername())){
-
-        }
         utenteDaModificare.setUsername(utenteDto.getUsername());
         utenteDaModificare.setImgUrl(utenteDto.getImgUrl());
-            utenteDaModificare.setPassword(encoder.encode(utenteDto.getPassword()));
+        utenteDaModificare.setPassword(encoder.encode(utenteDto.getPassword()));
 
         return utenteRepository.save(utenteDaModificare);
 

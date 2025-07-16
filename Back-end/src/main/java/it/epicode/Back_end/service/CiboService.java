@@ -42,6 +42,7 @@ public class CiboService {
         cibo.setMarca(ciboDto.getMarca());
         cibo.setDescrizione(ciboDto.getDescrizione());
         cibo.setImmagineUrl(imageUrl);
+        cibo.setTipoProdotto("cibo");
         try {
             cibo.setTipoAnimale(TipoAnimale.valueOf(ciboDto.getTipoAnimale().toUpperCase()));
         }catch (IllegalArgumentException | NullPointerException e){
@@ -76,6 +77,7 @@ public class CiboService {
         ciboDaModificare.setMarca(ciboDto.getMarca());
         ciboDaModificare.setDescrizione(ciboDto.getDescrizione());
         ciboDaModificare.setImmagineUrl(ciboDto.getImmagineUrl());
+        ciboDaModificare.setTipoProdotto("cibo");
         try {
             ciboDaModificare.setTipoAnimale(TipoAnimale.valueOf(ciboDto.getTipoAnimale().toUpperCase()));
         } catch (IllegalArgumentException | NullPointerException e) {
@@ -97,6 +99,7 @@ public class CiboService {
             ciboDaModificare.setTipoCibo(null);
             ciboDaModificare.setEtaAnimale(null);
             ciboDaModificare.setTagliaAnimale(null);
+            ciboDaModificare.setTipoProdotto("cibo");
         }
             return ciboRepository.save(ciboDaModificare);
 
@@ -124,6 +127,7 @@ public class CiboService {
         cibodto.setEtaAnimale(cibo.getEtaAnimale().toString());
         cibodto.setTagliaAnimale(cibo.getTagliaAnimale().toString());
         cibodto.setImmagineUrl(cibo.getImmagineUrl());
+        cibodto.setTipoProdotto("cibo");
         return cibodto;
     }
 

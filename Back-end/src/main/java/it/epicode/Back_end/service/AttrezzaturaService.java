@@ -69,6 +69,7 @@ public class AttrezzaturaService {
         attrezzatura.setDescrizione(attrezzaturaDto.getDescrizione());
         attrezzatura.setTipoAnimale(TipoAnimale.valueOf(attrezzaturaDto.getTipoAnimale().toUpperCase()));
         attrezzatura.setImmagineUrl(imageUrl);
+        attrezzatura.setTipoProdotto("attrezzatura");
         return attrezzaturaRepository.save(attrezzatura);
     }
 
@@ -81,6 +82,7 @@ public class AttrezzaturaService {
         attrezzaturaDaModificare.setMarca(attrezzaturaDto.getMarca());
         attrezzaturaDaModificare.setPrezzo(attrezzaturaDto.getPrezzo());
         attrezzaturaDaModificare.setDescrizione(attrezzaturaDto.getDescrizione());
+        attrezzaturaDaModificare.setTipoProdotto("attrezzatura");
         return attrezzaturaRepository.save(attrezzaturaDaModificare);
     }
 
@@ -103,6 +105,7 @@ public class AttrezzaturaService {
         attrezzaturaDto.setTipoAnimale(att.getTipoAnimale().toString());
         attrezzaturaDto.setTipoAttrezzatura(att.getTipoAttrezzatura().toString());
         attrezzaturaDto.setImmagineUrl(att.getImmagineUrl());
+        attrezzaturaDto.setTipoProdotto("attrezzatura");
         return attrezzaturaDto;
     }
 }
