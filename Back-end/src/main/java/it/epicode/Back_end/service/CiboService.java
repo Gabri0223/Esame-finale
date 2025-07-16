@@ -114,7 +114,7 @@ public class CiboService {
         return ciboRepository.findByKeyWord(keyWord,pageable).map(cibo->convertiInDto(cibo));
     }
 
-    private CiboDto convertiInDto(Cibo cibo) {
+    public CiboDto convertiInDto(Cibo cibo) {
         CiboDto cibodto = new CiboDto();
 
         cibodto.setId(cibo.getId());

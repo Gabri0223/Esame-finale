@@ -95,7 +95,7 @@ public class AttrezzaturaService {
         return attrezzaturaRepository.cercaPerKeyword(nome,pageable).map(attrezzatura -> convertiInDto(attrezzatura) );
     }
 
-    private AttrezzaturaDto convertiInDto(Attrezzatura att) {
+    public AttrezzaturaDto convertiInDto(Attrezzatura att) {
         AttrezzaturaDto attrezzaturaDto = new AttrezzaturaDto();
         attrezzaturaDto.setId(att.getId());
         attrezzaturaDto.setNome(att.getNome());
