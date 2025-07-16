@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Form from "react-bootstrap/Form";
+import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import React from "react";
 
@@ -69,6 +70,7 @@ const BarraDiRicerca = () => {
         <Form.Control
           type="text"
           placeholder="Cosa cerchi per il tuo amico peloso?"
+          value={ricerca}
           onChange={(e) => setRicerca(e.target.value)}
           onClick={click}
         />
@@ -85,12 +87,54 @@ const BarraDiRicerca = () => {
                 PIÙ CERCATI IN QUESTO MOMENTO
               </small>
               <div className="text-black ms-2 mt-2 fw-bold">
-                <p className="mb-1">Cibo Per Gatti</p>
-                <p className="mb-1">Crocchette Per Cani</p>
-                <p className="mb-1">Trasportino</p>
-                <p className="mb-1">Seresto Collare Antiparassitario</p>
-                <p className="mb-1">Cibo Secco Per Gatti</p>
-                <p className="mb-1">Guinzagli per cani</p>
+                <p
+                  className="mb-1 "
+                  onClick={() => {
+                    setRicerca("Cibo Per Gatti");
+                  }}
+                >
+                  Cibo Per Gatti
+                </p>
+                <p
+                  className="mb-1"
+                  onClick={() => {
+                    setRicerca("Crocchette per cani");
+                  }}
+                >
+                  Crocchette Per Cani
+                </p>
+                <p
+                  className="mb-1"
+                  onClick={() => {
+                    setRicerca("Trasportino");
+                  }}
+                >
+                  Trasportino
+                </p>
+                <p
+                  className="mb-1"
+                  onClick={() => {
+                    setRicerca("Seresto Collare Antiparassitario");
+                  }}
+                >
+                  Seresto Collare Antiparassitario
+                </p>
+                <p
+                  className="mb-1"
+                  onClick={() => {
+                    setRicerca("Cibo Secco Per Gatti");
+                  }}
+                >
+                  Cibo Secco Per Gatti
+                </p>
+                <p
+                  className="mb-1"
+                  onClick={() => {
+                    setRicerca("Guinzagli per cani");
+                  }}
+                >
+                  Guinzagli per cani
+                </p>
               </div>
             </div>
             <img
@@ -123,7 +167,12 @@ const BarraDiRicerca = () => {
                     alt="immagine ricerca"
                   />
                 </div>
-                <p className="text-black mb-0 ms-2 fw-bold">{item.nome}</p>
+                <Link
+                  to={`/dettagli/:${item.id}`}
+                  className="text-black mb-0 ms-2 fw-bold"
+                >
+                  {item.nome}
+                </Link>
               </div>
             ))}
           </div>
