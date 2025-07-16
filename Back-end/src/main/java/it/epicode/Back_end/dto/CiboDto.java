@@ -14,4 +14,5 @@ public class CiboDto {
     private String tipoCibo;
     private String etaAnimale;
     private String tagliaAnimale;
+    private String immagineUrl;
 }

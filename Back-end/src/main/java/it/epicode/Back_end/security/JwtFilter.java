@@ -45,7 +45,8 @@ public class JwtFilter extends OncePerRequestFilter {
     protected  boolean shouldNotFilter(HttpServletRequest request){
 
         return new AntPathMatcher().match("/auth/**",request.getServletPath())
-                || new AntPathMatcher().match("/cibo/**",request.getServletPath());
+                || new AntPathMatcher().match("/cibo/**",request.getServletPath())
+                || new AntPathMatcher().match("/attrezzatura/**",request.getServletPath());
     }
 
 }

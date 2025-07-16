@@ -125,4 +125,10 @@ a {
     z-index: 1000;
     top: 100%;
     left: 0;
+    background-color: white !important;
+}
+
+.contenitoreFotoProdotto{
+    width: 7%;
+    height: 50px;
 }

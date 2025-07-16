@@ -59,7 +59,7 @@ public class AttrezzaturaService {
         return attrezzaturaRepository.findById(id).orElseThrow(()->new NotFoundException("Prodotto non trovata"));
     }
 
-    public Attrezzatura salvaAttrezzatura(AttrezzaturaDto attrezzaturaDto){
+    public Attrezzatura salvaAttrezzatura(AttrezzaturaDto attrezzaturaDto, String imageUrl){
         validazioneAttrezzatura(attrezzaturaDto);
         Attrezzatura attrezzatura=new Attrezzatura();
         attrezzatura.setTipoAttrezzatura(TipoAttrezzatura.valueOf(attrezzaturaDto.getTipoAttrezzatura().toUpperCase()));
@@ -68,6 +68,7 @@ public class AttrezzaturaService {
         attrezzatura.setPrezzo(attrezzaturaDto.getPrezzo());
         attrezzatura.setDescrizione(attrezzaturaDto.getDescrizione());
         attrezzatura.setTipoAnimale(TipoAnimale.valueOf(attrezzaturaDto.getTipoAnimale().toUpperCase()));
+        attrezzatura.setImmagineUrl(imageUrl);
         return attrezzaturaRepository.save(attrezzatura);
     }
 
@@ -94,12 +95,14 @@ public class AttrezzaturaService {
 
     private AttrezzaturaDto convertiInDto(Attrezzatura att) {
         AttrezzaturaDto attrezzaturaDto = new AttrezzaturaDto();
+        attrezzaturaDto.setId(att.getId());
         attrezzaturaDto.setNome(att.getNome());
         attrezzaturaDto.setMarca(att.getMarca());
         attrezzaturaDto.setPrezzo(att.getPrezzo());
         attrezzaturaDto.setDescrizione(att.getDescrizione());
         attrezzaturaDto.setTipoAnimale(att.getTipoAnimale().toString());
         attrezzaturaDto.setTipoAttrezzatura(att.getTipoAttrezzatura().toString());
+        attrezzaturaDto.setImmagineUrl(att.getImmagineUrl());
         return attrezzaturaDto;
     }
 }

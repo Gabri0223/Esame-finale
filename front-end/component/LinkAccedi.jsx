@@ -47,7 +47,7 @@ const LinkAccedi = () => {
             >
               <p className="accedi ms-1 my-0">
                 {" "}
-                <span className="fw-bold fs-">{userData.username}</span>
+                <span className="fw-bold">{userData.username}</span>
               </p>
             </Dropdown.Toggle>
 

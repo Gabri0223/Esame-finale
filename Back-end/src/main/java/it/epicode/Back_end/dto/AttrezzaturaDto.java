@@ -12,4 +12,5 @@ public class AttrezzaturaDto {
     private String descrizione;
     private String tipoAnimale;
     private String tipoAttrezzatura;
+    private String immagineUrl;
 }

@@ -41,7 +41,7 @@ public class CiboService {
         cibo.setPrezzo(ciboDto.getPrezzo());
         cibo.setMarca(ciboDto.getMarca());
         cibo.setDescrizione(ciboDto.getDescrizione());
-        cibo.setImmagineurl(imageUrl);
+        cibo.setImmagineUrl(imageUrl);
         try {
             cibo.setTipoAnimale(TipoAnimale.valueOf(ciboDto.getTipoAnimale().toUpperCase()));
         }catch (IllegalArgumentException | NullPointerException e){
@@ -75,6 +75,7 @@ public class CiboService {
         ciboDaModificare.setPrezzo(ciboDto.getPrezzo());
         ciboDaModificare.setMarca(ciboDto.getMarca());
         ciboDaModificare.setDescrizione(ciboDto.getDescrizione());
+        ciboDaModificare.setImmagineUrl(ciboDto.getImmagineUrl());
         try {
             ciboDaModificare.setTipoAnimale(TipoAnimale.valueOf(ciboDto.getTipoAnimale().toUpperCase()));
         } catch (IllegalArgumentException | NullPointerException e) {
@@ -83,7 +84,6 @@ public class CiboService {
         if (ciboDto.getTipoAnimale().equals("CANE") || ciboDto.getTipoAnimale().equals("GATTO")) {
             if (ciboDto.getTipoCibo() == null || ciboDto.getTagliaAnimale() == null || ciboDto.getEtaAnimale() == null) {
                 throw new IllegalArgumentException("Per cani e gatti devi specificare taglia età e tipo di cibo");
-
             } else {
                 try {
                     ciboDaModificare.setTipoCibo(TipoCibo.valueOf(ciboDto.getTipoCibo().toUpperCase()));
@@ -123,6 +123,7 @@ public class CiboService {
         cibodto.setTipoCibo(cibo.getTipoCibo().toString());
         cibodto.setEtaAnimale(cibo.getEtaAnimale().toString());
         cibodto.setTagliaAnimale(cibo.getTagliaAnimale().toString());
+        cibodto.setImmagineUrl(cibo.getImmagineUrl());
         return cibodto;
     }
 

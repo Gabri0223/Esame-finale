@@ -1,7 +1,6 @@
 package it.epicode.Back_end.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.epicode.Back_end.dto.AttrezzaturaDto;
 import it.epicode.Back_end.dto.CiboDto;
 import it.epicode.Back_end.exception.NotFoundException;
 import it.epicode.Back_end.model.Cibo;
@@ -13,9 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
-import java.util.List;
+
 
 @RestController
 @RequestMapping("/cibo")
@@ -24,7 +22,8 @@ public class CiboController {
     private CiboService ciboService;
     @Autowired
     private CloudinaryService cloudinaryService;
-
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @GetMapping("{id}")
     public Cibo prendiCibo(@PathVariable Long id) throws NotFoundException {
@@ -46,11 +45,20 @@ public class CiboController {
         return ciboService.salvaCibo(ciboDto, imageUrl);
     }
 
-    @PutMapping("{id}")
-    public Cibo modificaCibo(@PathVariable Long id, @RequestBody @Validated CiboDto ciboDto ) throws NotFoundException {
-        return ciboService.modificaCibo(id,ciboDto);
-    }
+    @PostMapping(value = "/modificaCibo", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Cibo modificaCibo(
+            @RequestParam("cibo") String ciboJson,
+            @RequestParam(value = "immagine", required = false) MultipartFile immagineFile) throws IOException, NotFoundException {
 
+        CiboDto ciboDto = objectMapper.readValue(ciboJson, CiboDto.class);
+
+        if (immagineFile != null && !immagineFile.isEmpty()) {
+            String urlImmagine = cloudinaryService.uploadImage(immagineFile);
+            ciboDto.setImmagineUrl(urlImmagine);
+        }
+        Long id = ciboDto.getId();
+       return ciboService.modificaCibo(id, ciboDto);
+    }
     @DeleteMapping("{id}")
     public void eliminaCIbo(@PathVariable Long id) throws NotFoundException {
         ciboService.eliminaCibo(id);
