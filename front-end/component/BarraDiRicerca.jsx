@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Form from "react-bootstrap/Form";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import React from "react";
 
 const BarraDiRicerca = () => {
@@ -10,6 +10,21 @@ const BarraDiRicerca = () => {
   const [cliccato, setCliccato] = useState(false);
   const click = () => setCliccato((prev) => !prev);
   const [mostraNessunRisultato, setMostraNessunRisultato] = useState(false);
+  const barraRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (barraRef.current && !barraRef.current.contains(event.target)) {
+        setCliccato(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (ricerca.length > 0 && risultati.length === 0) {
@@ -17,10 +32,11 @@ const BarraDiRicerca = () => {
       } else {
         setMostraNessunRisultato(false);
       }
-    }, 500);
+    }, 300);
 
     return () => clearTimeout(timeout);
   }, [ricerca, risultati]);
+
   useEffect(() => {
     if (ricerca.trim() === "") {
       setRisultati([]);
@@ -45,9 +61,6 @@ const BarraDiRicerca = () => {
       })
       .catch((error) => {
         console.error(error);
-      })
-      .catch((error) => {
-        console.error(error);
       });
   }, [ricerca]);
   return (
@@ -62,7 +75,10 @@ const BarraDiRicerca = () => {
         <FontAwesomeIcon icon={faMagnifyingGlass} className="lente" />
       </div>
       {risultati.length === 0 && cliccato === true && ricerca.length === 0 && (
-        <div className="contenitoreRisultati position-absolute w-100 shadow rounded pt-2">
+        <div
+          className="contenitoreRisultati position-absolute w-100 shadow rounded pt-2"
+          ref={barraRef}
+        >
           <div className="d-flex ">
             <div>
               <small className="m-2 pt-3 fw-bold">
@@ -85,27 +101,42 @@ const BarraDiRicerca = () => {
           </div>
         </div>
       )}
-      {risultati.length > 0 && (
-        <div className="contenitoreRisultati position-absolute w-100 bg-white shadow rounded">
-          {risultati.map((item, index) => (
-            <div
-              key={index}
-              className="p-2 bordor-bottom d-flex align-items-center"
-            >
-              <div className="contenitoreFotoProdotto">
-                <img
-                  className="w-100 h-100"
-                  src={item.immagineUrl}
-                  alt="immagine ricerca"
-                />
+      {risultati.length > 0 && cliccato === true && (
+        <div
+          className="contenitoreRisultati position-absolute w-100 bg-white shadow rounded d-flex"
+          ref={barraRef}
+        >
+          <div className=" contenitoreProdotti">
+            <p className="m-2 text-black">
+              {" "}
+              Risultati per <span className=" fw-bold">{ricerca}</span>
+            </p>
+            {risultati.map((item, index) => (
+              <div
+                key={index}
+                className="p-2 bordor-bottom d-flex align-items-center"
+              >
+                <div className="contenitoreFotoProdotto">
+                  <img
+                    className="w-100 h-100"
+                    src={item.immagineUrl}
+                    alt="immagine ricerca"
+                  />
+                </div>
+                <p className="text-black mb-0 ms-2 fw-bold">{item.nome}</p>
               </div>
-              {item.nome}
-            </div>
-          ))}
+            ))}
+          </div>
+          <div className="w-50 mx-auto">
+            <img src="../src/assets/cagnolino.png" alt="" className="w-100" />
+          </div>
         </div>
       )}
-      {mostraNessunRisultato && (
-        <div className="contenitoreRisultati position-absolute w-100 bg-white shadow rounded">
+      {mostraNessunRisultato && cliccato === true && (
+        <div
+          className="contenitoreRisultati position-absolute w-100 bg-white shadow rounded"
+          ref={barraRef}
+        >
           <div className="d-flex align-items-center">
             <p className="text-black fs-2 ms-3">
               Nessun risultato per <span className="fw-bold">{ricerca}</span>
