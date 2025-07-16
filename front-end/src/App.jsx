@@ -6,6 +6,7 @@ import BarraNera from "../component/BarraNera.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "../component/Login.jsx";
 import Registrazione from "../component/Registrazione.jsx";
+import Dettaglio from "../component/Dettaglio.jsx";
 import React from "react";
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
         path="/login"
         element={
           <>
-            <Login></Login>
+            <Login />
           </>
         }
       />
@@ -32,6 +33,16 @@ function App() {
         element={
           <>
             <Registrazione />
+          </>
+        }
+      />
+      <Route
+        path="/dettagli/:id"
+        element={
+          <>
+            <BarraNera />
+            <NavbarPrincipale />
+            <Dettaglio />
           </>
         }
       />

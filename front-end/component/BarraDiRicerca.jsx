@@ -168,8 +168,12 @@ const BarraDiRicerca = () => {
                   />
                 </div>
                 <Link
-                  to={`/dettagli/:${item.id}`}
+                  to={`/dettagli/${item.id}`}
                   className="text-black mb-0 ms-2 fw-bold"
+                  onClick={() => {
+                    setCliccato(false);
+                    setRicerca("");
+                  }}
                 >
                   {item.nome}
                 </Link>
