@@ -106,9 +106,9 @@ public class CiboService {
         ciboRepository.delete(prendiCIbo(id));
     }
 
-    public Page<CiboDto>cercaPerNome(String nome, int page, int size){
+    public Page<CiboDto>cercaPerKeyword(String keyWord, int page, int size){
         Pageable pageable= PageRequest.of(page,size, Sort.by("prezzo").ascending());
-        return ciboRepository.findByNomeContainingIgnoreCase(nome,pageable).map(cibo->convertiInDto(cibo));
+        return ciboRepository.findByKeyWord(keyWord,pageable).map(cibo->convertiInDto(cibo));
     }
 
     private CiboDto convertiInDto(Cibo cibo) {
