@@ -102,7 +102,7 @@ a {
 }
 
 .logOutDropdown{
-     min-width: auto !important;
+    min-width: auto !important;
     background-color:#37533E !important;
     width: 100px !important
 }
@@ -136,4 +136,30 @@ a {
 .contenitoreFotoProdotto{
     width: 15%;
     height: 50px;
+}
+
+.sfondoDettagli{
+    height: 100vh;
+    background-color: #F8F8F8;
+}
+
+.contenitoreDettagli{
+    width: 90%;
+    height: 500px;
+    box-shadow: 0 6px 16px rgba(77, 77, 77, 0.7);
+}
+
+.contenitoreIcona{
+    width: 35px;
+    height: 35px;
+    border: 2px solid #a33b6c !important;
+    border-radius: 50%;
+}
+
+.icona{
+    color:#a03165
+}
+
+.fotoProdotto{
+    width:35%;
 }

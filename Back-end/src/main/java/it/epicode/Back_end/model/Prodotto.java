@@ -7,7 +7,8 @@ import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 @Data
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Prodotto {
 
     @Id

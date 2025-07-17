@@ -6,6 +6,7 @@ import lombok.Data;
 
 @Data
 @Entity
+@PrimaryKeyJoinColumn(name = "id")
 public class Attrezzatura extends Prodotto{
 
     @Enumerated(value = EnumType.STRING)

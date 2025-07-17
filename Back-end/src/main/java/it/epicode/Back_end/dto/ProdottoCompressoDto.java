@@ -7,5 +7,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class ProdottoCompressoDto {
     private String tipo;
-    private Object data;
+    private Object prodotto;
 }

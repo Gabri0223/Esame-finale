@@ -32,8 +32,8 @@ public class AttrezzaturaService {
         if ( tipoAnimale !=TipoAnimale.GATTO && tipoAttrezzatura ==TipoAttrezzatura.LETTIERE){
             throw new IllegalArgumentException("Le lettiere sono disponibili solo per i gatti");
         }
-        if(tipoAnimale !=TipoAnimale.PESCE && tipoAttrezzatura==TipoAttrezzatura.ACQUARIOLOGIA){
-            throw new IllegalArgumentException("L'acquariologia è disponibile solo per i pesci");
+        if((tipoAnimale !=TipoAnimale.PESCE && tipoAnimale !=TipoAnimale.TARTARUGA) && tipoAttrezzatura==TipoAttrezzatura.ACQUARIOLOGIA){
+            throw new IllegalArgumentException("L'acquariologia è disponibile solo per pesci e tartarughe");
         }
         if(tipoAttrezzatura == TipoAttrezzatura.COLLARI&&
                 (tipoAnimale == TipoAnimale.UCCELLO || tipoAnimale == TipoAnimale.CONIGLIO || tipoAnimale == TipoAnimale.TARTARUGA ||tipoAnimale == TipoAnimale.PESCE)){

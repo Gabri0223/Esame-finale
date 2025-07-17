@@ -8,6 +8,7 @@ import lombok.Data;
 
 @Data
 @Entity
+@PrimaryKeyJoinColumn(name = "id")
 public class Cibo extends Prodotto {
 
     @Enumerated(EnumType.STRING)

@@ -28,13 +28,18 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                .csrf(csrf -> csrf.disable())
-                .cors(Customizer.withDefaults())
-                .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll()  // Permette tutto
-                );
 
+        httpSecurity.formLogin(http->http.disable());
+        //serve per evitare la possibilità di utilizzi aperte
+        httpSecurity.csrf(http->http.disable());
+        //
+        httpSecurity.sessionManagement(http->http.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        //serve per bloccare richieste che provengono da domini (indirizzi ip e porta) esterni a quelli di servizio
+        httpSecurity.cors(Customizer.withDefaults());
+
+        httpSecurity.authorizeHttpRequests(http->http.requestMatchers("/","/auth/**","/cibo/**","/attrezzatura/**","/dettagli/**").permitAll());
+        httpSecurity.authorizeHttpRequests(http->http.requestMatchers("/admin/**").hasRole("ADMIN"));
+        httpSecurity.authorizeHttpRequests(http->http.anyRequest().authenticated());
         return httpSecurity.build();
     }
 
@@ -45,7 +50,7 @@ public class SecurityConfig {
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
-        configuration.setExposedHeaders(List.of("Authorization"));
+        configuration.setExposedHeaders(List.of("Authorization")); // se vuoi esporre header custom
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
