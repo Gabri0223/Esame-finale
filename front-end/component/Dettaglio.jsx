@@ -6,6 +6,7 @@ import { LuTurtle } from "react-icons/lu";
 import { PiRabbitDuotone } from "react-icons/pi";
 import { PiBirdDuotone } from "react-icons/pi";
 import { FaFishFins } from "react-icons/fa6";
+import Form from "react-bootstrap/Form";
 
 const Dettaglio = () => {
   const { id } = useParams();
@@ -61,6 +62,23 @@ const Dettaglio = () => {
               )}
             </div>
             <p className="mt-5">{prodotto.descrizione}</p>
+            <div className="w-100">
+              <Form.Select
+                aria-label="Seleziona un'opzione"
+                onChange={(e) => console.log(e.target.value)}
+                className="w-100"
+              >
+                <option>Seleziona la taglia</option>
+                {prodotto.tipoAttrezzatura === "COLLARI" && (
+                  <>
+                    <option value="1">XS 18 - 24 cm</option>
+                    <option value="2">S 24 - 30 cm</option>
+                    <option value="3">M 30 - 36 cm</option>
+                    <option value="4">XL 36 - 42 cm</option>
+                  </>
+                )}
+              </Form.Select>
+            </div>
           </div>
         </div>
       </div>

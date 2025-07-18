@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Form from "react-bootstrap/Form";
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import React from "react";
 
 const BarraDiRicerca = () => {
@@ -46,6 +47,7 @@ const BarraDiRicerca = () => {
     fetch(`http://localhost:8080/cibo/search?query=${ricerca}`, {})
       .then((res) => {
         if (!res.ok) throw new Error("Errore durante la ricerca");
+        return res.json();
       })
       .then((data) => {
         setRisultati(data.content);
@@ -110,20 +112,26 @@ const BarraDiRicerca = () => {
               {" "}
               Risultati per <span className=" fw-bold">{ricerca}</span>
             </p>
+            <Link to></Link>
             {risultati.map((item, index) => (
-              <div
-                key={index}
-                className="p-2 bordor-bottom d-flex align-items-center"
+              <Link
+                to={`dettagli/${item.id}`}
+                onClick={() => setCliccato(false)}
               >
-                <div className="contenitoreFotoProdotto">
-                  <img
-                    className="w-100 h-100"
-                    src={item.immagineUrl}
-                    alt="immagine ricerca"
-                  />
+                <div
+                  key={index}
+                  className="p-2 bordor-bottom d-flex align-items-center"
+                >
+                  <div className="contenitoreFotoProdotto">
+                    <img
+                      className="w-100 h-100"
+                      src={item.immagineUrl}
+                      alt="immagine ricerca"
+                    />
+                  </div>
+                  <p className="text-black mb-0 ms-2 fw-bold">{item.nome}</p>
                 </div>
-                <p className="text-black mb-0 ms-2 fw-bold">{item.nome}</p>
-              </div>
+              </Link>
             ))}
           </div>
           <div className="w-50 mx-auto">
