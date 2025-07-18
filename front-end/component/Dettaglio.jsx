@@ -6,11 +6,14 @@ import { LuTurtle } from "react-icons/lu";
 import { PiRabbitDuotone } from "react-icons/pi";
 import { PiBirdDuotone } from "react-icons/pi";
 import { FaFishFins } from "react-icons/fa6";
+import { FaCartShopping } from "react-icons/fa6";
+import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 const Dettaglio = () => {
   const { id } = useParams();
   const [prodotto, setProdotto] = useState("");
+  const [quantità, setQuantità] = useState(1);
   useEffect(() => {
     fetch(`http://localhost:8080/dettagli/${id}`, {})
       .then((res) => {
@@ -65,19 +68,170 @@ const Dettaglio = () => {
             <div className="w-100">
               <Form.Select
                 aria-label="Seleziona un'opzione"
-                onChange={(e) => console.log(e.target.value)}
-                className="w-100"
+                onChange={(e) =>
+                  setProdotto({
+                    ...prodotto,
+                    tagliaAttrezzatura: e.target.value,
+                  })
+                }
+                className="w-100 mt-4 h-100 bordiViola"
               >
-                <option>Seleziona la taglia</option>
-                {prodotto.tipoAttrezzatura === "COLLARI" && (
+                {prodotto.tipoAttrezzatura === "COLLARI" &&
+                  prodotto.tipoAnimale === "CANE" && (
+                    <>
+                      <option>Seleziona la larghezza</option>
+                      <option value="XS">XS 20 - 30 cm</option>
+                      <option value="S">S 30 - 40 cm</option>
+                      <option value="M">M 40 - 50 cm</option>
+                      <option value="XL">XL 50 - 60 cm</option>
+                    </>
+                  )}
+                {prodotto.tipoAttrezzatura === "GUINZAGLI" && (
                   <>
-                    <option value="1">XS 18 - 24 cm</option>
-                    <option value="2">S 24 - 30 cm</option>
-                    <option value="3">M 30 - 36 cm</option>
-                    <option value="4">XL 36 - 42 cm</option>
+                    <option>Seleziona la lunghezza</option>
+                    <option value="120cm">120 cm</option>
+                    <option value="150cm">150 cm</option>
+                    <option value="180cm">180 cm</option>
                   </>
                 )}
+                {prodotto.tipoAttrezzatura === "COLLARI" &&
+                  prodotto.tipoAnimale === "GATTO" && (
+                    <>
+                      <option>Seleziona la larghezza</option>
+                      <option value="XS">XS / Piccolo 15 - 20 cm</option>
+                      <option value="S">S / Medio 18 - 25 cm</option>
+                    </>
+                  )}
+                {prodotto.tipoAttrezzatura == "LETTIERE" &&
+                  prodotto.tipoAnimale === "GATTO" && (
+                    <>
+                      <option>seleziona i chili</option>
+                      <option value="S"> prova (1-2 kg)</option>
+                      <option value="M"> piccolo (5 kg)</option>
+                      <option value="L">medio (10 kg)</option>
+                      <option value="XL">grande(15-20 kg)</option>
+                    </>
+                  )}
+                {prodotto.tipoAttrezzatura === "LETTIERE" &&
+                  prodotto.tipoAnimale === "CONIGLIO" && (
+                    <option value="M">2 - 4 kg </option>
+                  )}
               </Form.Select>
+            </div>
+            <div className="w-100 d-flex">
+              <div className="verticalLine mt-5 w-50">
+                <p className="fs-4 fw-bold m-0 mb-2">Specifiche prodotto</p>
+                {prodotto.tipoAnimale === "CANE" &&
+                  prodotto.tipoAttrezzatura === "COLLARI" && (
+                    <small className="fw-bold fs-6">
+                      taglia {prodotto.tipoAnimale?.toLowerCase()}:{" "}
+                      {prodotto.tagliaAttrezzatura === "XS" && (
+                        <span className="fw-normal">piccola</span>
+                      )}
+                      {prodotto.tagliaAttrezzatura === "S" && (
+                        <span className="fw-normal ">media</span>
+                      )}
+                      {prodotto.tagliaAttrezzatura === "M" && (
+                        <span className="fw-normal ">grande</span>
+                      )}
+                      {prodotto.tagliaAttrezzatura === "XL" && (
+                        <span className="fw-normal ">molto grande</span>
+                      )}
+                    </small>
+                  )}
+                {prodotto.tipoAttrezzatura === "GUINZAGLI" && (
+                  <small className="fs-6">
+                    {" "}
+                    <span className="fw-bold">Utile per:</span> girare in città
+                  </small>
+                )}
+                {prodotto.tipoAnimale === "GATTO" &&
+                  prodotto.tipoAttrezzatura === "COLLARI" && (
+                    <small className="fw-bold fs-6">
+                      {" "}
+                      taglia {prodotto.tipoAnimale?.toLowerCase()}:{" "}
+                      {prodotto.tagliaAttrezzatura === "XS" && (
+                        <span className="fw-normal">piccola/media</span>
+                      )}
+                      {prodotto.tagliaAttrezzatura === "S" && (
+                        <span className="fw-normal">grande</span>
+                      )}
+                    </small>
+                  )}
+                {prodotto.tipoAnimale === "GATTO" &&
+                  prodotto.tipoAttrezzatura == "LETTIERE" && (
+                    <p>
+                      {prodotto.tagliaAttrezzatura === "S" && (
+                        <span className="ps-2">
+                          <span className="fw-bold"> Utile per:</span> provare
+                          il prodotto
+                        </span>
+                      )}
+                      {prodotto.tagliaAttrezzatura === "M" && (
+                        <span>Il tuo gatto ne sarà felice</span>
+                      )}
+                      {prodotto.tagliaAttrezzatura === "L" && (
+                        <span>
+                          <span className="fw-bold">Utile per: </span> scorta o
+                          formato famiglia
+                        </span>
+                      )}
+                      {prodotto.tagliaAttrezzatura === "XL" && (
+                        <span> Maxi-formato o professionale </span>
+                      )}
+                    </p>
+                  )}
+                {prodotto.tipoAnimale === "CONIGLIO" && (
+                  <p>Formato per conigli</p>
+                )}
+                <p className="fs-5 mt-3">
+                  Ordine singolo:
+                  <span className=" ms-1 fw-bold fs-5">{prodotto.prezzo}€</span>
+                </p>
+              </div>
+              <div className="mt-5 ms-3 d-flex flex-column">
+                {" "}
+                <p className="fs-4 fw-bold m-0 mb-2">ORDINA</p>
+                <div className="d-flex align-items-center justify-content-between">
+                  <p className="mb-2 ">Quantità:</p>
+                </div>
+                <div className="d-flex align-items-center ">
+                  {quantità === 1 && (
+                    <div className=" border border-2 border-secondary rounded-start aggiungiETogli  bg-secondary-subtle text-white">
+                      <p className="m-0 p-2 px-3">-</p>
+                    </div>
+                  )}
+                  {quantità > 1 && (
+                    <div
+                      className=" border border-2 border-black rounded-start aggiungiETogli"
+                      onClick={() =>
+                        setQuantità((prev) => Math.max(prev - 1, 1))
+                      }
+                    >
+                      <p className="m-0 p-2 px-3">-</p>
+                    </div>
+                  )}
+
+                  <div className=" border border-2 border-dark">
+                    <p className="m-0 p-2 px-3">{quantità}</p>
+                  </div>
+
+                  <div
+                    className=" border border-2 border-black rounded-end me-5 aggiungiETogli"
+                    onClick={() => setQuantità((prev) => prev + 1)}
+                  >
+                    <p className="m-0  p-2 px-3"> + </p>
+                  </div>
+                  <div className="d-flex flex-column mt-4">
+                    <Button className="bottoneRosa mb-2">
+                      aggiungi al carrello
+                    </Button>
+                    <small className="piùPiccolo fw-bold">
+                      <FaCartShopping /> Spedizione gratuita a pratire da 30€
+                    </small>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

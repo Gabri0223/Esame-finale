@@ -164,8 +164,33 @@ a {
     width:35%;
 }
 
-.contenitoreTaglie{
-    width: 20% ;
-    background-color: #F8F8F8 ;
-    
+.bordiViola{
+    border-color: #a03165 !important;
+}
+
+.verticalLine{
+    border-right: 2px solid grey
+}
+
+.bordiViola:focus{
+    outline: #a03165 !important;
+    box-shadow: 0px 6px 6px #a03165 !important; 
+}
+
+.piùPiccolo{
+    font-size:0.7em
+}
+
+.aggiungiETogli{
+    cursor: pointer;
+}
+
+.bottoneRosa{
+    background-color:  #a03165 !important;
+    border-color:#a03165 !important;
+}
+.bottoneRosa:hover{
+     background-color:  #FF506F;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px  #FF506F;
 }
