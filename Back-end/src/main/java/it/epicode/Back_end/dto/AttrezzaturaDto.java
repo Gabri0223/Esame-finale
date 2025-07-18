@@ -14,4 +14,5 @@ public class AttrezzaturaDto {
     private String tipoAttrezzatura;
     private String immagineUrl;
     private String tipoProdotto;
+    private String tagliaAttrezzatura;
 }
