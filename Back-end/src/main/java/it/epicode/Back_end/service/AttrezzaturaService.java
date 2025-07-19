@@ -29,21 +29,23 @@ public class AttrezzaturaService {
         }catch (IllegalArgumentException e){
             throw new IllegalArgumentException("Animale o attrezzatura inseriti non validiti");
         }
-        if((tipoAnimale !=TipoAnimale.PESCE && tipoAnimale !=TipoAnimale.TARTARUGA) && tipoAttrezzatura==TipoAttrezzatura.ACQUARIOLOGIA){
-            throw new IllegalArgumentException("L'acquariologia è disponibile solo per pesci e tartarughe");
-        }
         if(tipoAttrezzatura == TipoAttrezzatura.COLLARI&&
-                (tipoAnimale == TipoAnimale.UCCELLO || tipoAnimale == TipoAnimale.CONIGLIO || tipoAnimale == TipoAnimale.TARTARUGA ||tipoAnimale == TipoAnimale.PESCE)){
+                (tipoAnimale == TipoAnimale.UCCELLO || tipoAnimale == TipoAnimale.CONIGLIO)){
             throw new IllegalArgumentException("I collari sono disponibili solo per cani o gatti");
         }
+        if(tipoAttrezzatura ==TipoAttrezzatura.GUINZAGLI &&
+                (tipoAnimale == TipoAnimale.UCCELLO || tipoAnimale == TipoAnimale.CONIGLIO)){
+            throw new IllegalArgumentException("I guinzagli sono disponibili solo per cani o gatti");
+        }
         if (tipoAttrezzatura == TipoAttrezzatura.LETTIERE &&
-                (tipoAnimale == TipoAnimale.UCCELLO || tipoAnimale == TipoAnimale.TARTARUGA || tipoAnimale== TipoAnimale.PESCE)) {
-            throw new IllegalArgumentException("Prodotti di igiene non sono disponibili per uccelli o tartarughe");
+                (tipoAnimale == TipoAnimale.UCCELLO || tipoAnimale==TipoAnimale.CANE)) {
+            throw new IllegalArgumentException("Le lettiere sono solo per gatti e conigli");
         }
-        if (tipoAttrezzatura == TipoAttrezzatura.GIOCHI &&
-                (tipoAnimale == TipoAnimale.UCCELLO || tipoAnimale == TipoAnimale.TARTARUGA || tipoAnimale==TipoAnimale.PESCE)) {
-            throw new IllegalArgumentException("I giochi sono disponibili solo per cani, gatti e conigli");
+        if(tipoAttrezzatura == TipoAttrezzatura.GABBIE&&
+                (tipoAnimale!=TipoAnimale.UCCELLO)){
+            throw new IllegalArgumentException("Le gabbie sono solo per gli uccelli");
         }
+
 
     }
 

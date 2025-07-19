@@ -2,14 +2,18 @@ package it.epicode.Back_end.controller;
 
 import it.epicode.Back_end.dto.AttrezzaturaDto;
 import it.epicode.Back_end.dto.CiboDto;
+import it.epicode.Back_end.dto.GiochiDto;
 import it.epicode.Back_end.dto.ProdottoCompressoDto;
 import it.epicode.Back_end.exception.NotFoundException;
 import it.epicode.Back_end.model.Attrezzatura;
 import it.epicode.Back_end.model.Cibo;
+import it.epicode.Back_end.model.Giochi;
 import it.epicode.Back_end.repository.AttrezzaturaRepository;
 import it.epicode.Back_end.repository.CiboRepository;
+import it.epicode.Back_end.repository.GiochiRepository;
 import it.epicode.Back_end.service.AttrezzaturaService;
 import it.epicode.Back_end.service.CiboService;
+import it.epicode.Back_end.service.GiochiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +34,10 @@ public class DettagliController {
     private AttrezzaturaService attrezzaturaService;
     @Autowired
     private CiboService ciboService;
+    @Autowired
+    private GiochiService giochiService;
+    @Autowired
+    private GiochiRepository giochiRepository;
 
     @GetMapping("/{id}")
     public ProdottoCompressoDto prendiProdotto(@PathVariable Long id) throws NotFoundException {
@@ -47,6 +55,13 @@ public class DettagliController {
             AttrezzaturaDto attrezzaturaDto= attrezzaturaService.convertiInDto(attrezzatura);
             return new ProdottoCompressoDto("Attrezzatura",attrezzaturaDto);
         }
+
+        Optional<Giochi> optionalGiochi=giochiRepository.findById(id);
+            if (optionalGiochi.isPresent()){
+                Giochi gioco=optionalGiochi.get();
+                GiochiDto giocoDto=giochiService.convertiInDto(gioco);
+                return new ProdottoCompressoDto("Gioco",giocoDto);
+            }
         throw new NotFoundException("Prodotto non trovato");
     }
 }
