@@ -10,6 +10,7 @@ const BarraDiRicerca = () => {
   const [risultati, setRisultati] = useState([]);
   const [cliccato, setCliccato] = useState(false);
   const click = () => setCliccato((prev) => !prev);
+  const [ricercaInCorso, setRicercaInCorso] = useState(false);
   const [mostraNessunRisultato, setMostraNessunRisultato] = useState(false);
   const barraRef = useRef(null);
 
@@ -27,18 +28,6 @@ const BarraDiRicerca = () => {
   }, []);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (ricerca.length > 0 && risultati.length === 0) {
-        setMostraNessunRisultato(true);
-      } else {
-        setMostraNessunRisultato(false);
-      }
-    }, 300);
-
-    return () => clearTimeout(timeout);
-  }, [ricerca, risultati]);
-
-  useEffect(() => {
     if (ricerca.trim() === "") {
       setRisultati([]);
       return;
@@ -50,6 +39,7 @@ const BarraDiRicerca = () => {
       `http://localhost:8080/giochi/search?query=${ricerca}`,
     ];
 
+    setRicercaInCorso(true);
     Promise.all(
       urls.map((url) =>
         fetch(url).then((res) => {
@@ -61,9 +51,13 @@ const BarraDiRicerca = () => {
       .then((results) => {
         const tuttiIRisultati = results.flatMap((data) => data.content);
         setRisultati(tuttiIRisultati);
+        setMostraNessunRisultato(ricerca.length === 0);
+        setRicercaInCorso(false);
       })
       .catch((error) => {
         console.error(error);
+        setMostraNessunRisultato(true);
+        setRicercaInCorso(false);
       });
   }, [ricerca]);
   return (
