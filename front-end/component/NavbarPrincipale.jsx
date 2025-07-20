@@ -1,10 +1,11 @@
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import React from "react";
 import LinkAccedi from "../component/LinkAccedi";
 import BarraDiRicerca from "./BarraDiRicerca";
+import React from "react";
 
 const NavbarPrincipale = () => {
   return (
@@ -29,7 +30,12 @@ const NavbarPrincipale = () => {
           </div>
           <div className="w-25 d-flex ms-5 align-items-center">
             <LinkAccedi />
-            <FontAwesomeIcon icon={faCartShopping} className="carrello ms-5" />
+            <Link to="/carrello">
+              <FontAwesomeIcon
+                icon={faCartShopping}
+                className="carrello ms-5"
+              />
+            </Link>
           </div>
         </Navbar.Collapse>
       </Container>

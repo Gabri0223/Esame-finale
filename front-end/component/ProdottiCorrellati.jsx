@@ -34,9 +34,7 @@ const ProdottiCorrelati = ({ prodottoId, tipoAnimale }) => {
         console.error(error);
       });
   }, [prodottoId]);
-  useEffect(() => {
-    console.log("Risultati aggiornati:", risultati);
-  }, [risultati]);
+
   return (
     <div className="mt-2 ms-5 p-3 d-flex flex-wrap gap-3">
       {risultati.length === 0 ? (

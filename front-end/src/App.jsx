@@ -3,10 +3,11 @@ import "./index.css";
 import { Routes, Route } from "react-router-dom";
 import NavbarPrincipale from "../component/NavbarPrincipale.jsx";
 import BarraNera from "../component/BarraNera.jsx";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "../component/Login.jsx";
 import Registrazione from "../component/Registrazione.jsx";
 import Dettaglio from "../component/Dettaglio.jsx";
+import Carrello from "../component/Carrello.jsx";
+import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 function App() {
   return (
@@ -46,6 +47,16 @@ function App() {
           </>
         }
       />
+      <Route
+        path="/carrello"
+        element={
+          <>
+            <BarraNera />
+            <NavbarPrincipale />
+            <Carrello />
+          </>
+        }
+      ></Route>
     </Routes>
   );
 }

@@ -111,7 +111,8 @@ const BarraDiRicerca = () => {
             <Link to></Link>
             {risultati.map((item, index) => (
               <Link
-                to={`dettagli/${item.id}`}
+                to={`/dettagli/${item.id}`}
+                key={item.id}
                 onClick={() => setCliccato(false)}
               >
                 <div

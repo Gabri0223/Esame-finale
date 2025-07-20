@@ -200,3 +200,14 @@ a {
     height: 300px;
     box-shadow: 0 6px 16px rgba(77, 77, 77, 0.7);
 }
+
+.sfondoCarrello{
+    background-color: #FAE2C6;
+    height: 100vh;
+    border-top: solid 2px #37533E;
+}
+
+.ruotato {
+  transform: rotate(341deg);
+  transition: transform 0.3s ease;
+}

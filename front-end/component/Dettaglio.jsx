@@ -567,7 +567,6 @@ const Dettaglio = () => {
           </div>
         </div>
       </div>
-
       <h2 className="text-center my-3">
         Altri prodotti per:
         <span className="fw-bold"> {prodotto.tipoAnimale}</span>

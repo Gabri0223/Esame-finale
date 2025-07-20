@@ -32,5 +32,5 @@ public class CarrelloController {
     public Carrello salvaCarrello(@RequestBody @Validated CarrelloDto carrelloDto) throws NotFoundException {
         return carrelloService.salvaCarrello(carrelloDto);
     }
-
+    
 }
