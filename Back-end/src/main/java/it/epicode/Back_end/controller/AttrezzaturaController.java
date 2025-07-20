@@ -64,4 +64,6 @@ public class AttrezzaturaController {
 
         return attrezzaturaService.cercaPerKeyword(keyword,page,size);
     }
+
+
 }
