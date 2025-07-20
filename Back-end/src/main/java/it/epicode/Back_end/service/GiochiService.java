@@ -36,11 +36,11 @@ public class GiochiService {
                     (tipoAnimale != TipoAnimale.UCCELLO && tipoAnimale != TipoAnimale.CONIGLIO)) {
                 throw new IllegalArgumentException("I bevitogli sono solo per uccelli e conigli");
             }
-            if (tipoGiochi == TipoGiochi.CANNA || tipoGiochi == TipoGiochi.GOMITOLO || tipoGiochi == TipoGiochi.TOPOLINO &&
+            if ((tipoGiochi == TipoGiochi.CANNA || tipoGiochi == TipoGiochi.GOMITOLO || tipoGiochi == TipoGiochi.TOPOLINO) &&
                     (tipoAnimale != TipoAnimale.GATTO)) {
                 throw new IllegalArgumentException("Canne da pesca, gomitoli di lana e topolini sono solo per gatti");
             }
-            if (tipoGiochi == TipoGiochi.PALLINA || tipoGiochi == TipoGiochi.CORDA &&
+            if ((tipoGiochi == TipoGiochi.PALLINA || tipoGiochi == TipoGiochi.CORDA) &&
                     (tipoAnimale != TipoAnimale.CANE)) {
                 throw new IllegalArgumentException("Le palline e le corde sono solo per i cani");
             }
@@ -72,7 +72,7 @@ public class GiochiService {
             giochi.setDescrizione(giochiDto.getDescrizione());
             giochi.setTipoAnimale(TipoAnimale.valueOf(giochiDto.getTipoAnimale().toUpperCase()));
             giochi.setImmagineUrl(imageUrl);
-            giochi.setTipoProdotto("giochi");
+            giochi.setTipoProdotto("GIOCO");
             return giochiRepository.save(giochi);
         }
 
@@ -105,9 +105,9 @@ public class GiochiService {
             giochiDto.setPrezzo(gio.getPrezzo());
             giochiDto.setDescrizione(gio.getDescrizione());
             giochiDto.setTipoAnimale(gio.getTipoAnimale().toString());
-            giochiDto.setTipoAttrezzatura(gio.getTipoGioco().toString());
+            giochiDto.setTipoGiochi(gio.getTipoGioco().toString());
             giochiDto.setImmagineUrl(gio.getImmagineUrl());
-            giochiDto.setTipoProdotto("gioco");
+            giochiDto.setTipoProdotto("GIOCO");
             return giochiDto;
         }
 }

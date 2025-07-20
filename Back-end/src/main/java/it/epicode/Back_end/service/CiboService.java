@@ -42,7 +42,7 @@ public class CiboService {
         cibo.setMarca(ciboDto.getMarca());
         cibo.setDescrizione(ciboDto.getDescrizione());
         cibo.setImmagineUrl(imageUrl);
-        cibo.setTipoProdotto("cibo");
+        cibo.setTipoProdotto("CIBO");
         try {
             cibo.setTipoAnimale(TipoAnimale.valueOf(ciboDto.getTipoAnimale().toUpperCase()));
         }catch (IllegalArgumentException | NullPointerException e){
@@ -77,7 +77,7 @@ public class CiboService {
         ciboDaModificare.setMarca(ciboDto.getMarca());
         ciboDaModificare.setDescrizione(ciboDto.getDescrizione());
         ciboDaModificare.setImmagineUrl(ciboDto.getImmagineUrl());
-        ciboDaModificare.setTipoProdotto("cibo");
+        ciboDaModificare.setTipoProdotto("CIBO");
         try {
             ciboDaModificare.setTipoAnimale(TipoAnimale.valueOf(ciboDto.getTipoAnimale().toUpperCase()));
         } catch (IllegalArgumentException | NullPointerException e) {
@@ -99,7 +99,7 @@ public class CiboService {
             ciboDaModificare.setTipoCibo(null);
             ciboDaModificare.setEtaAnimale(null);
             ciboDaModificare.setTagliaAnimale(null);
-            ciboDaModificare.setTipoProdotto("cibo");
+            ciboDaModificare.setTipoProdotto("CIBO");
         }
             return ciboRepository.save(ciboDaModificare);
 
@@ -127,7 +127,7 @@ public class CiboService {
         cibodto.setEtaAnimale(cibo.getEtaAnimale().toString());
         cibodto.setTagliaAnimale(cibo.getTagliaAnimale().toString());
         cibodto.setImmagineUrl(cibo.getImmagineUrl());
-        cibodto.setTipoProdotto("cibo");
+        cibodto.setTipoProdotto("CIBO");
         return cibodto;
     }
 
