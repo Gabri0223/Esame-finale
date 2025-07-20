@@ -44,21 +44,23 @@ const BarraDiRicerca = () => {
       return;
     }
 
-    fetch(`http://localhost:8080/cibo/search?query=${ricerca}`, {})
-      .then((res) => {
-        if (!res.ok) throw new Error("Errore durante la ricerca");
-        return res.json();
-      })
-      .then((data) => {
-        setRisultati(data.content);
-        fetch(`http://localhost:8080/attrezzatura/search?query=${ricerca}`, {})
-          .then((res) => {
-            if (!res.ok) throw new Error("Errore durante  la ricerca");
-            return res.json();
-          })
-          .then((data) => {
-            setRisultati((prev) => [...prev, ...data.content]);
-          });
+    const urls = [
+      `http://localhost:8080/cibo/search?query=${ricerca}`,
+      `http://localhost:8080/attrezzatura/search?query=${ricerca}`,
+      `http://localhost:8080/giochi/search?query=${ricerca}`,
+    ];
+
+    Promise.all(
+      urls.map((url) =>
+        fetch(url).then((res) => {
+          if (!res.ok) throw new Error("Errore durante la ricerca");
+          return res.json();
+        })
+      )
+    )
+      .then((results) => {
+        const tuttiIRisultati = results.flatMap((data) => data.content);
+        setRisultati(tuttiIRisultati);
       })
       .catch((error) => {
         console.error(error);
