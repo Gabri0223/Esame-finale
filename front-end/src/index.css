@@ -139,7 +139,7 @@ a {
 }
 
 .sfondoDettagli{
-    height: 100vh;
+    min-height: 100vh;
     background-color: #F8F8F8;
 }
 
@@ -193,4 +193,10 @@ a {
      background-color:  #FF506F;
     transform: translateY(-2px);
     box-shadow: 0 10px 20px  #FF506F;
+}
+
+.contenitoreProdottiCorrelati{
+    width: 90%;
+    height: 300px;
+    box-shadow: 0 6px 16px rgba(77, 77, 77, 0.7);
 }

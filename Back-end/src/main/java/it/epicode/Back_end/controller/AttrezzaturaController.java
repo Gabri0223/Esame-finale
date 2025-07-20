@@ -60,7 +60,7 @@ public class AttrezzaturaController {
     @GetMapping("/search")
     public Page<AttrezzaturaDto> cercaPerKeyword(@RequestParam(name = "query", required = false,defaultValue = "") String keyword,
                                               @RequestParam(defaultValue = "0") int page,
-                                              @RequestParam(defaultValue = "10") int size){
+                                              @RequestParam(defaultValue = "5") int size){
 
         return attrezzaturaService.cercaPerKeyword(keyword,page,size);
     }

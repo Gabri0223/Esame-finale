@@ -57,7 +57,7 @@ public class GiochiController {
     @GetMapping("/search")
     public Page<GiochiDto> cercaPerKeyword(@RequestParam(name = "query", required = false,defaultValue = "") String keyword,
                                                  @RequestParam(defaultValue = "0") int page,
-                                                 @RequestParam(defaultValue = "10") int size){
+                                                 @RequestParam(defaultValue = "5") int size){
 
         return giochiService.cercaPerKeyword(keyword,page,size);
     }

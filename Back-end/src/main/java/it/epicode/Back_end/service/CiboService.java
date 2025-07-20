@@ -61,8 +61,8 @@ public class CiboService {
                 }
             }
         }else{
-            cibo.setTipoCibo(null);
-            cibo.setEtaAnimale(null);
+            cibo.setTipoCibo(TipoCibo.SECCO);
+            cibo.setEtaAnimale(EtaAnimale.TUTTE_LE_ETA);
             cibo.setTagliaAnimale(null);
         }
 
@@ -96,9 +96,9 @@ public class CiboService {
                 }
             }
         }else{
-            ciboDaModificare.setTipoCibo(null);
-            ciboDaModificare.setEtaAnimale(null);
-            ciboDaModificare.setTagliaAnimale(null);
+            ciboDaModificare.setTipoCibo(TipoCibo.SECCO);
+            ciboDaModificare.setEtaAnimale(EtaAnimale.TUTTE_LE_ETA);
+            ciboDaModificare.setTagliaAnimale(TagliaAnimale.TUTTE_LE_TAGLIE);
             ciboDaModificare.setTipoProdotto("CIBO");
         }
             return ciboRepository.save(ciboDaModificare);
