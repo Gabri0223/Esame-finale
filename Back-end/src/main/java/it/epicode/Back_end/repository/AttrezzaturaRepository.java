@@ -11,6 +11,7 @@ public interface AttrezzaturaRepository extends JpaRepository<Attrezzatura,Long>
     @Query("SELECT a FROM Attrezzatura a WHERE " +
             "LOWER(a.nome) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
             "LOWER(a.marca) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
-            "LOWER(a.tipoAttrezzatura) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+            "LOWER(a.tipoAttrezzatura) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+            "LOWER(a.tipoAnimale) LIKE LOWER(CONCAT( '%', :keyword, '%'))")
     Page<Attrezzatura> cercaPerKeyword(@Param("keyword") String keyword, Pageable pageable);
 }

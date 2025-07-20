@@ -11,6 +11,8 @@ public interface CiboRepository extends JpaRepository<Cibo,Long> {
     @Query("SELECT c FROM Cibo c WHERE " +
     "LOWER (c.nome) LIKE LOWER (CONCAT('%', :keyword ,'%')) OR " +
     "LOWER (c.marca) LIKE LOWER (CONCAT('%', :keyword , '%')) OR " +
-    "LOWER (c.tipoCibo) LIKE LOWER (CONCAT( '%', :keyword ,'%'))")
+    "LOWER (c.tipoCibo) LIKE LOWER (CONCAT( '%', :keyword ,'%')) OR " +
+    "LOWER (c.tipoAnimale) LIKE LOWER (CONCAT( '%', :keyword, '%'))")
+
     Page<Cibo> findByKeyWord(@Param("keyword") String keyWord, Pageable pageable);
 }
