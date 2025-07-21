@@ -33,4 +33,5 @@ public class CarrelloController {
         return carrelloService.salvaCarrello(carrelloDto);
     }
 
+   //Il carrello non viene mai eliminato nel mio progetto perciò non
 }

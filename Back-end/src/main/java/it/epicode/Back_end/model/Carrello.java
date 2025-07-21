@@ -15,5 +15,7 @@ public class Carrello {
 
     @OneToMany(mappedBy = "carrello")
     private List<ElementoCarrello> elementiCarrello;
-
+    @OneToOne
+    @JoinColumn(name = "utente_id")
+    private Utente utente;
 }

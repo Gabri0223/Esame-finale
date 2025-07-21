@@ -34,7 +34,8 @@ public class Utente implements UserDetails {
 
     @OneToMany(mappedBy = "utente")
     private List<Prenotazione> prenotazioni= new ArrayList<>();
-
+    @OneToOne(mappedBy = "utente")
+    private Carrello carrello;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority( ruolo.name()));
