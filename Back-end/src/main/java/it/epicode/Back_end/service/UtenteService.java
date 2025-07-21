@@ -1,15 +1,21 @@
 package it.epicode.Back_end.service;
 
+import it.epicode.Back_end.dto.CarrelloDto;
+import it.epicode.Back_end.dto.ElementoCarrelloDto;
 import it.epicode.Back_end.dto.UtenteDto;
 import it.epicode.Back_end.enumerated.StatoRuolo;
 import it.epicode.Back_end.exception.NotFoundException;
 import it.epicode.Back_end.exception.UtenteGiaEsistenteException;
+import it.epicode.Back_end.model.Carrello;
+import it.epicode.Back_end.model.ElementoCarrello;
 import it.epicode.Back_end.model.Utente;
+import it.epicode.Back_end.repository.CarrelloRepository;
 import it.epicode.Back_end.repository.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,6 +25,8 @@ public class UtenteService {
     private UtenteRepository utenteRepository;
     @Autowired
     private PasswordEncoder encoder;
+    @Autowired
+    private CarrelloRepository carrelloRepository;
 
     public Utente getUtente(Long id) throws NotFoundException {
         return utenteRepository.findById(id).orElseThrow(()->new NotFoundException("utente non trovato"));
@@ -41,6 +49,11 @@ public class UtenteService {
         nuovoUtente.setPassword(hasledPassword);
         nuovoUtente.setImgUrl(utenteDto.getImgUrl());
         nuovoUtente.setRuolo(StatoRuolo.Utente);
+        Carrello carrello = new Carrello();
+        carrello.setUtente(nuovoUtente);
+        carrelloRepository.save(carrello);
+
+        nuovoUtente.setCarrello(carrello);
         return utenteRepository.save(nuovoUtente);
     }
 
