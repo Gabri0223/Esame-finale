@@ -1,10 +1,13 @@
 package it.epicode.Back_end.service;
 
+import it.epicode.Back_end.dto.CarrelloDto;
+import it.epicode.Back_end.dto.ElementoCarrelloDto;
 import it.epicode.Back_end.dto.UtenteDto;
 import it.epicode.Back_end.enumerated.StatoRuolo;
 import it.epicode.Back_end.exception.NotFoundException;
 import it.epicode.Back_end.exception.UtenteGiaEsistenteException;
 import it.epicode.Back_end.model.Carrello;
+import it.epicode.Back_end.model.ElementoCarrello;
 import it.epicode.Back_end.model.Utente;
 import it.epicode.Back_end.repository.CarrelloRepository;
 import it.epicode.Back_end.repository.UtenteRepository;
@@ -12,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
