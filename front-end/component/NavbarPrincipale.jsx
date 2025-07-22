@@ -35,7 +35,7 @@ const NavbarPrincipale = () => {
             <img
               className="w-25 "
               src="https://www.zampettando.net/wp-content/uploads/2020/12/cropped-zampettando-blog-logo.png"
-              alt="Arcaplanet.logo"
+              alt="zompettando.logo"
             />
           </Navbar.Brand>
         </div>
@@ -54,10 +54,7 @@ const NavbarPrincipale = () => {
                 />
               </Link>
               {numeroTotale > 0 && (
-                <span
-                  className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                  style={{ fontSize: "0.7rem" }}
-                >
+                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger piùPiccolo">
                   {numeroTotale}
                 </span>
               )}

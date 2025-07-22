@@ -10,7 +10,7 @@ const Registrazione = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errore, setErrore] = useState("");
-  const [avatar, setAvatar] = useState("");
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -24,6 +24,7 @@ const Registrazione = () => {
           nome: nome,
           cognome: cognome,
           username: username,
+          email: email,
           password: password,
           imgUrl: avatar,
         }),
@@ -74,14 +75,12 @@ const Registrazione = () => {
             className="mt-4 form"
             onChange={(e) => setCognome(e.target.value)}
           />
-          <div className="w-100 d-flex mt-2">
-            <small className="text-danger">*Facoltativo</small>
-          </div>
           <Form.Control
-            type="url"
-            placeholder="URL Immagine"
-            className="form"
-            onChange={(e) => setAvatar(e.target.value)}
+            required
+            type="email"
+            placeholder="Email"
+            className="mt-4 form"
+            onChange={(e) => setEmail(e.target.value)}
           />
           <Form.Control
             required

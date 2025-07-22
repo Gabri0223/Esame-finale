@@ -218,11 +218,13 @@ a {
   transform: rotate(341deg);
   transition: transform 0.3s ease;
 }
+
 .sfondoRosa{
     background-color: #F2C99C;
    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
 }
+
 .contenitoreFotoImmagine{
     width: 80px;
 }
