@@ -51,7 +51,7 @@ const BarraDiRicerca = () => {
       .then((results) => {
         const tuttiIRisultati = results.flatMap((data) => data.content);
         setRisultati(tuttiIRisultati);
-        setMostraNessunRisultato(ricerca.length === 0);
+        setMostraNessunRisultato(tuttiIRisultati.length === 0);
         setRicercaInCorso(false);
       })
       .catch((error) => {
@@ -136,7 +136,7 @@ const BarraDiRicerca = () => {
           </div>
         </div>
       )}
-      {mostraNessunRisultato && cliccato === true && (
+      {mostraNessunRisultato && cliccato === true && ricerca.length > 0 && (
         <div
           className="contenitoreRisultati position-absolute w-100 bg-white shadow rounded"
           ref={barraRef}

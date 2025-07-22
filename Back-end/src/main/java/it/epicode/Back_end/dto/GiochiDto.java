@@ -13,4 +13,5 @@ public class GiochiDto {
     private String immagineUrl;
     private String tipoProdotto;
     private String tipoGiochi;
+    private String tagliaAttrezzatura;
 }

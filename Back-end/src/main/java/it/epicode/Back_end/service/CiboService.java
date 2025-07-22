@@ -63,7 +63,8 @@ public class CiboService {
         }else{
             cibo.setTipoCibo(TipoCibo.SECCO);
             cibo.setEtaAnimale(EtaAnimale.TUTTE_LE_ETA);
-            cibo.setTagliaAnimale(null);
+            cibo.setTagliaAnimale(TagliaAnimale.TUTTE_LE_TAGLIE);
+            cibo.setTagliaAttrezzatura("");
         }
 
         return ciboRepository.save(cibo);
@@ -100,6 +101,7 @@ public class CiboService {
             ciboDaModificare.setEtaAnimale(EtaAnimale.TUTTE_LE_ETA);
             ciboDaModificare.setTagliaAnimale(TagliaAnimale.TUTTE_LE_TAGLIE);
             ciboDaModificare.setTipoProdotto("CIBO");
+            ciboDaModificare.setTagliaAttrezzatura("");
         }
             return ciboRepository.save(ciboDaModificare);
 

@@ -28,4 +28,5 @@ public abstract class Prodotto {
     private String immagineUrl;
     @NotBlank(message = "il tipo prodotto non può essere vuoto")
     private String tipoProdotto;
+    private String tagliaAttrezzatura;
 }

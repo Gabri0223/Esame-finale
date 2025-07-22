@@ -11,5 +11,5 @@ public class Attrezzatura extends Prodotto{
 
     @Enumerated(value = EnumType.STRING)
     private TipoAttrezzatura tipoAttrezzatura;
-    private String tagliaAttrezzatura;
+
 }

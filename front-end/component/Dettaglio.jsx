@@ -8,6 +8,8 @@ import { PiBirdDuotone } from "react-icons/pi";
 import { FaFishFins } from "react-icons/fa6";
 import { FaCartShopping } from "react-icons/fa6";
 import Button from "react-bootstrap/Button";
+
+import BottoneAggiungiCarrello from "../component/BottoneAggiungiCarrello";
 import ProdottiCorrelati from "../component/ProdottiCorrellati";
 import Form from "react-bootstrap/Form";
 
@@ -27,6 +29,7 @@ const Dettaglio = () => {
       })
       .then((data) => {
         setProdotto(data.prodotto);
+        console.log(data.prodotto);
       })
       .catch((error) => {
         console.log(error.message);
@@ -78,7 +81,7 @@ const Dettaglio = () => {
               {prodotto.tipoAttrezzatura === "COLLARI" &&
                 prodotto.tipoAnimale === "CANE" && (
                   <>
-                    <option>Seleziona la larghezza</option>
+                    <option value="">Seleziona la larghezza</option>
                     <option value="XS">XS 20 - 30 cm</option>
                     <option value="S">S 30 - 40 cm</option>
                     <option value="M">M 40 - 50 cm</option>
@@ -87,7 +90,7 @@ const Dettaglio = () => {
                 )}
               {prodotto.tipoAttrezzatura === "GUINZAGLI" && (
                 <>
-                  <option>Seleziona la lunghezza</option>
+                  <option value="">Seleziona la lunghezza</option>
                   <option value="120cm">120 cm</option>
                   <option value="150cm">150 cm</option>
                   <option value="180cm">180 cm</option>
@@ -96,7 +99,7 @@ const Dettaglio = () => {
               {prodotto.tipoAttrezzatura === "COLLARI" &&
                 prodotto.tipoAnimale === "GATTO" && (
                   <>
-                    <option>Seleziona la larghezza</option>
+                    <option value="">Seleziona la larghezza</option>
                     <option value="XS">XS / Piccolo 15 - 20 cm</option>
                     <option value="S">S / Medio 18 - 25 cm</option>
                   </>
@@ -104,7 +107,7 @@ const Dettaglio = () => {
               {prodotto.tipoAttrezzatura == "LETTIERE" &&
                 prodotto.tipoAnimale === "GATTO" && (
                   <>
-                    <option>seleziona i chili</option>
+                    <option value="">seleziona i chili</option>
                     <option value="S"> prova (1-2 kg)</option>
                     <option value="M"> piccolo (5 kg)</option>
                     <option value="L">medio (10 kg)</option>
@@ -113,11 +116,17 @@ const Dettaglio = () => {
                 )}
               {prodotto.tipoAttrezzatura === "LETTIERE" &&
                 prodotto.tipoAnimale === "CONIGLIO" && (
-                  <option value="M">2 - 4 kg </option>
+                  <>
+                    <option value="">seleziona i chili</option>
+                    <option value="M">2 - 4 kg </option>
+                  </>
                 )}
               {prodotto.tipoGiochi === "TUNNEL" && (
                 <>
-                  <option title="le misure sono per lunghezza e larghezza">
+                  <option
+                    value=""
+                    title="le misure sono per lunghezza e larghezza"
+                  >
                     scegli la grandezza
                   </option>
                   <option
@@ -142,7 +151,10 @@ const Dettaglio = () => {
               )}
               {prodotto.tipoGiochi === "RAMPE" && (
                 <>
-                  <option title="le misure sono per lunghezza e larghezza">
+                  <option
+                    value=""
+                    title="le misure sono per lunghezza e larghezza"
+                  >
                     scegli la grandezza
                   </option>
                   <option
@@ -167,7 +179,10 @@ const Dettaglio = () => {
               )}
               {prodotto.tipoGiochi === "CASETTE" && (
                 <>
-                  <option title="Le misure sono per lunghezza larghezza e altezza">
+                  <option
+                    value=""
+                    title="Le misure sono per lunghezza larghezza e altezza"
+                  >
                     Scegli la grandezza
                   </option>
                   <option
@@ -198,7 +213,7 @@ const Dettaglio = () => {
               )}
               {prodotto.tipoGiochi === "BEVITOGLIO" && (
                 <>
-                  <option> Scegli la capienza</option>
+                  <option value=""> Scegli la capienza</option>
                   <option value="S">Piccola: 500ml</option>
                   <option value="M">Media: 1L</option>
                   <option value="XL">Alta: 2L</option>
@@ -206,7 +221,7 @@ const Dettaglio = () => {
               )}
               {prodotto.tipoGiochi === "CORDA" && (
                 <>
-                  <option>Seleziona la lunghezza</option>
+                  <option value="">Seleziona la lunghezza</option>
                   <option value="S">20-30 cm</option>
                   <option value="M">30-50cm</option>
                   <option value="L">50-70cm</option>
@@ -214,7 +229,7 @@ const Dettaglio = () => {
               )}
               {prodotto.tipoGiochi === "PALLINA" && (
                 <>
-                  <option>Seleziona il diametro</option>
+                  <option value="">Seleziona il diametro</option>
                   <option value="XS">5,0 cm</option>
                   <option value="S">7,5 cm</option>
                   <option value="M">10,0 cm</option>
@@ -223,7 +238,7 @@ const Dettaglio = () => {
               {prodotto.tipoGiochi === "KONG" &&
                 ((prodotto.tipoAnimale === "CANE" && (
                   <>
-                    <option>Seleziona la lunghezza</option>
+                    <option value="">Seleziona la lunghezza</option>
                     <option value="XS">5,7 cm</option>
                     <option value="S">7,0 cm</option>
                     <option value="M">8,5 cm</option>
@@ -234,7 +249,10 @@ const Dettaglio = () => {
                 )) ||
                   (prodotto.tipoAnimale === "CONIGLIO" && (
                     <>
-                      <option title="le misure sono per lunghezza e larghezza">
+                      <option
+                        value=""
+                        title="le misure sono per lunghezza e larghezza"
+                      >
                         Seleziona la dimensione
                       </option>
                       <option
@@ -259,7 +277,7 @@ const Dettaglio = () => {
                   )))}
               {prodotto.tipoGiochi === "GOMITOLO" && (
                 <>
-                  <option>Seleziona il diametro </option>
+                  <option value="">Seleziona il diametro </option>
                   <option value="S"> 4,0 cm</option>
                   <option value="M"> 6,0 cm </option>
                   <option value="L"> 10,0 cm</option>
@@ -267,7 +285,7 @@ const Dettaglio = () => {
               )}
               {prodotto.tipoGiochi === "TOPOLINO" && (
                 <>
-                  <option>Seleziona la lunghezza </option>
+                  <option value="">Seleziona la lunghezza </option>
                   <option value="S">5,0 cm</option>
                   <option value="M">8,0 cm</option>
                   <option value="L">10,0 cm</option>
@@ -275,7 +293,7 @@ const Dettaglio = () => {
               )}
               {prodotto.tipoGiochi === "CANNA" && (
                 <>
-                  <option>Seleziona la lunghezza del filo</option>
+                  <option value="">Seleziona la lunghezza del filo</option>
                   <option value="S">40 cm</option>
                   <option value="M">80 cm</option>
                   <option value="S">100 cm</option>
@@ -283,7 +301,7 @@ const Dettaglio = () => {
               )}
               {prodotto.tipoCibo === "SECCO" && (
                 <>
-                  <option>Seleziona la quantità</option>
+                  <option value="">Seleziona la quantità</option>
                   <option value="XS"> 2 KG</option>
                   <option value="S"> 10 KG</option>
                   <option value="M">15 KG</option>
@@ -293,7 +311,7 @@ const Dettaglio = () => {
               )}
               {prodotto.tipoCibo === "UMIDO" && (
                 <>
-                  <option>Seleziona la quantità</option>
+                  <option value="">Seleziona la quantità</option>
                   <option value="XS"> 150 gr</option>
                   <option value="S"> 400 gr</option>
                   <option value="M"> 150 gr</option>
@@ -554,10 +572,25 @@ const Dettaglio = () => {
                 >
                   <p className="m-0  p-2 px-3"> + </p>
                 </div>
-                <div className="d-flex flex-column mt-4">
-                  <Button className="bottoneRosa mb-2">
-                    aggiungi al carrello
-                  </Button>
+                <div>
+                  {(prodotto.tagliaAttrezzatura === null ||
+                    prodotto.tagliaAttrezzatura === "") && (
+                    <div className="d-flex flex-column mt-4">
+                      <Button className="bottoneGrigio mb-2 btn btn-primary">
+                        Aggiungi al carrello
+                      </Button>
+                    </div>
+                  )}
+                  {prodotto.tagliaAttrezzatura !== null &&
+                    prodotto.tagliaAttrezzatura !== "" && (
+                      <div className="d-flex flex-column mt-4">
+                        <BottoneAggiungiCarrello
+                          prodotto={prodotto}
+                          quantità={quantità}
+                        />
+                      </div>
+                    )}
+
                   <small className="piùPiccolo fw-bold">
                     <FaCartShopping /> Spedizione gratuita a pratire da 30€
                   </small>

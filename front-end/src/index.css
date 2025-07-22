@@ -185,10 +185,17 @@ a {
     cursor: pointer;
 }
 
+.bottoneGrigio{
+    background-color:  grey !important;
+    border-color:grey !important;
+    cursor:default !important;
+}
+
 .bottoneRosa{
     background-color:  #a03165 !important;
     border-color:#a03165 !important;
 }
+
 .bottoneRosa:hover{
      background-color:  #FF506F;
     transform: translateY(-2px);
@@ -210,4 +217,50 @@ a {
 .ruotato {
   transform: rotate(341deg);
   transition: transform 0.3s ease;
+}
+.sfondoRosa{
+    background-color: #F2C99C;
+   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+.contenitoreFotoImmagine{
+    width: 80px;
+}
+
+.contenitoreCarrello{
+    width: 100%;
+    max-height: 300px !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important; 
+    
+}
+
+.contenitoreCarrello::-webkit-scrollbar {
+  width: 10px;
+}
+
+.contenitoreCarrello::-webkit-scrollbar-track {
+  background-color: #F2C99C; 
+}
+
+.contenitoreCarrello::-webkit-scrollbar-thumb {
+  background-color: #9F9F9F; 
+  border-radius: 10px;
+}
+
+.bordiVerdi{
+    border: 2px solid #37533E;
+}
+
+.scrittaVerde{
+    color: #37533E;
+}
+
+.contenitoreFotoCarrelloVuoto{
+    width: 20%;
+   
+}
+
+.bordoSotto{
+    border-bottom: 2px black solid;
 }
