@@ -32,42 +32,51 @@ public class ElementoCarrelloService {
         return elementoCarrelloRepository.findById(id).orElseThrow(()-> new NotFoundException("Elemento non trovato"));
     }
 
-    public ElementoCarrello salvaELemento( ElementoCarrelloDto elementoCarrelloDto) throws NotFoundException {
+    public ElementoCarrello salvaELemento( ElementoCarrelloDto elementoCarrelloDto, Carrello carrello) throws NotFoundException {
         ElementoCarrello elementoCarrello=new ElementoCarrello();
         Prodotto prodotto = prodottoRepository.findById(elementoCarrelloDto.getProdottoId())
                 .orElseThrow(() -> new NotFoundException("Prodotto non trovato con id: " + elementoCarrelloDto.getProdottoId()));
 
+        String taglia = elementoCarrelloDto.getTaglia();
+        double prezzoBase= prodotto.getPrezzo();
+        if (taglia != null) {
+            switch (taglia) {
+                case "XS":
+                    prezzoBase -= 5.0;
+                    break;
+                case "S":
+                    prezzoBase -= 2.0;
+                    break;
+                case "M":
+                    break;
+                case "L":
+                    prezzoBase += 2.0;
+                    break;
+                case "XL":
+                    prezzoBase += 5.0;
+                    break;
+            }
+        }
         elementoCarrello.setProdotto(prodotto);
         elementoCarrello.setQuantita(elementoCarrelloDto.getQuantita());
-
-
-        Carrello carrello = carrelloRepository.findById(elementoCarrelloDto.getCarrelloId())
-                .orElseThrow(() -> new NotFoundException("Carrello non trovato con id: " + elementoCarrelloDto.getCarrelloId()));
+        elementoCarrello.setPrezzoTotale(prezzoBase*elementoCarrello.getQuantita());
+        elementoCarrello.setTaglia(taglia);
         elementoCarrello.setCarrello(carrello);
 
-        return elementoCarrello;
+        return elementoCarrelloRepository.save(elementoCarrello);
     }
 
    //avendo solo la quantità da modificare creo un metodo modificaQuantità al posto di modificaElemento
 
     public ElementoCarrello modificaQuantità(Long id, int nuovaQuantita) throws NotFoundException {
         ElementoCarrello elementoCarrello= prendiElemento(id);
+        double prezzoTotalePrec=elementoCarrello.getPrezzoTotale()/elementoCarrello.getQuantita();
         elementoCarrello.setQuantita(nuovaQuantita);
+        elementoCarrello.setPrezzoTotale(prezzoTotalePrec*nuovaQuantita);
         return elementoCarrello;
     }
 
-    public ElementoCarrello aggiungiAlCarrello(ElementoCarrelloDto elementoCarrelloDto) throws NotFoundException {
-        Prodotto prodotto = prendiElemento(elementoCarrelloDto.getProdottoId()).getProdotto();
 
-        Carrello carrello = prendiElemento(elementoCarrelloDto.getCarrelloId()).getCarrello();
-
-        ElementoCarrello elemento = new ElementoCarrello();
-        elemento.setProdotto(prodotto);
-        elemento.setQuantita(elementoCarrelloDto.getQuantita());
-        elemento.setCarrello(carrello);
-
-        return elementoCarrelloRepository.save(elemento);
-    }
 
     public void eliminaElemento(Long id) throws NotFoundException {
         elementoCarrelloRepository.delete(prendiElemento(id));

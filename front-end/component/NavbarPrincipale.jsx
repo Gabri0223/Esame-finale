@@ -8,12 +8,48 @@ import BarraDiRicerca from "./BarraDiRicerca";
 import React, { useEffect, useState } from "react";
 
 const NavbarPrincipale = () => {
+  const [numeroTotale, setNumeroTotale] = useState(0);
+  const [carrelloUnito, setCarrelloUnito] = useState(false);
+
   if (!localStorage.getItem("carrello")) {
     localStorage.setItem("carrello", JSON.stringify([]));
   }
 
-  const [numeroTotale, setNumeroTotale] = useState(0);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const carrello = JSON.parse(localStorage.getItem("carrello")) || [];
 
+    if (token && carrello.length > 0 && !carrelloUnito) {
+      const carrelloDaUnire = {
+        elementiCarrelloDto: carrello.map((item) => ({
+          prodottoId: item.prodotto.id,
+          quantita: item.quantità,
+        })),
+      };
+      console.log("carrelloDaUnire:", carrelloDaUnire);
+      fetch("http://localhost:8080/Carrello/unisci", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(carrelloDaUnire),
+      })
+        .then((res) => {
+          if (!res.ok) throw new Error("Errore nell'unione del carrello");
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          localStorage.removeItem("carrello");
+          setNumeroTotale(0);
+          setCarrelloUnito(true);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  }, [carrelloUnito]);
   useEffect(() => {
     const interval = setInterval(() => {
       const carrello = JSON.parse(localStorage.getItem("carrello")) || [];

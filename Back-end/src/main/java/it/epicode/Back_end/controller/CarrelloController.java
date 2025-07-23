@@ -38,8 +38,8 @@ public class CarrelloController {
         return carrelloService.salvaCarrello(carrelloDto);
     }
 
-    @PostMapping("/carrelli/importa")
-    public Carrello importaCarrello(@RequestBody CarrelloDto carrelloDto, @RequestHeader("Authorization")String token) throws NotFoundException {
+    @PostMapping("/unisci")
+    public Carrello unisciCarrelli(@RequestBody CarrelloDto carrelloDto, @RequestHeader("Authorization")String token) throws NotFoundException {
 
         token = token.replace("Bearer ", "");
         Utente utente = jwtTool.UtentedaToken(token);

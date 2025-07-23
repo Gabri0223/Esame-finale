@@ -34,7 +34,7 @@ public class CarrelloService {
 
         List<ElementoCarrello> elementi = new ArrayList<>();
         for(ElementoCarrelloDto dto : carrelloDto.getElementiCarrelloDto()) {
-            ElementoCarrello elemento = elementoCarrelloService.salvaELemento(dto);
+            ElementoCarrello elemento = elementoCarrelloService.salvaELemento(dto,carrello);
             elemento.setCarrello(carrello);
             elementi.add(elemento);
         }
@@ -49,7 +49,7 @@ public class CarrelloService {
 
         List<ElementoCarrello> elementi = new ArrayList<>();
         for (ElementoCarrelloDto dto : carrelloDto.getElementiCarrelloDto()) {
-            ElementoCarrello elemento = elementoCarrelloService.salvaELemento(dto);
+            ElementoCarrello elemento = elementoCarrelloService.salvaELemento(dto,carrello);
             elemento.setCarrello(carrello);
             elementi.add(elemento);
         }
@@ -58,16 +58,16 @@ public class CarrelloService {
         return carrelloRepository.save(carrello);
     }
 
-    public void unisciCarrelli(Carrello carrelloEsistente, CarrelloDto carrelloDto) throws NotFoundException {
+    public void unisciCarrelli(Carrello carrelloBackEnd, CarrelloDto carrelloDto) throws NotFoundException {
 
-        List<ElementoCarrello> elementiEsistenti = carrelloEsistente.getElementiCarrello();
-        if (elementiEsistenti == null) {
-            elementiEsistenti = new ArrayList<>();
-            carrelloEsistente.setElementiCarrello(elementiEsistenti);
+        List<ElementoCarrello> elementiBackEnd = carrelloBackEnd.getElementiCarrello();
+        if (elementiBackEnd == null) {
+            elementiBackEnd = new ArrayList<>();
+            carrelloBackEnd.setElementiCarrello(elementiBackEnd);
         }
         for (ElementoCarrelloDto elementoCarrelloDto : carrelloDto.getElementiCarrelloDto()) {
             boolean trovato = false;
-            for (ElementoCarrello elementoCarrello : elementiEsistenti) {
+            for (ElementoCarrello elementoCarrello : elementiBackEnd) {
                 if (elementoCarrello.getProdotto().getId().equals(elementoCarrelloDto.getProdottoId())) {
 
                     elementoCarrello.setQuantita(elementoCarrello.getQuantita() + elementoCarrelloDto.getQuantita());
@@ -76,11 +76,11 @@ public class CarrelloService {
                 }
             }
             if (!trovato) {
-                ElementoCarrello nuovoElemento = elementoCarrelloService.salvaELemento(elementoCarrelloDto);
-                nuovoElemento.setCarrello(carrelloEsistente);
-                elementiEsistenti.add(nuovoElemento);
+                ElementoCarrello nuovoElemento = elementoCarrelloService.salvaELemento(elementoCarrelloDto,carrelloBackEnd);
+                nuovoElemento.setCarrello(carrelloBackEnd);
+                elementiBackEnd.add(nuovoElemento);
             }
         }
-        carrelloRepository.save(carrelloEsistente);
+        carrelloRepository.save(carrelloBackEnd);
     }
 }

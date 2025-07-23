@@ -33,6 +33,9 @@ const BottoneAggiungiCarrello = ({ prodotto, quantità }) => {
     localStorage.setItem("carrello", JSON.stringify(nuovoCarrello));
   };
 
+  const aggiungiALCarrello = useEffect(() => {
+    fetch("http://localhost:8080/elementi");
+  });
   return (
     <Button
       className="bottoneRosa mb-2 btn btn-primary"

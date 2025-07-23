@@ -6,6 +6,6 @@ import java.util.List;
 
 @Data
 public class CarrelloDto {
-    private Long id;
+
     private List<ElementoCarrelloDto> elementiCarrelloDto;
 }

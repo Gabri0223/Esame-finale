@@ -9,4 +9,5 @@ public class ElementoCarrelloDto {
     private Long prodottoId;
     private double prezzoTotale;
     private Long carrelloId;
+    private String taglia;
 }

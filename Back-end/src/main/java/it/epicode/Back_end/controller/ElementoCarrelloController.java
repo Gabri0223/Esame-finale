@@ -2,7 +2,9 @@ package it.epicode.Back_end.controller;
 
 import it.epicode.Back_end.dto.ElementoCarrelloDto;
 import it.epicode.Back_end.exception.NotFoundException;
+import it.epicode.Back_end.model.Carrello;
 import it.epicode.Back_end.model.ElementoCarrello;
+import it.epicode.Back_end.service.CarrelloService;
 import it.epicode.Back_end.service.ElementoCarrelloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -15,6 +17,8 @@ import java.util.List;
 public class ElementoCarrelloController {
     @Autowired
     private ElementoCarrelloService elementoCarrelloService;
+    @Autowired
+    private CarrelloService carrelloService;
 
     @GetMapping
     public List<ElementoCarrello> prendiElementi(){
@@ -28,16 +32,13 @@ public class ElementoCarrelloController {
 
     @PostMapping()
     public ElementoCarrello salvaElemento(@RequestBody @Validated ElementoCarrelloDto elementoCarrelloDto) throws NotFoundException {
-        return elementoCarrelloService.salvaELemento(elementoCarrelloDto);
+        Carrello carrello= carrelloService.prendiCarrello(elementoCarrelloDto.getCarrelloId());
+        return elementoCarrelloService.salvaELemento(elementoCarrelloDto, carrello);
     }
+
     @PutMapping("{id}")
     public ElementoCarrello modificaQuantità(@PathVariable Long id ,int nuovaQuantita) throws NotFoundException {
         return elementoCarrelloService.modificaQuantità(id,nuovaQuantita);
-    }
-
-    @PutMapping()
-    public ElementoCarrello aggiungiAlCarrello( @RequestBody @Validated ElementoCarrelloDto elementoCarrelloDto) throws NotFoundException {
-    return elementoCarrelloService.aggiungiAlCarrello(elementoCarrelloDto);
     }
 
     @DeleteMapping("/{id}")
