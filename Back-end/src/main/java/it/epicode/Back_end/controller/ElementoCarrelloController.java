@@ -31,8 +31,8 @@ public class ElementoCarrelloController {
     }
 
     @PostMapping()
-    public ElementoCarrello salvaElemento(@RequestBody @Validated ElementoCarrelloDto elementoCarrelloDto) throws NotFoundException {
-        Carrello carrello= carrelloService.prendiCarrello(elementoCarrelloDto.getCarrelloId());
+    public ElementoCarrello salvaElemento(@RequestBody @Validated ElementoCarrelloDto elementoCarrelloDto,  @RequestHeader("Authorization") String token) throws NotFoundException {
+        Carrello carrello= carrelloService.prendiCarrelloDaUtente(token);
         return elementoCarrelloService.salvaELemento(elementoCarrelloDto, carrello);
     }
 

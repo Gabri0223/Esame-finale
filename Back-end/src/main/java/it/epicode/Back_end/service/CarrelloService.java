@@ -7,6 +7,7 @@ import it.epicode.Back_end.model.Carrello;
 import it.epicode.Back_end.model.ElementoCarrello;
 import it.epicode.Back_end.model.Utente;
 import it.epicode.Back_end.repository.CarrelloRepository;
+import it.epicode.Back_end.security.JwtTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,9 @@ public class CarrelloService {
     private CarrelloRepository carrelloRepository;
     @Autowired
     private ElementoCarrelloService elementoCarrelloService;
+    @Autowired
+    private JwtTool jwtTool;
+
 
     public List<Carrello> prendiCarrelli(){
         return carrelloRepository.findAll();
@@ -41,6 +45,10 @@ public class CarrelloService {
         carrello.setElementiCarrello(elementi);
 
         return carrelloRepository.save(carrello);
+    }
+
+    public Carrello prendiCarrelloDaUtente(String token) throws NotFoundException {
+        return carrelloRepository.findByUtente(jwtTool.UtentedaToken(token)).orElseThrow(()->new NotFoundException("carrello associato ad utente non trovato"));
     }
 
     public Carrello creaDaDto(CarrelloDto carrelloDto, Utente utente) throws NotFoundException {

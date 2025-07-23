@@ -40,7 +40,6 @@ const NavbarPrincipale = () => {
           return res.json();
         })
         .then((data) => {
-          console.log(data);
           localStorage.removeItem("carrello");
           setNumeroTotale(0);
           setCarrelloUnito(true);
