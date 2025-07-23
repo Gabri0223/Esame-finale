@@ -8,7 +8,10 @@ import BarraDiRicerca from "./BarraDiRicerca";
 import React, { useEffect, useState } from "react";
 
 const NavbarPrincipale = () => {
-  const carrello = JSON.parse(localStorage.getItem("carrello")) || [];
+  if (!localStorage.getItem("carrello")) {
+    localStorage.setItem("carrello", JSON.stringify([]));
+  }
+
   const [numeroTotale, setNumeroTotale] = useState(0);
 
   useEffect(() => {

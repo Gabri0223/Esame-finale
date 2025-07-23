@@ -38,6 +38,7 @@ public class UtenteService {
 
     public Utente saveUtente(UtenteDto utenteDto) throws UtenteGiaEsistenteException {
         Utente nuovoUtente = new Utente();
+
         nuovoUtente.setNome(utenteDto.getNome());
         nuovoUtente.setCognome(utenteDto.getCognome());
         if(utenteRepository.existsByUsername(utenteDto.getUsername())){
@@ -47,13 +48,16 @@ public class UtenteService {
 
         String hasledPassword=encoder.encode(utenteDto.getPassword());
         nuovoUtente.setPassword(hasledPassword);
-        nuovoUtente.setImgUrl(utenteDto.getImgUrl());
+        nuovoUtente.setEmail(utenteDto.getEmail());
         nuovoUtente.setRuolo(StatoRuolo.Utente);
+
+        nuovoUtente= utenteRepository.save(nuovoUtente);
+
         Carrello carrello = new Carrello();
         carrello.setUtente(nuovoUtente);
         carrelloRepository.save(carrello);
-
         nuovoUtente.setCarrello(carrello);
+
         return utenteRepository.save(nuovoUtente);
     }
 
@@ -62,7 +66,7 @@ public class UtenteService {
         utenteDaModificare.setNome(utenteDto.getNome());
         utenteDaModificare.setCognome(utenteDto.getCognome());
         utenteDaModificare.setUsername(utenteDto.getUsername());
-        utenteDaModificare.setImgUrl(utenteDto.getImgUrl());
+        utenteDaModificare.setEmail(utenteDto.getEmail());
         utenteDaModificare.setPassword(encoder.encode(utenteDto.getPassword()));
 
         return utenteRepository.save(utenteDaModificare);

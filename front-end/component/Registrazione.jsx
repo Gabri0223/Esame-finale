@@ -26,7 +26,6 @@ const Registrazione = () => {
           username: username,
           email: email,
           password: password,
-          imgUrl: avatar,
         }),
       });
 

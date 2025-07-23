@@ -13,7 +13,7 @@ import React from "react";
 
 const Carrello = () => {
   const datiCarrello = JSON.parse(localStorage.getItem("carrello")) || [];
-  const utente = JSON.parse(localStorage.getItem("token")) || null;
+  const utente = localStorage.getItem("token");
   const navigate = useNavigate();
   const [carrello, setCarrello] = useState([]);
   const variazionePrezzo = { XS: -5.0, S: -2.0, M: 0, L: 2.0, XL: 5.0 };

@@ -1,7 +1,9 @@
 package it.epicode.Back_end.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.epicode.Back_end.enumerated.StatoRuolo;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -28,14 +30,18 @@ public class Utente implements UserDetails {
     private String username;
     @NotBlank(message = "la password non può essere vuota")
     private String password;
-    private String imgUrl;
+    @Email(message = "l'email non può essere vuota")
+    private String email;
     @Enumerated(value = EnumType.STRING)
     private StatoRuolo ruolo;
 
     @OneToMany(mappedBy = "utente")
     private List<Prenotazione> prenotazioni= new ArrayList<>();
+
     @OneToOne(mappedBy = "utente")
+    @JsonIgnore
     private Carrello carrello;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority( ruolo.name()));
