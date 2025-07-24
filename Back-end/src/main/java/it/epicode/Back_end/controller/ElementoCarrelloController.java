@@ -37,7 +37,7 @@ public class ElementoCarrelloController {
     }
 
     @PutMapping("{id}")
-    public ElementoCarrello modificaQuantità(@PathVariable Long id ,int nuovaQuantita) throws NotFoundException {
+    public ElementoCarrello modificaQuantità(@PathVariable Long id , @RequestParam int nuovaQuantita) throws NotFoundException {
         return elementoCarrelloService.modificaQuantità(id,nuovaQuantita);
     }
 

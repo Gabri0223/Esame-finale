@@ -28,9 +28,9 @@ public class CarrelloController {
         return carrelloService.prendiCarrelli();
     }
 
-    @GetMapping("/{id}")
-    public Carrello prendiCarrello(@PathVariable Long id) throws NotFoundException {
-        return carrelloService.prendiCarrello(id);
+    @GetMapping("/daToken")
+    public Carrello prendiCarrello(@RequestHeader("Authorization")String token) throws NotFoundException {
+        return carrelloService.prendiCarrelloDaUtente(token);
     }
 
     @PostMapping()

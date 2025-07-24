@@ -4,7 +4,7 @@ import React from "react";
 
 const BottoneAggiungiCarrello = ({ prodotto, quantità }) => {
   const [carrello, setCarrello] = useState([]);
-
+  const token = localStorage.getItem("token");
   useEffect(() => {
     const carrelloSalvato = JSON.parse(localStorage.getItem("carrello")) || [];
     setCarrello(carrelloSalvato);
@@ -33,10 +33,39 @@ const BottoneAggiungiCarrello = ({ prodotto, quantità }) => {
     localStorage.setItem("carrello", JSON.stringify(nuovoCarrello));
   };
 
+  const aggiungiAlCarrello = () => {
+    fetch("http://localhost:8080/elementi", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token.trim()}`,
+      },
+      body: JSON.stringify({
+        prodottoId: prodotto.id,
+        quantita: quantità,
+        taglia: prodotto.tagliaAttrezzatura,
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Errore durante l'aggiunta al carrello");
+        }
+        return res.json();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
   return (
     <Button
       className="bottoneRosa mb-2 btn btn-primary"
-      onClick={aggiungiProdotto}
+      onClick={() => {
+        if (token) {
+          aggiungiAlCarrello();
+        } else {
+          aggiungiProdotto();
+        }
+      }}
     >
       Aggiungi al carrello
     </Button>

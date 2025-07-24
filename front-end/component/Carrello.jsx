@@ -12,42 +12,117 @@ import { BsExclamationTriangleFill } from "react-icons/bs";
 import React from "react";
 
 const Carrello = () => {
-  const datiCarrello = JSON.parse(localStorage.getItem("carrello")) || [];
-  const utente = localStorage.getItem("token");
+  const token = localStorage.getItem("token") || null;
   const navigate = useNavigate();
   const [carrello, setCarrello] = useState([]);
+  const [datiCarrello, setDatiCarrello] = useState({});
   const variazionePrezzo = { XS: -5.0, S: -2.0, M: 0, L: 2.0, XL: 5.0 };
+
+  useEffect(() => {
+    if (token) {
+      fetch("http://localhost:8080/Carrello/daToken", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("Errore nella visualizazione del carrello");
+          }
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          setCarrello(data.elementi || []);
+        })
+        .catch((err) => {
+          console.error(err.message);
+        });
+    } else {
+      const datiLocalStorage =
+        JSON.parse(localStorage.getItem("carrello")) || [];
+      setCarrello(datiLocalStorage);
+    }
+  }, []);
 
   const incrementaQuantità = (index) => {
     const nuovoCarrello = [...carrello];
     nuovoCarrello[index].quantità += 1;
     setCarrello(nuovoCarrello);
-    localStorage.setItem("carrello", JSON.stringify(nuovoCarrello));
-  };
 
-  useEffect(() => {
-    setCarrello(datiCarrello);
-    console.log("DEBUG CARRELLO:", datiCarrello);
-  }, []);
+    if (token) {
+      fetch(
+        `http://localhost:8080/api/elementi/${nuovoCarrello[index].id}?nuovaQuantita=${nuovoCarrello[index].quantità}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("Errore aumento quantità backend");
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else {
+      localStorage.setItem("carrello", JSON.stringify(nuovoCarrello));
+    }
+  };
 
   const diminuisciQuantità = (index) => {
     const nuovoCarrello = [...carrello];
     if (nuovoCarrello[index].quantità > 1) {
       nuovoCarrello[index].quantità -= 1;
       setCarrello(nuovoCarrello);
-      localStorage.setItem("carrello", JSON.stringify(nuovoCarrello));
+
+      if (token) {
+        fetch(
+          `http://localhost:8080/api/elementi/${nuovoCarrello[index].id}?nuovaQuantita=${nuovoCarrello[index].quantità}`,
+          {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error("Errore aumento quantità backend");
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      } else {
+        localStorage.setItem("carrello", JSON.stringify(nuovoCarrello));
+      }
     }
   };
 
-  const eliminaElemento = (index) => {
-    const nuovoCarrello = carrello.filter((item, i) => i !== index);
-    setCarrello(nuovoCarrello);
-    localStorage.setItem("carrello", JSON.stringify(nuovoCarrello));
+  const eliminaElementoBackend = (item) => {
+    return fetch(`http://localhost:8080/api/carrello/elemento/${item.id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: token,
+      },
+    });
   };
 
-  useEffect(() => {
-    setCarrello(datiCarrello);
-  }, []);
+  const eliminaElemento = (index) => {
+    const item = carrello[index];
+    const nuovoCarrello = carrello.filter((_, i) => i !== index);
+    setCarrello(nuovoCarrello);
+
+    if (token) {
+      eliminaElementoBackend(item);
+    } else {
+      localStorage.setItem("carrello", JSON.stringify(nuovoCarrello));
+    }
+  };
 
   return (
     <div className="sfondoCarrello">
@@ -208,7 +283,7 @@ const Carrello = () => {
                       €
                     </p>
                   </div>
-                  {utente === null && (
+                  {token === null && (
                     <div className="d-flex align-items-end flex-column ">
                       <div className="d-flex w-50 justify-content-center align-items-center text-danger">
                         <small className="me-3">
@@ -221,7 +296,7 @@ const Carrello = () => {
                       </Button>
                     </div>
                   )}
-                  {utente !== null && (
+                  {token !== null && (
                     <div className="d-flex justify-content-end ">
                       <Button className="rounded-pill mb-3 me-3 w-50">
                         Procedi al pagamento

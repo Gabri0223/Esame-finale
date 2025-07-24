@@ -32,6 +32,9 @@ public class JwtTool {
     }
 
     public Utente UtentedaToken(String token) throws NotFoundException {
+        if (token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }
         Long id=Long.parseLong(Jwts.parser().verifyWith(Keys.hmacShaKeyFor(chiaveSegreta.getBytes())).build().parseSignedClaims(token).getPayload().getSubject());
         return utenteService.getUtente(id);
     }
