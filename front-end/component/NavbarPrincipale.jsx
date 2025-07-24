@@ -1,14 +1,12 @@
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import LinkAccedi from "../component/LinkAccedi";
 import BarraDiRicerca from "./BarraDiRicerca";
+import IconaCarrello from "../component/IconaCarrello";
 import React, { useEffect, useState } from "react";
 
 const NavbarPrincipale = () => {
-  const [numeroTotale, setNumeroTotale] = useState(0);
   const [carrelloUnito, setCarrelloUnito] = useState(false);
 
   if (!localStorage.getItem("carrello")) {
@@ -41,7 +39,6 @@ const NavbarPrincipale = () => {
         })
         .then((data) => {
           localStorage.removeItem("carrello");
-          setNumeroTotale(0);
           setCarrelloUnito(true);
         })
         .catch((err) => {
@@ -49,18 +46,6 @@ const NavbarPrincipale = () => {
         });
     }
   }, [carrelloUnito]);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const carrello = JSON.parse(localStorage.getItem("carrello")) || [];
-      const totale = carrello.reduce(
-        (totale, item) => totale + item.quantità,
-        0
-      );
-      setNumeroTotale(totale);
-    }, 200);
-
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <Navbar expand="lg" className="navBar">
@@ -84,19 +69,7 @@ const NavbarPrincipale = () => {
           </div>
           <div className="w-25 d-flex ms-5 align-items-center">
             <LinkAccedi />
-            <div className="position-relative">
-              <Link to="/carrello">
-                <FontAwesomeIcon
-                  icon={faCartShopping}
-                  className="carrello ms-5"
-                />
-              </Link>
-              {numeroTotale > 0 && (
-                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger piùPiccolo">
-                  {numeroTotale}
-                </span>
-              )}
-            </div>
+            <IconaCarrello />
           </div>
         </Navbar.Collapse>
       </Container>
