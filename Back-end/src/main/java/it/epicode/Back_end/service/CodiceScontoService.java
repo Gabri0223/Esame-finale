@@ -40,6 +40,10 @@ public class CodiceScontoService {
         return codiceScontoRepository.save(codiceScontoDaModificare);
     }
 
+    public boolean verificaCodiceSconto(String codiceSconto){
+        return codiceScontoRepository.existByCodiceSconto(codiceSconto);
+    }
+
     public void eliminaCodiceSconto(Long id) throws NotFoundException {
         codiceScontoRepository.delete(prendiCodiceSconto(id));
     }

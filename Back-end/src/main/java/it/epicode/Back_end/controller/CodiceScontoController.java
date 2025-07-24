@@ -37,6 +37,11 @@ public class CodiceScontoController {
         return codiceScontoService.modificaCodiceSconto(id,codiceScontoDto);
     }
 
+    @GetMapping("/verifica")
+    public boolean verificaCodiceSconto(@RequestParam String codiceSconto){
+        return codiceScontoService.verificaCodiceSconto(codiceSconto);
+    }
+
     @DeleteMapping("/{id}")
     public void eliminaCOdiceSconto(@PathVariable Long id) throws NotFoundException {
         codiceScontoService.eliminaCodiceSconto(id);
