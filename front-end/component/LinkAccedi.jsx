@@ -6,6 +6,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 
 const LinkAccedi = () => {
   const [userData, setUserData] = useState(null);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -57,6 +58,8 @@ const LinkAccedi = () => {
                   className="logOutButton p-0 "
                   onClick={() => {
                     localStorage.removeItem("token");
+                    localStorage.removeItem("carrello");
+                    window.location.reload();
                     setUserData(null);
                   }}
                 >

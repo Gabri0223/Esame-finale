@@ -34,6 +34,12 @@ public class ElementoCarrelloService {
 
     public ElementoCarrello salvaELemento( ElementoCarrelloDto elementoCarrelloDto, Carrello carrello) throws NotFoundException {
         ElementoCarrello elementoCarrello=new ElementoCarrello();
+        for (ElementoCarrello elementoCarrello1:carrello.getElementiCarrello() ){
+            if(elementoCarrelloDto.getProdottoId().equals(elementoCarrello1.getProdotto().getId()) && elementoCarrelloDto.getTaglia().equals(elementoCarrello1.getTaglia())){
+                modificaQuantita(elementoCarrello1.getId(),elementoCarrello1.getQuantita()+1);
+                return elementoCarrello1;
+            }
+        }
         Prodotto prodotto = prodottoRepository.findById(elementoCarrelloDto.getProdottoId())
                 .orElseThrow(() -> new NotFoundException("Prodotto non trovato con id: " + elementoCarrelloDto.getProdottoId()));
 
@@ -58,6 +64,8 @@ public class ElementoCarrelloService {
             }
         }
         elementoCarrello.setProdotto(prodotto);
+
+
         elementoCarrello.setQuantita(elementoCarrelloDto.getQuantita());
         elementoCarrello.setPrezzoTotale(prezzoBase*elementoCarrello.getQuantita());
         elementoCarrello.setTaglia(taglia);
@@ -68,12 +76,12 @@ public class ElementoCarrelloService {
 
    //avendo solo la quantità da modificare creo un metodo modificaQuantità al posto di modificaElemento
 
-    public ElementoCarrello modificaQuantità(Long id, int nuovaQuantita) throws NotFoundException {
+    public ElementoCarrello modificaQuantita(Long id, int nuovaQuantita) throws NotFoundException {
         ElementoCarrello elementoCarrello= prendiElemento(id);
         double prezzoTotalePrec=elementoCarrello.getPrezzoTotale()/elementoCarrello.getQuantita();
         elementoCarrello.setQuantita(nuovaQuantita);
         elementoCarrello.setPrezzoTotale(prezzoTotalePrec*nuovaQuantita);
-        return elementoCarrello;
+        return elementoCarrelloRepository.save(elementoCarrello);
     }
 
 

@@ -30,7 +30,12 @@ const IconaCarrello = () => {
           })
           .then((data) => {
             console.log(data);
-            setNumeroTotale(data.elementiCarrello.length);
+            const carrello = data.elementiCarrello;
+            const totale = carrello.reduce(
+              (totale, item) => totale + item.quantita,
+              0
+            );
+            setNumeroTotale(totale);
           })
           .catch((err) => {
             console.error(err);

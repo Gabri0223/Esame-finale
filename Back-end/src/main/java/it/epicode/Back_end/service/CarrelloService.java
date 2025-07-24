@@ -77,13 +77,13 @@ public class CarrelloService {
             boolean trovato = false;
             for (ElementoCarrello elementoCarrello : elementiBackEnd) {
                 if (elementoCarrello.getProdotto().getId().equals(elementoCarrelloDto.getProdottoId())) {
-
                     elementoCarrello.setQuantita(elementoCarrello.getQuantita() + elementoCarrelloDto.getQuantita());
                     trovato = true;
                     break;
                 }
             }
             if (!trovato) {
+
                 ElementoCarrello nuovoElemento = elementoCarrelloService.salvaELemento(elementoCarrelloDto,carrelloBackEnd);
                 nuovoElemento.setCarrello(carrelloBackEnd);
                 elementiBackEnd.add(nuovoElemento);

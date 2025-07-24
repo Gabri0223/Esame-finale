@@ -22,6 +22,7 @@ const NavbarPrincipale = () => {
         elementiCarrelloDto: carrello.map((item) => ({
           prodottoId: item.prodotto.id,
           quantita: item.quantità,
+          taglia: item.prodotto.tagliaAttrezzatura,
         })),
       };
       console.log("carrelloDaUnire:", carrelloDaUnire);

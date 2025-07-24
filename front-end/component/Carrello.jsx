@@ -15,7 +15,7 @@ const Carrello = () => {
   const token = localStorage.getItem("token") || null;
   const navigate = useNavigate();
   const [carrello, setCarrello] = useState([]);
-  const [datiCarrello, setDatiCarrello] = useState({});
+  let costiSpedizione = 6.5;
   const variazionePrezzo = { XS: -5.0, S: -2.0, M: 0, L: 2.0, XL: 5.0 };
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const Carrello = () => {
         })
         .then((data) => {
           console.log(data);
-          setCarrello(data.elementi || []);
+          setCarrello(data.elementiCarrello || []);
         })
         .catch((err) => {
           console.error(err.message);
@@ -45,14 +45,31 @@ const Carrello = () => {
     }
   }, []);
 
-  const incrementaQuantità = (index) => {
-    const nuovoCarrello = [...carrello];
-    nuovoCarrello[index].quantità += 1;
-    setCarrello(nuovoCarrello);
+  const calcoloSubTotale = () => {
+    const subtotale = carrello
+      .reduce((totale, item) => {
+        const variazione =
+          variazionePrezzo[item.tagliaAttrezzatura] ||
+          variazionePrezzo[item.taglia] ||
+          0;
+        const prezzoFinale = item.prodotto.prezzo + variazione;
+        return totale + prezzoFinale * (item.quantità || item.quantita);
+      }, 0)
+      .toFixed(2);
+    if (subtotale > 30) {
+      costiSpedizione = 0;
+    }
+    return subtotale;
+  };
 
+  const incrementaQuantità = (index) => {
     if (token) {
+      const nuovoCarrello = [...carrello];
+      nuovoCarrello[index].quantita += 1;
+      setCarrello(nuovoCarrello);
+      console.log(nuovoCarrello[index].quantita);
       fetch(
-        `http://localhost:8080/api/elementi/${nuovoCarrello[index].id}?nuovaQuantita=${nuovoCarrello[index].quantità}`,
+        `http://localhost:8080/elementi/${nuovoCarrello[index].id}?nuovaQuantita=${nuovoCarrello[index].quantita}`,
         {
           method: "PUT",
           headers: {
@@ -69,52 +86,57 @@ const Carrello = () => {
           console.error(err);
         });
     } else {
+      const nuovoCarrello = [...carrello];
+      nuovoCarrello[index].quantità += 1;
+      setCarrello(nuovoCarrello);
       localStorage.setItem("carrello", JSON.stringify(nuovoCarrello));
     }
   };
 
   const diminuisciQuantità = (index) => {
     const nuovoCarrello = [...carrello];
-    if (nuovoCarrello[index].quantità > 1) {
+
+    if (token) {
+      nuovoCarrello[index].quantita -= 1;
+      setCarrello(nuovoCarrello);
+      fetch(
+        `http://localhost:8080/elementi/${nuovoCarrello[index].id}?nuovaQuantita=${nuovoCarrello[index].quantita}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("Errore aumento quantità backend");
+          }
+          return res.json;
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else {
       nuovoCarrello[index].quantità -= 1;
       setCarrello(nuovoCarrello);
-
-      if (token) {
-        fetch(
-          `http://localhost:8080/api/elementi/${nuovoCarrello[index].id}?nuovaQuantita=${nuovoCarrello[index].quantità}`,
-          {
-            method: "PUT",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-          .then((res) => {
-            if (!res.ok) {
-              throw new Error("Errore aumento quantità backend");
-            }
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      } else {
-        localStorage.setItem("carrello", JSON.stringify(nuovoCarrello));
-      }
+      localStorage.setItem("carrello", JSON.stringify(nuovoCarrello));
     }
   };
 
   const eliminaElementoBackend = (item) => {
-    return fetch(`http://localhost:8080/api/carrello/elemento/${item.id}`, {
+    console.log(item);
+    return fetch(`http://localhost:8080/elementi/${item.id}`, {
       method: "DELETE",
       headers: {
-        Authorization: token,
+        Authorization: `Bearer ${token}`,
       },
     });
   };
 
   const eliminaElemento = (index) => {
     const item = carrello[index];
-    const nuovoCarrello = carrello.filter((_, i) => i !== index);
+    const nuovoCarrello = carrello.filter((elemento, i) => i !== index);
     setCarrello(nuovoCarrello);
 
     if (token) {
@@ -172,26 +194,36 @@ const Carrello = () => {
                     </Col>
                     <Col xs={2}>
                       <p className="ps-4 m-0 scrittaVerde">
-                        {item.prodotto.tagliaAttrezzatura}
+                        {item.prodotto.tagliaAttrezzatura || item.taglia}
                       </p>
                     </Col>
                     <Col xs={2}>
-                      <p className="ps-3 m-0 scrittaVerde">
-                        {(
-                          item.prodotto.prezzo +
-                          variazionePrezzo[item.prodotto.tagliaAttrezzatura]
-                        ).toFixed(2)}
-                        €
-                      </p>
+                      {token === null && (
+                        <p className=" m-0 scrittaVerde">
+                          {(
+                            item.prodotto.prezzo +
+                            variazionePrezzo[item.prodotto.tagliaAttrezzatura]
+                          ).toFixed(2)}
+                          €
+                        </p>
+                      )}
+                      {token !== null && (
+                        <p className=" m-0 scrittaVerde">
+                          {(
+                            item.prodotto.prezzo + variazionePrezzo[item.taglia]
+                          ).toFixed(2)}
+                          €
+                        </p>
+                      )}
                     </Col>
                     <Col xs={2}>
                       <div className="d-flex align-items-center ">
-                        {item.quantità === 1 && (
+                        {(item.quantità === 1 || item.quantita === 1) && (
                           <div className=" border border-2 border-secondary rounded-start aggiungiETogli  bg-secondary-subtle text-white">
                             <p className="m-0 p-1 px-2">-</p>
                           </div>
                         )}
-                        {item.quantità > 1 && (
+                        {(item.quantità > 1 || item.quantita > 1) && (
                           <div
                             className=" bordiVerdi rounded-start aggiungiETogli"
                             onClick={() => {
@@ -204,7 +236,7 @@ const Carrello = () => {
 
                         <div className="bordiVerdi">
                           <p className="m-0 p-1 px-2 scrittaVerde">
-                            {item.quantità}
+                            {item.quantità || item.quantita}
                           </p>
                         </div>
 
@@ -219,16 +251,28 @@ const Carrello = () => {
                       </div>
                     </Col>
                     <Col xs={1} className="">
-                      <p className="ps-3 m-0 scrittaVerde">
-                        {(
-                          (item.prodotto.prezzo +
-                            variazionePrezzo[
-                              item.prodotto.tagliaAttrezzatura
-                            ]) *
-                          item.quantità
-                        ).toFixed(2)}
-                        €
-                      </p>
+                      {token === null && (
+                        <p className=" m-0 scrittaVerde">
+                          {(
+                            (item.prodotto.prezzo +
+                              variazionePrezzo[
+                                item.prodotto.tagliaAttrezzatura
+                              ]) *
+                            item.quantità
+                          ).toFixed(2)}
+                          €
+                        </p>
+                      )}
+                      {token !== null && (
+                        <p className="m-0 scrittaVerde">
+                          {(
+                            (item.prodotto.prezzo +
+                              variazionePrezzo[item.taglia]) *
+                            item.quantita
+                          ).toFixed(2)}
+                          €
+                        </p>
+                      )}
                     </Col>
                   </Row>
                 ))}
@@ -253,31 +297,33 @@ const Carrello = () => {
               <Col xs={6}>
                 <div className="mt-3 ms-3">
                   <p className="fs-4">Totale Carrello</p>
-                  <div className="d-flex justify-content-between bg-secondary-subtle align-items-center border border-2 border-secondary-subtle me-3">
-                    <p className="fs-5 m-0 py-2 ps-3">Subtotale</p>
-                    <p className="me-4 mb-0 fs-5">
-                      {carrello
-                        .reduce((acc, item) => {
-                          const variazione =
-                            variazionePrezzo[item.tagliaAttrezzatura] || 0;
-                          const prezzoFinale =
-                            item.prodotto.prezzo + variazione;
-                          return acc + prezzoFinale * item.quantità;
-                        }, 0)
-                        .toFixed(2)}
-                      €
-                    </p>
+                  <div className=" bg-secondary-subtle border border-2 border-secondary-subtle me-3">
+                    <div className="d-flex justify-content-between align-items-center">
+                      <p className="fs-5 m-0 py-2 ps-3">Subtotale</p>
+                      <p className="me-4 mb-0 fs-5">{calcoloSubTotale()}€</p>
+                    </div>
+                    <div className="d-flex justify-content-between align-items-center ms-3">
+                      <small className="piùPiccolo">Costo spedizione</small>
+                      <p className="p-6 m-0 pe-4">{costiSpedizione}€</p>
+                    </div>
                   </div>
+
                   <div className="d-flex justify-content-between bg-secondary-subtle align-items-center mb-3 border border-2 border-secondary-subtle me-3">
                     <p className="fs-5 m-0 py-2 ps-3">Totale</p>
                     <p className="me-4 mb-0 fs-5">
                       {carrello
-                        .reduce((acc, item) => {
+                        .reduce((totale, item) => {
                           const variazione =
-                            variazionePrezzo[item.tagliaAttrezzatura] || 0;
+                            variazionePrezzo[item.tagliaAttrezzatura] ||
+                            variazionePrezzo[item.taglia] ||
+                            0;
                           const prezzoFinale =
                             item.prodotto.prezzo + variazione;
-                          return acc + prezzoFinale * item.quantità;
+                          return (
+                            totale +
+                            prezzoFinale * (item.quantità || item.quantita) +
+                            costiSpedizione
+                          );
                         }, 0)
                         .toFixed(2)}
                       €
