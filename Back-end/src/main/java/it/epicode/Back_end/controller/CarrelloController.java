@@ -4,6 +4,7 @@ import it.epicode.Back_end.dto.CarrelloDto;
 import it.epicode.Back_end.dto.ElementoCarrelloDto;
 import it.epicode.Back_end.exception.NotFoundException;
 import it.epicode.Back_end.model.Carrello;
+import it.epicode.Back_end.model.ElementoCarrello;
 import it.epicode.Back_end.model.Utente;
 import it.epicode.Back_end.security.JwtTool;
 import it.epicode.Back_end.service.CarrelloService;
@@ -29,7 +30,7 @@ public class CarrelloController {
     }
 
     @GetMapping("/daToken")
-    public Carrello prendiCarrello(@RequestHeader("Authorization")String token) throws NotFoundException {
+    public Carrello prendiCarrelloDaToken(@RequestHeader("Authorization")String token) throws NotFoundException {
         return carrelloService.prendiCarrelloDaUtente(token);
     }
 
@@ -50,6 +51,10 @@ public class CarrelloController {
 
         return carrelloService.creaDaDto(carrelloDto, utente);
     }
-
+    @DeleteMapping
+    public void eliminaElementiCarrello(@RequestHeader("Authorization") String token) throws NotFoundException {
+        Carrello carrello=carrelloService.prendiCarrelloDaUtente(token);
+        carrelloService.eliminaElementi(carrello.getId());
+    }
    //Il carrello non viene mai eliminato nel mio progetto perciò non creo un metodo deleteCarrello
 }

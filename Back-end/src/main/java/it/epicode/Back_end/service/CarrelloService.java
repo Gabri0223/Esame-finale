@@ -91,4 +91,10 @@ public class CarrelloService {
         }
         carrelloRepository.save(carrelloBackEnd);
     }
+
+    public void eliminaElementi(Long id) throws NotFoundException {
+        for(ElementoCarrello elementoCarrello: prendiCarrello(id).getElementiCarrello()) {
+            elementoCarrelloService.eliminaElemento(elementoCarrello.getId());
+        }
+    }
 }

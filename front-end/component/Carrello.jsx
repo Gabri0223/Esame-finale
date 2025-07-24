@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { BsExclamationTriangleFill } from "react-icons/bs";
+import BottonePagamento from "../component/BottonePagamento";
 import React from "react";
 
 const Carrello = () => {
@@ -342,13 +343,7 @@ const Carrello = () => {
                       </Button>
                     </div>
                   )}
-                  {token !== null && (
-                    <div className="d-flex justify-content-end ">
-                      <Button className="rounded-pill mb-3 me-3 w-50">
-                        Procedi al pagamento
-                      </Button>
-                    </div>
-                  )}
+                  {token !== null && <BottonePagamento />}
                 </div>
               </Col>
             </Row>

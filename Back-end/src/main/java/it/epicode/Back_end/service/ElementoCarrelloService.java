@@ -84,9 +84,9 @@ public class ElementoCarrelloService {
         return elementoCarrelloRepository.save(elementoCarrello);
     }
 
-
-
     public void eliminaElemento(Long id) throws NotFoundException {
         elementoCarrelloRepository.delete(prendiElemento(id));
     }
+
+
 }
