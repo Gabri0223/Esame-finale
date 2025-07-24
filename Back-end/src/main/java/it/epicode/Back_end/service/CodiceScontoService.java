@@ -41,7 +41,7 @@ public class CodiceScontoService {
     }
 
     public boolean verificaCodiceSconto(String codiceSconto){
-        return codiceScontoRepository.existByCodiceSconto(codiceSconto);
+        return codiceScontoRepository.existsByCodiceSconto(codiceSconto);
     }
 
     public void eliminaCodiceSconto(Long id) throws NotFoundException {
