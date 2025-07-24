@@ -6,16 +6,16 @@ import { useState, useEffect } from "react";
 import { MdOutlineCancel } from "react-icons/md";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
 import { BsExclamationTriangleFill } from "react-icons/bs";
 import BottonePagamento from "../component/BottonePagamento";
+import CodiceSconto from "../component/CodiceSconto";
 import React from "react";
 
 const Carrello = () => {
   const token = localStorage.getItem("token") || null;
   const navigate = useNavigate();
   const [carrello, setCarrello] = useState([]);
+  const [scontoValido, setScontoValido] = useState(false);
   let costiSpedizione = 6.5;
   const variazionePrezzo = { XS: -5.0, S: -2.0, M: 0, L: 2.0, XL: 5.0 };
 
@@ -145,6 +145,10 @@ const Carrello = () => {
     } else {
       localStorage.setItem("carrello", JSON.stringify(nuovoCarrello));
     }
+  };
+
+  const codiceValido = (valido) => {
+    setScontoValido(valido);
   };
 
   return (
@@ -284,15 +288,7 @@ const Carrello = () => {
                   <p className="mt-3 ms-3 fw-bold mb-0 fs-4">
                     Codice promozionale
                   </p>
-                  <InputGroup className="ms-3 mt-3 mb-4 w-100">
-                    <Form.Control
-                      placeholder="Codice Coupon"
-                      className=" w-50"
-                    />
-                    <Button className="rounded-pill w-25 ms-2 me-5">
-                      INVIA COUPON
-                    </Button>
-                  </InputGroup>
+                  <CodiceSconto onValidazione={codiceValido} />
                 </div>
               </Col>
               <Col xs={6}>
