@@ -1,8 +1,10 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import { useNavigate } from "react-router-dom";
 import React from "react";
 
 const Servizi = () => {
+  const navigate = useNavigate();
   return (
     <div className="sfondoRosa pb-5 ">
       <h2 className="fw-bolder text-center pt-4">I nostri servizi</h2>
@@ -18,7 +20,12 @@ const Servizi = () => {
             className="position-relative"
           />
 
-          <Button className=" bottoneServizi w-75">Go somewhere</Button>
+          <Button
+            className=" bottoneServizi w-75"
+            onClick={() => navigate("/prenotazione")}
+          >
+            Prenota subito
+          </Button>
         </Card>
         <Card className="cardServizi rounded-bottom-3">
           <Card.Title className="text-center fw-bold sfondoMarrone rounded-top-2 p-2 m-0 bordoSottoGiallo rounded-bottom-3">

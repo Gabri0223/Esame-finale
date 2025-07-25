@@ -1,14 +1,15 @@
 package it.epicode.Back_end.service;
 
 import it.epicode.Back_end.dto.PrenotazioneDto;
+import it.epicode.Back_end.enumerated.TagliaCane;
+import it.epicode.Back_end.enumerated.TipoSpecialista;
 import it.epicode.Back_end.exception.NotFoundException;
 import it.epicode.Back_end.model.Prenotazione;
+import it.epicode.Back_end.model.Utente;
 import it.epicode.Back_end.repository.PrenotazioneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 
 import java.util.List;
 
@@ -29,12 +30,22 @@ public class PrenotazioneService {
     }
 
     public Prenotazione salvaPrenotazione(PrenotazioneDto prenotazioneDto) throws NotFoundException {
+        Utente utente = utenteService.getUtente(prenotazioneDto.getUtenteId());
 
         Prenotazione prenotazione = new Prenotazione();
-
         prenotazione.setDataPrenotazione(prenotazioneDto.getDataPrenotazione());
-        prenotazione.setUtente(utenteService.getUtente(prenotazioneDto.getUtenteId()));
         prenotazione.setSpecialista(prenotazioneDto.getSpecialista());
+        prenotazione.setUtente(utente);
+
+        if (prenotazioneDto.getSpecialista() == TipoSpecialista.TOELETTATORE) {
+            if (prenotazioneDto.getTagliaCane() == null) {
+                throw new IllegalArgumentException("La taglia del cane è obbligatoria per il toelettatore");
+            }
+            prenotazione.setTagliaCane(prenotazioneDto.getTagliaCane());
+            prenotazione.setPrezzo(calcolaPrezzoToelettatura(prenotazioneDto.getTagliaCane()));
+        } else {
+            prenotazione.setPrezzo(0);
+        }
 
         return prenotazioneRepository.save(prenotazione);
     }
@@ -50,7 +61,20 @@ public class PrenotazioneService {
         return prenotazioneRepository.save( prenotazioneDaModificare);
     }
 
-    public void eliminaPrenotazione(Long id) throws NotFoundException {
+    public double calcolaPrezzoToelettatura(TagliaCane taglia) {
+        switch (taglia) {
+            case PICCOLA:
+                return 10.0;
+            case MEDIA:
+                return 14.0;
+            case GRANDE:
+                return 18.0;
+            default:
+                throw new IllegalArgumentException("Taglia non valida");
+        }
+    }
+
+        public void eliminaPrenotazione(Long id) throws NotFoundException {
         prenotazioneRepository.delete(prendiPrenotazione(id));
     }
 }

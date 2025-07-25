@@ -13,6 +13,7 @@ import Pet from "../component/Pet.jsx";
 import Prodotti from "../component/Prodotti.jsx";
 import InformazioniNegozio from "../component/InformazioniNegozio.jsx";
 import Servizi from "../component/Servizi.jsx";
+import Prenotazione from "../component/Prenotazione.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 
@@ -76,6 +77,14 @@ function App() {
             <BarraNera />
             <NavbarPrincipale />
             <PaginaRicerca />
+          </>
+        }
+      />
+      <Route
+        path="/prenotazione"
+        element={
+          <>
+            <Prenotazione />
           </>
         }
       />

@@ -1,5 +1,6 @@
 package it.epicode.Back_end.dto;
 
+import it.epicode.Back_end.enumerated.TagliaCane;
 import it.epicode.Back_end.enumerated.TipoSpecialista;
 import lombok.Data;
 import java.time.LocalDate;
@@ -10,4 +11,5 @@ public class PrenotazioneDto {
     private LocalDate dataPrenotazione;
     private TipoSpecialista specialista;
     private Long utenteId;
+    private TagliaCane tagliaCane;
 }

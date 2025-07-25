@@ -1,5 +1,6 @@
 package it.epicode.Back_end.model;
 
+import it.epicode.Back_end.enumerated.TagliaCane;
 import it.epicode.Back_end.enumerated.TipoSpecialista;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -19,7 +20,10 @@ public class Prenotazione {
     private LocalDate dataPrenotazione;
     @Enumerated(EnumType.STRING)
     private TipoSpecialista specialista;
+    @Enumerated(EnumType.STRING)
+    private TagliaCane tagliaCane;
     @ManyToOne
     @JoinColumn(name="utente_id")
     private Utente utente;
+    private double prezzo;
 }

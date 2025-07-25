@@ -381,3 +381,34 @@ a {
     width: 28%;
     box-shadow: 0 6px 16px rgba(77, 77, 77, 0.7);
 }
+
+.overlay-dark {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 999;
+}
+
+.focus-element {
+  position: relative;
+  z-index: 1000; 
+  background: white;
+  margin: auto;
+}
+
+.contenitorePrenotazione{
+    height: 500px;
+}
+
+.react-datepicker {
+    width: 100%;
+  font-size: 1.4rem;
+  padding: 1rem;
+  height: auto;   
+  transform-origin: top left;
+}
+
+       
