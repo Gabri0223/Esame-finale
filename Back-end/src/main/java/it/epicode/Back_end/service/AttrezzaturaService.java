@@ -27,7 +27,7 @@ public class AttrezzaturaService {
              tipoAnimale = TipoAnimale.valueOf(attrezzaturaDto.getTipoAnimale().toUpperCase());
              tipoAttrezzatura = TipoAttrezzatura.valueOf(attrezzaturaDto.getTipoAttrezzatura().toUpperCase());
         }catch (IllegalArgumentException e){
-            throw new IllegalArgumentException("Animale o attrezzatura inseriti non validiti");
+            throw new IllegalArgumentException("Animale o attrezzatura inseriti non validi");
         }
         if(tipoAttrezzatura == TipoAttrezzatura.COLLARI&&
                 (tipoAnimale == TipoAnimale.UCCELLO || tipoAnimale == TipoAnimale.CONIGLIO)){
@@ -41,9 +41,15 @@ public class AttrezzaturaService {
                 (tipoAnimale == TipoAnimale.UCCELLO || tipoAnimale==TipoAnimale.CANE)) {
             throw new IllegalArgumentException("Le lettiere sono solo per gatti e conigli");
         }
-        if(tipoAttrezzatura == TipoAttrezzatura.GABBIE&&
-                (tipoAnimale!=TipoAnimale.UCCELLO)){
-            throw new IllegalArgumentException("Le gabbie sono solo per gli uccelli");
+        if(tipoAttrezzatura == TipoAttrezzatura.GABBIE&&(
+                (tipoAnimale!=TipoAnimale.UCCELLO) && tipoAnimale!=TipoAnimale.CONIGLIO)){
+            throw new IllegalArgumentException("Le gabbie sono solo uccelli e conigli");
+        }
+        if(tipoAttrezzatura== TipoAttrezzatura.KENNEL && tipoAnimale!= TipoAnimale.CANE){
+            throw new IllegalArgumentException("I kennel sono solo per cani");
+        }
+        if (tipoAttrezzatura== TipoAttrezzatura.TRASPORTINI && (tipoAnimale!=TipoAnimale.CONIGLIO)&& tipoAnimale!=TipoAnimale.GATTO){
+            throw new IllegalArgumentException("I trasportini sono solo per gatti e conigli");
         }
 
 
