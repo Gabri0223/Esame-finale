@@ -357,3 +357,27 @@ a {
 .contenitoreFoto40{
     width: 40%;
 }
+.sfondoMarrone{
+    background-color: #D5AC86;
+}
+
+.bordoSottoGiallo{
+    border-bottom: solid 5px yellow !important;
+}
+
+.bottoneServizi{
+    position: absolute;
+    bottom: 2%;
+    left:13%;
+    background-color: #D5AC86 !important;
+    border:none !important;
+    color: white;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: px;
+}
+
+.cardServizi{
+    width: 28%;
+    box-shadow: 0 6px 16px rgba(77, 77, 77, 0.7);
+}

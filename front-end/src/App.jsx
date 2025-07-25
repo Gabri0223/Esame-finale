@@ -12,6 +12,7 @@ import Carosello from "../component/Carosello.jsx";
 import Pet from "../component/Pet.jsx";
 import Prodotti from "../component/Prodotti.jsx";
 import InformazioniNegozio from "../component/InformazioniNegozio.jsx";
+import Servizi from "../component/Servizi.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 
@@ -28,6 +29,7 @@ function App() {
             <Pet />
             <Prodotti />
             <InformazioniNegozio />
+            <Servizi />
           </>
         }
       />

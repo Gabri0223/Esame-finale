@@ -4,15 +4,14 @@ const InformazioniNegozio = () => {
   return (
     <div className="sfondoGrigio pt-3">
       <p className="fs-3 text-center fw-bolder">
-        Un po su <span className="corsivo fs-2">Zompettando</span>
+        Un po' su <span className="corsivo fs-2">Zompettando</span>
       </p>
-      <p></p>
       <div className="d-flex mt-5">
         <div className="contenitoreFoto40 me-4">
           <img
             src="https://www.quattrozampe.online/wp-content/uploads/2016/05/Negozi-per-animali-3.jpg"
             alt=""
-            className="w-100"
+            className="w-100 pb-5"
           />
         </div>
         <div className="w-75">
@@ -44,7 +43,7 @@ const InformazioniNegozio = () => {
             Che tu viva con un cane scatenato, un gatto regale, un coniglio
             curioso o un canarino che canta al mattino, Da Zompettando, ogni
             animale è speciale. Passa a trovarci. Il tuo animale ti ringrazierà…
-            <span className="corsivo fw-bold fs-4">Zompettando </span>di gioia!
+            <span className="corsivo fw-bold fs-4"> Zompettando </span>di gioia!
           </p>
         </div>
       </div>
