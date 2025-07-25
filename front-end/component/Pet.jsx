@@ -1,9 +1,7 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const Pet = () => {
-  const navigate = useNavigate();
   return (
     <div className="sfondoGrigio pb-5">
       <p className="fw-bolder fs-2 text-center pt-4">Il tuo pet?</p>

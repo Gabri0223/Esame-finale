@@ -1,8 +1,10 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import { useNavigate } from "react-router-dom";
 import React from "react";
 
 const Prodotti = () => {
+  const navigate = useNavigate();
   return (
     <div className="sfondoRosa ">
       <p className="fs-2 text-center fw-bolder pt-4">
@@ -21,7 +23,10 @@ const Prodotti = () => {
               Alimenti
             </Card.Title>
 
-            <Button className="bottoneRosa w-75 rounded-pill">
+            <Button
+              className="bottoneRosa w-75 rounded-pill"
+              onClick={() => navigate("/ricerca?keyword=cibo")}
+            >
               Per i palati più sopraffini
             </Button>
           </Card.Body>
@@ -37,7 +42,10 @@ const Prodotti = () => {
               Accessori
             </Card.Title>
 
-            <Button className="bottoneRosa w-75 rounded-pill">
+            <Button
+              className="bottoneRosa w-75 rounded-pill"
+              onClick={() => navigate("/ricerca?keyword=attrezzatura")}
+            >
               Per il comfort di ogni creatura
             </Button>
           </Card.Body>
@@ -53,7 +61,10 @@ const Prodotti = () => {
               Giocattoli
             </Card.Title>
 
-            <Button className="bottoneRosa w-75 rounded-pill">
+            <Button
+              className="bottoneRosa w-75 rounded-pill"
+              onClick={() => navigate("/ricerca?keyword=gioco")}
+            >
               Divertimento di qualità
             </Button>
           </Card.Body>
