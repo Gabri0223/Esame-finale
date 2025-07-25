@@ -342,3 +342,15 @@ a {
 .bordiVerdiChiaro{
     border: 5px solid #00AF23 !important;
 }
+
+.scrittaMarrone{
+    color: #D65A31
+}
+
+.cartaProdotti{
+    height: 350px !important;
+}
+
+.altezzaImmagine{
+    height: 200px;
+}

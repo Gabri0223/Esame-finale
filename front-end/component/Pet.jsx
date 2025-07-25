@@ -2,8 +2,8 @@ import React from "react";
 
 const Pet = () => {
   return (
-    <div className="sfondoGrigio">
-      <p className="fw-bolder fs-4 text-center pt-4">Il tuo pet?</p>
+    <div className="sfondoGrigio pb-5">
+      <p className="fw-bolder fs-2 text-center pt-4">Il tuo pet?</p>
       <div className="d-flex justify-content-center">
         <div className="w-75 d-flex justify-content-around">
           <div className="contenitoreFotoAnimali ">

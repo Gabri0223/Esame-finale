@@ -7,9 +7,10 @@ import Login from "../component/Login.jsx";
 import Registrazione from "../component/Registrazione.jsx";
 import Dettaglio from "../component/Dettaglio.jsx";
 import Carrello from "../component/Carrello.jsx";
-import BarraFiltri from "../component/BarraFiltri.jsx";
+import PaginaRicerca from "../component/PaginaRicerca.jsx";
 import Carosello from "../component/Carosello.jsx";
 import Pet from "../component/Pet.jsx";
+import Prodotti from "../component/Prodotti.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 function App() {
@@ -23,6 +24,7 @@ function App() {
             <NavbarPrincipale />
             <Carosello />
             <Pet />
+            <Prodotti />
           </>
         }
       />
@@ -68,7 +70,7 @@ function App() {
           <>
             <BarraNera />
             <NavbarPrincipale />
-            <BarraFiltri />
+            <PaginaRicerca />
           </>
         }
       />
