@@ -2,9 +2,12 @@ import { IoPaw } from "react-icons/io5";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import InputGroup from "react-bootstrap/InputGroup";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 import { useState, useEffect } from "react";
 import { MdOutlineCancel } from "react-icons/md";
-import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import { BsExclamationTriangleFill } from "react-icons/bs";
 import BottonePagamento from "../component/BottonePagamento";
@@ -17,6 +20,8 @@ const Carrello = () => {
   const [carrello, setCarrello] = useState([]);
   const [scontoValido, setScontoValido] = useState(false);
   const [datiCodice, setDatiCodice] = useState(null);
+  const [cliccato, setCliccato] = useState(false);
+  const click = () => setCliccato((prev) => !prev);
   let costiSpedizione = 6.5;
   const variazionePrezzo = { XS: -5.0, S: -2.0, M: 0, L: 2.0, XL: 5.0 };
 
@@ -290,7 +295,38 @@ const Carrello = () => {
                   <p className="mt-3 ms-3 fw-bold mb-0 fs-4">
                     Codice promozionale
                   </p>
-                  <CodiceSconto onValidazione={gestisciValidazione} />
+                  {!token && (
+                    <InputGroup className="ms-3 mt-3 mb-4 w-100 d-flex flex-column">
+                      <div className="d-flex w-100">
+                        <Form.Control
+                          placeholder="Codice Coupon"
+                          className=" w-50"
+                          onChange={(e) => {
+                            setCodice(e.target.value);
+                          }}
+                          onClick={() => {
+                            click();
+                          }}
+                        />
+                        <Button className="rounded-pill w-25 ms-2 me-5 bottoneGrigio">
+                          INVIA COUPON
+                        </Button>
+                      </div>
+                      {cliccato && (
+                        <Alert
+                          variant="danger"
+                          className="mb-0 pb-2 pt-1 rounded w-50 text-center"
+                        >
+                          <small>
+                            devi essere loggato per inserire un coupon
+                          </small>
+                        </Alert>
+                      )}
+                    </InputGroup>
+                  )}
+                  {token && (
+                    <CodiceSconto onValidazione={gestisciValidazione} />
+                  )}
                 </div>
               </Col>
               <Col xs={6}>

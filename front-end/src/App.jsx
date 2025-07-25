@@ -56,7 +56,16 @@ function App() {
             <Carrello />
           </>
         }
-      ></Route>
+      />
+      <Route
+        path="/ricerca"
+        element={
+          <>
+            <BarraNera />
+            <NavbarPrincipale />
+          </>
+        }
+      />
     </Routes>
   );
 }
