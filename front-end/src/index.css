@@ -260,7 +260,6 @@ a {
 
 .contenitoreFotoCarrelloVuoto{
     width: 20%;
-   
 }
 
 .bordoSotto{
@@ -353,4 +352,8 @@ a {
 
 .altezzaImmagine{
     height: 200px;
+}
+
+.contenitoreFoto40{
+    width: 40%;
 }

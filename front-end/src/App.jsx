@@ -11,8 +11,10 @@ import PaginaRicerca from "../component/PaginaRicerca.jsx";
 import Carosello from "../component/Carosello.jsx";
 import Pet from "../component/Pet.jsx";
 import Prodotti from "../component/Prodotti.jsx";
+import InformazioniNegozio from "../component/InformazioniNegozio.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
+
 function App() {
   return (
     <Routes>
@@ -25,6 +27,7 @@ function App() {
             <Carosello />
             <Pet />
             <Prodotti />
+            <InformazioniNegozio />
           </>
         }
       />
