@@ -319,6 +319,45 @@ const Dettaglio = () => {
                   <option value="XL"> 1200 gr</option>
                 </>
               )}
+              {prodotto.tipoAttrezzatura === "KENNEL" && (
+                <>
+                  <option value="">Dimensioni kennel (LxPxH in cm)</option>
+                  <option value="XS">48 x 33 x 31 cm</option>
+                  <option value="S">55 x 35 x 35 cm</option>
+                  <option value="M">60 x 40 x 40 cm</option>
+                  <option value="L">81 x 56 x 59 cm</option>
+                  <option value="XL">90 x 60 x 65 cm</option>
+                </>
+              )}
+              {prodotto.tipoAttrezzatura === "GABBIE" &&
+                ((prodotto.tipoAnimale === "UCCELLO" && (
+                  <>
+                    <option value="">Dimensione gabbia (LxPxH in cm)</option>
+                    <option value="XS">45 x 30 x 35 cm</option>
+                    <option value="S">60 x 40 x 45 cm</option>
+                    <option value="M">70 x 45 x 50 cm</option>
+                    <option value="L">90 x 70 x 100 cm</option>
+                    <option value="XL">100 x 90 x 130 cm </option>
+                  </>
+                )) ||
+                  (prodotto.tipoAnimale === "CONIGLIO" && (
+                    <>
+                      <option value="">Dimensioni gabbia (LxPxH in cm)</option>
+                      <option value="XS">80 x 50 x 45 cm</option>
+                      <option value="S">100 x 60 x 50 cm</option>
+                      <option value="M">120 x 60 x 60 cm</option>
+                      <option value="L">140 x 70 x 70 cm </option>
+                    </>
+                  )))}
+              {prodotto.tipoAttrezzatura === "TRASPORTINI" && (
+                <>
+                  <option value="">Dimensione trasportino (LxPxH in cm)</option>
+                  <option value="S">45 x 30 x 30 cm</option>
+                  <option value="M">50 x 35 x 33 cm</option>
+                  <option value="L">55 x 40 x 35 cm</option>
+                  <option value="XL">60+ x 45+ x 40+ cm</option>
+                </>
+              )}
             </Form.Select>
           </div>
           <div className="w-100 d-flex">
@@ -507,6 +546,90 @@ const Dettaglio = () => {
                     {prodotto.tagliaAnimale.toLowerCase()}
                   </p>
                 </>
+              )}
+              {prodotto.tipoProdotto === "ATTREZZATURA" &&
+                prodotto.tipoAttrezzatura === "KENNEL" && (
+                  <p className="mb-1 d-flex justify-content-between pe-3">
+                    <span className="fw-bold me-2">peso cane consigliato:</span>
+                    {prodotto.tagliaAttrezzatura === "XS" && (
+                      <span className="fw-normal ms-2">fino a 5 kg</span>
+                    )}
+                    {prodotto.tagliaAttrezzatura === "S" && (
+                      <span className="fw-normal ms-2"> 5 - 8 kg</span>
+                    )}
+                    {prodotto.tagliaAttrezzatura === "M" && (
+                      <span className="fw-normal ms-2">8 - 17 kg </span>
+                    )}
+                    {prodotto.tagliaAttrezzatura === "L" && (
+                      <span className="fw-normal ms-2">20 - 32 kg </span>
+                    )}
+                    {prodotto.tagliaAttrezzatura === "XL" && (
+                      <span className="fw-normal ms-2">oltre 40 kg</span>
+                    )}
+                  </p>
+                )}
+              {prodotto.tipoAttrezzatura === "GABBIE" &&
+                ((prodotto.tipoAnimale === "UCCELLO" && (
+                  <p className="mb-1 d-flex justify-content-between pe-3">
+                    <span className="fw-bold me-2">Ideale per :</span>
+                    {prodotto.tagliaAttrezzatura === "XS" && (
+                      <span className="fw-normal ms-2">
+                        Canarini / Diamantini
+                      </span>
+                    )}
+                    {prodotto.tagliaAttrezzatura === "S" && (
+                      <span className="fw-normal ms-2"> Cocorite </span>
+                    )}
+                    {prodotto.tagliaAttrezzatura === "M" && (
+                      <span className="fw-normal ms-2">Inseparabili</span>
+                    )}
+                    {prodotto.tagliaAttrezzatura === "L" && (
+                      <span className="fw-normal ms-2">Pappagalli medi </span>
+                    )}
+                    {prodotto.tagliaAttrezzatura === "XL" && (
+                      <span className="fw-normal ms-2">Pappagalli grandi</span>
+                    )}
+                  </p>
+                )) ||
+                  (prodotto.tipoAnimale == "CONIGLIO" && (
+                    <p className="mb-1 d-flex justify-content-between pe-3">
+                      <span className="fw-bold me-2">Ideale per taglia:</span>
+                      {prodotto.tagliaAttrezzatura === "XS" && (
+                        <span className="fw-normal ms-2">
+                          nana(fino a 1,5 kg)
+                        </span>
+                      )}
+                      {prodotto.tagliaAttrezzatura === "S" && (
+                        <span className="fw-normal ms-2">
+                          piccola(1,5 - 2,5 kg)
+                        </span>
+                      )}
+                      {prodotto.tagliaAttrezzatura === "M" && (
+                        <span className="fw-normal ms-2">
+                          media(2,5 - 4 kg)
+                        </span>
+                      )}
+                      {prodotto.tagliaAttrezzatura === "L" && (
+                        <span className="fw-normal ms-2">grande (+ 4 kg)</span>
+                      )}
+                    </p>
+                  )))}
+              {prodotto.tipoAttrezzatura === "TRASPORTINO" && (
+                <p className="mb-1 d-flex justify-content-between pe-3">
+                  <span className="fw-bold me-2">peso massimo:</span>
+                  {prodotto.tagliaAttrezzatura === "S" && (
+                    <span className="fw-normal ms-2">fino a 4 kg</span>
+                  )}
+                  {prodotto.tagliaAttrezzatura === "M" && (
+                    <span className="fw-normal ms-2">4 - 7 kg</span>
+                  )}
+                  {prodotto.tagliaAttrezzatura === "L" && (
+                    <span className="fw-normal ms-2"> 7 - 10 kg</span>
+                  )}
+                  {prodotto.tagliaAttrezzatura === "XL" && (
+                    <span className="fw-normal ms-2"> oltre 10 kg</span>
+                  )}
+                </p>
               )}
               <p className="fs-5 mt-3">
                 Ordine singolo:
