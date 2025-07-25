@@ -13,6 +13,7 @@ public interface GiochiRepository extends JpaRepository<Giochi,Long> {
             "LOWER(g.nome) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
             "LOWER(g.marca) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
             "LOWER(g.tipoGioco) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
-            "LOWER(g.tipoAnimale) LIKE LOWER(CONCAT( '%', :keyword, '%'))")
+            "LOWER(g.tipoAnimale) LIKE LOWER(CONCAT( '%', :keyword, '%')) OR " +
+            "LOWER (g.tipoProdotto) LIKE LOWER (CONCAT('%', :keyword,'%'))")
     Page<Giochi> cercaPerKeyword(@Param("keyword") String keyword, Pageable pageable);
 }
