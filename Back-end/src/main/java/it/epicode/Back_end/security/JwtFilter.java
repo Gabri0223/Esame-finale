@@ -56,7 +56,8 @@ public class JwtFilter extends OncePerRequestFilter {
                 || new AntPathMatcher().match("/attrezzatura/**",request.getServletPath())
                 || new AntPathMatcher().match("/dettagli/**",request.getServletPath())
                 || new AntPathMatcher().match("/giochi/**", request.getServletPath())
-                || new AntPathMatcher().match("/codiceSconto/**", request.getServletPath());
+                || new AntPathMatcher().match("/codiceSconto/**", request.getServletPath())
+        || new AntPathMatcher().match("/ricerca/**",request.getServletPath());
     }
 
 }

@@ -8,4 +8,6 @@ import lombok.Data;
 public class ProdottoCompressoDto {
     private String tipo;
     private Object prodotto;
+    private String nome;
+    private double prezzo;
 }

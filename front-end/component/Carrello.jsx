@@ -360,7 +360,7 @@ const Carrello = () => {
                           if (datiCodice && datiCodice.percentuale) {
                             sconto = datiCodice.percentuale / 100;
                           } else {
-                            sconto = 1;
+                            sconto = 0;
                           }
                           const variazione =
                             variazionePrezzo[item.tagliaAttrezzatura] ||

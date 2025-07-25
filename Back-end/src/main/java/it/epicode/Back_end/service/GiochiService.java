@@ -92,8 +92,7 @@ public class GiochiService {
             giochiRepository.delete(prendiGioco(id));
         }
 
-        public Page<GiochiDto> cercaPerKeyword(String keyWord,int pagine, int size){
-            Pageable pageable= PageRequest.of(pagine,size, Sort.by("prezzo").ascending());
+        public Page<GiochiDto> cercaPerKeyword(String keyWord,Pageable pageable){
             return giochiRepository.cercaPerKeyword(keyWord,pageable).map(giochi-> convertiInDto(giochi) );
         }
 
