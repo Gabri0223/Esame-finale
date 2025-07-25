@@ -1,0 +1,42 @@
+import React from "react";
+
+const Pet = () => {
+  return (
+    <div className="sfondoGrigio">
+      <p className="fw-bolder fs-4 text-center pt-4">Il tuo pet?</p>
+      <div className="d-flex justify-content-center">
+        <div className="w-75 d-flex justify-content-around">
+          <div className="contenitoreFotoAnimali ">
+            <img
+              src="https://www.conad.it/assets/images/consigli/Quanto%20costa%20mantenere%20un%20cane%20di%20piccola%20taglia.jpg/renditions/all.jpeg?_u=f239bfa324fa2c74fd8ba8e2ce6a22bc27f71ca1"
+              alt=""
+              className="w-100 h-100 rounded-circle border border-5 border-primary"
+            />
+          </div>
+          <div className="contenitoreFotoAnimali ">
+            <img
+              src="https://m.media-amazon.com/images/I/618O9wfGJhS._UF894,1000_QL80_.jpg"
+              className="w-100 h-100 bordiArancioni rounded-circle  "
+            />
+          </div>
+          <div className="contenitoreFotoAnimali">
+            <img
+              src="../src/assets/coniglio.jpg"
+              alt=""
+              className="w-100 h-100 rounded-circle border border-5 border-secondary"
+            />
+          </div>
+          <div className="contenitoreFotoAnimali">
+            <img
+              src="https://images.unsplash.com/photo-1697789344805-bc64b0874465?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDI5fHx8ZW58MHx8fHx8"
+              alt=""
+              className="w-100 h-100 rounded-circle bordiVerdiChiaro "
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Pet;

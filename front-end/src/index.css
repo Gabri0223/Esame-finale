@@ -279,3 +279,66 @@ a {
 .sfondoGrigio{
     background-color: #F8F8F8;
 }
+
+.caroselloAltezza{
+    height: 480px;
+    position: relative;
+}
+
+.testoSinistra{
+    position: absolute;
+    top: 5%;
+    right: 10%;
+    color: white;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 350px;
+}
+
+.bottoneTrasparente1{
+    background-color: transparent !important;
+    border: solid 2px white !important
+}
+.bottoneTrasparente2{
+    background-color: transparent !important;
+    border: solid 2px white !important
+}
+.bottoneTrasparente2:hover {
+  background-color: #FFC857 !important;
+  color: #265EAB !important;
+}
+
+.testoDestra{
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    color: white;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 400px;
+}
+
+.testoGiallo{
+    color: #FFC857 !important
+}
+
+.testoBeige{
+    color:  #FFE8C2 !important;
+}
+
+.testoVerdeChiaro{
+    color: #C8FACC !important; 
+}
+
+.contenitoreFotoAnimali{
+    width: 17%;
+    height: 200px;
+}
+
+.bordiArancioni{
+    border: 5px solid #A52906 !important;
+}
+
+.bordiVerdiChiaro{
+    border: 5px solid #00AF23 !important;
+}

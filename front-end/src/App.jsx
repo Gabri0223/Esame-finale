@@ -8,6 +8,8 @@ import Registrazione from "../component/Registrazione.jsx";
 import Dettaglio from "../component/Dettaglio.jsx";
 import Carrello from "../component/Carrello.jsx";
 import BarraFiltri from "../component/BarraFiltri.jsx";
+import Carosello from "../component/Carosello.jsx";
+import Pet from "../component/Pet.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 function App() {
@@ -19,6 +21,8 @@ function App() {
           <>
             <BarraNera />
             <NavbarPrincipale />
+            <Carosello />
+            <Pet />
           </>
         }
       />
