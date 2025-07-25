@@ -4,6 +4,7 @@ import it.epicode.Back_end.dto.CodiceScontoDto;
 import it.epicode.Back_end.exception.NotFoundException;
 import it.epicode.Back_end.model.CodiceSconto;
 import it.epicode.Back_end.repository.CodiceScontoRepository;
+import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,7 @@ public class CodiceScontoService {
         codiceSconto.setCodiceSconto(codice);
         codiceSconto.setPercentuale(codiceScontoDto.getPercentuale());
         codiceSconto.setNome(codiceScontoDto.getNome());
+        codiceSconto.setAttivo(true);
         return codiceScontoRepository.save(codiceSconto);
     }
 
@@ -40,8 +42,16 @@ public class CodiceScontoService {
         return codiceScontoRepository.save(codiceScontoDaModificare);
     }
 
-    public boolean verificaCodiceSconto(String codiceSconto){
-        return codiceScontoRepository.existsByCodiceSconto(codiceSconto);
+    public CodiceSconto verificaCodiceSconto(String codiceSconto){
+
+        CodiceSconto codice= codiceScontoRepository.findByCodiceSconto(codiceSconto).orElseThrow(()->new ValidationException("Codice sconto non valido"));
+
+        if(!codice.isAttivo()){
+            throw new ValidationException("Il coupon non è attivo");
+        }
+        codice.setAttivo(false);
+        codiceScontoRepository.save(codice);
+        return codice;
     }
 
     public void eliminaCodiceSconto(Long id) throws NotFoundException {

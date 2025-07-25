@@ -22,6 +22,6 @@ public class CodiceSconto {
     @Min(value = 1, message = "La percentuale deve essere almeno del 1%")
     @Max(value=100,message = "La percentuale non può superare il 100%")
     private int percentuale;
-
+    private boolean attivo;
     private String codiceSconto;
 }

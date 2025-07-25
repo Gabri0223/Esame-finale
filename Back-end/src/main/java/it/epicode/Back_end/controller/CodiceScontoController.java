@@ -38,7 +38,7 @@ public class CodiceScontoController {
     }
 
     @GetMapping("/verifica")
-    public boolean verificaCodiceSconto(@RequestParam String codiceSconto){
+    public CodiceSconto verificaCodiceSconto(@RequestParam String codiceSconto){
         return codiceScontoService.verificaCodiceSconto(codiceSconto);
     }
 

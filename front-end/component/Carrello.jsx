@@ -16,6 +16,7 @@ const Carrello = () => {
   const navigate = useNavigate();
   const [carrello, setCarrello] = useState([]);
   const [scontoValido, setScontoValido] = useState(false);
+  const [datiCodice, setDatiCodice] = useState(null);
   let costiSpedizione = 6.5;
   const variazionePrezzo = { XS: -5.0, S: -2.0, M: 0, L: 2.0, XL: 5.0 };
 
@@ -147,8 +148,9 @@ const Carrello = () => {
     }
   };
 
-  const codiceValido = (valido) => {
-    setScontoValido(valido);
+  const gestisciValidazione = (risultato) => {
+    setScontoValido(risultato.valido);
+    setDatiCodice(risultato.codiceSconto);
   };
 
   return (
@@ -288,7 +290,7 @@ const Carrello = () => {
                   <p className="mt-3 ms-3 fw-bold mb-0 fs-4">
                     Codice promozionale
                   </p>
-                  <CodiceSconto onValidazione={codiceValido} />
+                  <CodiceSconto onValidazione={gestisciValidazione} />
                 </div>
               </Col>
               <Col xs={6}>
@@ -303,6 +305,14 @@ const Carrello = () => {
                       <small className="piùPiccolo">Costo spedizione</small>
                       <p className="p-6 m-0 pe-4">{costiSpedizione}€</p>
                     </div>
+                    {scontoValido && (
+                      <div className="d-flex justify-content-between align-items-center ms-3">
+                        <small className="piùPiccolo">sconto applicato:</small>
+                        <p className="p-6 m-0 pe-4">
+                          {datiCodice.percentuale}%
+                        </p>
+                      </div>
+                    )}
                   </div>
 
                   <div className="d-flex justify-content-between bg-secondary-subtle align-items-center mb-3 border border-2 border-secondary-subtle me-3">
@@ -310,16 +320,24 @@ const Carrello = () => {
                     <p className="me-4 mb-0 fs-5">
                       {carrello
                         .reduce((totale, item) => {
+                          let sconto;
+                          if (datiCodice && datiCodice.percentuale) {
+                            sconto = datiCodice.percentuale / 100;
+                          } else {
+                            sconto = 1;
+                          }
                           const variazione =
                             variazionePrezzo[item.tagliaAttrezzatura] ||
                             variazionePrezzo[item.taglia] ||
                             0;
                           const prezzoFinale =
                             item.prodotto.prezzo + variazione;
+
                           return (
                             totale +
-                            prezzoFinale * (item.quantità || item.quantita) +
-                            costiSpedizione
+                            (prezzoFinale * (item.quantità || item.quantita) +
+                              costiSpedizione) *
+                              (1 - sconto)
                           );
                         }, 0)
                         .toFixed(2)}

@@ -17,10 +17,11 @@ const CodiceSconto = ({ onValidazione }) => {
       })
       .then((data) => {
         console.log(data);
-        onValidazione(data);
+        onValidazione({ valido: true, codiceSconto: data });
       })
       .catch((err) => {
         console.error(err);
+        onValidazione({ valido: false, codiceSconto: null });
       });
   };
   return (
