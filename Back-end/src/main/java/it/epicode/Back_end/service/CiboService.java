@@ -111,8 +111,7 @@ public class CiboService {
         ciboRepository.delete(prendiCIbo(id));
     }
 
-    public Page<CiboDto>cercaPerKeyword(String keyWord, int page, int size){
-        Pageable pageable= PageRequest.of(page,size, Sort.by("prezzo").ascending());
+    public Page<CiboDto>cercaPerKeyword(String keyWord, Pageable pageable){
         return ciboRepository.findByKeyWord(keyWord,pageable).map(cibo->convertiInDto(cibo));
     }
 

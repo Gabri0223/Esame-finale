@@ -266,3 +266,16 @@ a {
 .bordoSotto{
     border-bottom: 2px black solid;
 }
+
+.ordineDropDown{
+    background-color: #F8F8F8 !important;
+    color: black !important;
+    border:none !important;
+    position: relative !important;
+    transform: none !important;
+    top: 0 !important;
+}
+
+.sfondoGrigio{
+    background-color: #F8F8F8;
+}

@@ -89,8 +89,8 @@ public class AttrezzaturaService {
         attrezzaturaRepository.delete(prendiAttrezzatura(id));
     }
 
-    public Page<AttrezzaturaDto> cercaPerKeyword(String nome,int pagine, int size){
-        Pageable pageable= PageRequest.of(pagine,size, Sort.by("prezzo").ascending());
+    public Page<AttrezzaturaDto> cercaPerKeyword(String nome,Pageable pageable
+    ){
         return attrezzaturaRepository.cercaPerKeyword(nome,pageable).map(attrezzatura -> convertiInDto(attrezzatura) );
     }
 

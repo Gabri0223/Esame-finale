@@ -8,6 +8,9 @@ import it.epicode.Back_end.service.CiboService;
 import it.epicode.Back_end.service.CloudinaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -67,7 +70,18 @@ public class CiboController {
     @GetMapping("/search")
     public Page<CiboDto> cercaPerKeyword(@RequestParam(name = "query",required = false,defaultValue = "") String keyword,
                                               @RequestParam(defaultValue = "0") int page,
-                                              @RequestParam(defaultValue = "5") int size){
-        return ciboService.cercaPerKeyword(keyword,page,size);
+                                              @RequestParam(defaultValue = "5") int size,
+                                         @RequestParam(name = "sort", required = false, defaultValue = "id,asc") String sort){
+        Pageable pageable = PageRequest.of(page, size, Sort.by(parseSort(sort)));
+        return ciboService.cercaPerKeyword(keyword,pageable);
+    }
+
+    private Sort.Order parseSort(String sort) {
+        String[] parts = sort.split(",");
+        if(parts.length < 2) {
+            return new Sort.Order(Sort.Direction.ASC, parts[0]);
+        }
+        Sort.Direction direction = Sort.Direction.fromString(parts[1]);
+        return new Sort.Order(direction, parts[0]);
     }
 }

@@ -44,7 +44,7 @@ public class SecurityConfig {
         //serve per bloccare richieste che provengono da domini (indirizzi ip e porta) esterni a quelli di servizio
         httpSecurity.cors(Customizer.withDefaults());
 
-        httpSecurity.authorizeHttpRequests(http->http.requestMatchers("/","/auth/**","/cibo/**","/attrezzatura/**","/dettagli/**","/giochi/**","/codiceSconto/**").permitAll());
+        httpSecurity.authorizeHttpRequests(http->http.requestMatchers("/","/auth/**","/cibo/**","/attrezzatura/**","/dettagli/**","/giochi/**","/codiceSconto/**","/ricerca/**").permitAll());
         httpSecurity.authorizeHttpRequests(http->http.requestMatchers("/admin/**").hasRole("ADMIN"));
         httpSecurity.authorizeHttpRequests(http->http.anyRequest().authenticated());
         httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

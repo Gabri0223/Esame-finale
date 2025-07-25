@@ -46,21 +46,21 @@ public class DettagliController {
         if(optionalCibo.isPresent()){
             Cibo cibo=optionalCibo.get();
             CiboDto ciboDto = ciboService.convertiInDto(cibo);
-            return new ProdottoCompressoDto("Cibo",ciboDto);
+            return new ProdottoCompressoDto("Cibo",ciboDto, ciboDto.getNome(),cibo.getPrezzo());
         }
 
         Optional<Attrezzatura> optionalAttrezzatura=attrezzaturaRepository.findById(id);
         if(optionalAttrezzatura.isPresent()){
             Attrezzatura attrezzatura=optionalAttrezzatura.get();
             AttrezzaturaDto attrezzaturaDto= attrezzaturaService.convertiInDto(attrezzatura);
-            return new ProdottoCompressoDto("Attrezzatura",attrezzaturaDto);
+            return new ProdottoCompressoDto("Attrezzatura",attrezzaturaDto,attrezzaturaDto.getNome(),attrezzaturaDto.getPrezzo());
         }
 
         Optional<Giochi> optionalGiochi=giochiRepository.findById(id);
             if (optionalGiochi.isPresent()){
                 Giochi gioco=optionalGiochi.get();
                 GiochiDto giocoDto=giochiService.convertiInDto(gioco);
-                return new ProdottoCompressoDto("Gioco",giocoDto);
+                return new ProdottoCompressoDto("Gioco",giocoDto,giocoDto.getNome(),giocoDto.getPrezzo());
             }
         throw new NotFoundException("Prodotto non trovato");
     }

@@ -15,7 +15,7 @@ const BarraDiRicerca = () => {
   const barraRef = useRef(null);
   const handleKeyDown = (event) => {
     if (event.key === "Enter" && ricerca.trim() !== "") {
-      navigate(`/ricerca?query=${ricerca}`);
+      navigate(`/ricerca?keyword=${ricerca}`);
     }
   };
 

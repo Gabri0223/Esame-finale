@@ -10,6 +10,9 @@ import it.epicode.Back_end.service.CloudinaryService;
 import it.epicode.Back_end.service.GiochiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -57,8 +60,19 @@ public class GiochiController {
     @GetMapping("/search")
     public Page<GiochiDto> cercaPerKeyword(@RequestParam(name = "query", required = false,defaultValue = "") String keyword,
                                                  @RequestParam(defaultValue = "0") int page,
-                                                 @RequestParam(defaultValue = "5") int size){
+                                                 @RequestParam(defaultValue = "5") int size,
+                                           @RequestParam(name = "sort", required = false, defaultValue = "id,asc") String sort){
 
-        return giochiService.cercaPerKeyword(keyword,page,size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(parseSort(sort)));
+        return giochiService.cercaPerKeyword(keyword,pageable);
+    }
+
+    private Sort.Order parseSort(String sort) {
+        String[] parts = sort.split(",");
+        if(parts.length < 2) {
+            return new Sort.Order(Sort.Direction.ASC, parts[0]);
+        }
+        Sort.Direction direction = Sort.Direction.fromString(parts[1]);
+        return new Sort.Order(direction, parts[0]);
     }
 }
