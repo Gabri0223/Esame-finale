@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import Form from "react-bootstrap/Form";
 import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React from "react";
 
 const BarraDiRicerca = () => {
@@ -10,9 +10,14 @@ const BarraDiRicerca = () => {
   const [risultati, setRisultati] = useState([]);
   const [cliccato, setCliccato] = useState(false);
   const click = () => setCliccato((prev) => !prev);
-
+  const navigate = useNavigate();
   const [mostraNessunRisultato, setMostraNessunRisultato] = useState(false);
   const barraRef = useRef(null);
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter" && ricerca.trim() !== "") {
+      navigate(`/ricerca?keyword=${ricerca}`);
+    }
+  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -65,6 +70,7 @@ const BarraDiRicerca = () => {
           placeholder="Cosa cerchi per il tuo amico peloso?"
           onChange={(e) => setRicerca(e.target.value)}
           onClick={click}
+          onKeyDown={handleKeyDown}
         />
         <FontAwesomeIcon icon={faMagnifyingGlass} className="lente" />
       </div>
