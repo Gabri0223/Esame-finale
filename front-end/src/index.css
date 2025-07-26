@@ -181,7 +181,7 @@ a {
     font-size:0.7em
 }
 
-.aggiungiETogli{
+.cliccabile{
     cursor: pointer;
 }
 
@@ -402,16 +402,153 @@ a {
 .contenitorePrenotazione{
     height: 500px;
     max-height: 500px;
+   
 }
 
 .contenitoreCalendario{
     width: 100%; 
-    font-Family: "Arial, sans-serif" 
+    font-Family: "Arial, sans-serif" ;
+
 }
+
 
 .contenitoreGiorni{
 flex-Basis: 0;
  min-Width: 0
 }
 
+.contenitoreOrari{
+    height: 370px;
+    max-Height: "370px" !important;
+    overflow-y: auto !important;
+}
+
+.contenitoreInformazioni{
+    overflow-y: hidden;
+}
+
+.box{
+    animation: muoviVersoSinistraESparisci 0.5s forwards
+}
+
+.box2{
+    animation: muoviVersoSinistra 0.5s forwards
+}
+
+.cliccato{
+   border-top: 2px #D5AC86 solid;
+   border-bottom: 2px #D5AC86 solid ;
+   cursor:pointer
+}
+
+.cliccato:hover{
+    background-color: #F2C99C;
+}
+
+.nonCliccato{
+    border-bottom: 1px rgb(222, 222, 222) solid;
+    cursor: pointer
+}
+
+.nonCliccato:hover{
+    background-color: rgb(194, 193, 193);
+}
+
+
+@keyframes muoviVersoSinistraESparisci{
+    0%{
+        transform: translateX(0);
+        opacity: 1;
+    }
+    10%{
+        transform:translateX(-50px)
+    }
+    15%{
+        transform: translateX(-100px);
+        opacity: 0.8;
+    }
+    20%{
+        transform: translate(-150px);
+    }
+    25%{
+        transform: translateX(-200px);
+        opacity: 0.7;
+    }
+    30%{
+        transform: translateX(-250px);
+    }
+    35%{
+        transform: translateX(-300px);
+        opacity: 0.6;
+    }
+    50%{
+        transform: translateX(-350px);
+        opacity: 0.5;
+    }
+    65%{
+        transform: translateX(-400px);
+        opacity: 0.4;
+    }
+    75%{
+        transform: translateX(-450x);
+        opacity: 0.3;
+    }
+    85%{
+        transform: translateX(-500px);
+        opacity: 0.2;
+    }
+    100%{
+        transform: translateX(-1900px );
+        opacity:0
+        
+    }
+}
+
+@keyframes muoviVersoSinistra{
+    0%{
+        transform: translateX(0);
        
+    }
+    10%{
+        transform:translateX(-50px)
+    }
+    15%{
+        transform: translateX(-100px);
+      
+    }
+    20%{
+        transform: translateX(-150px);
+    }
+    25%{
+        transform: translateX(-200px);
+        
+    }
+    30%{
+        transform: translateX(-250px);
+    }
+    35%{
+        transform: translateX(-300px);
+        
+    }
+    50%{
+        transform: translateX(-350px);
+       
+    }
+    65%{
+        transform: translateX(-400px);
+      
+    }
+    75%{
+        transform: translateX(-450px);
+        
+    }
+    85%{
+        transform: translateX(-500px);
+       
+    }
+    100%{
+        transform: translateX(-668px );
+    }
+
+
+}

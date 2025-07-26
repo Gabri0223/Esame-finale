@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const giorniSettimana = ["Dom", "Lun", "Mar", "Mer", "Gio", "Ven", "Sab"];
+const giorniSettimana = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"];
 
 function Calendario({ onDateChange }) {
   const [oggi] = useState(new Date());
@@ -9,7 +9,8 @@ function Calendario({ onDateChange }) {
   const [dataSelezionata, setDataSelezionata] = useState(null);
 
   const giorniNelMese = new Date(anno, mese + 1, 0).getDate();
-  const primoGiorno = new Date(anno, mese, 1).getDay();
+  let primoGiorno = new Date(anno, mese, 1).getDay();
+  primoGiorno = primoGiorno === 0 ? 6 : primoGiorno - 1;
 
   const mesePrecedente = () => {
     if (mese === 0) {
@@ -65,7 +66,7 @@ function Calendario({ onDateChange }) {
   };
 
   return (
-    <div className="contenitoreCalndario">
+    <div className="contenitoreCalndario ">
       <div className="d-flex justify-content-between mb-2">
         <button onClick={mesePrecedente}>{"<"}</button>
         <div>
@@ -77,10 +78,20 @@ function Calendario({ onDateChange }) {
         <button onClick={meseSuccessivo}>{">"}</button>
       </div>
 
-      <div className="d-flex justify-content-between text-center fw-bold">
-        {giorniSettimana.map(renderGiorno)}
+      <div
+        className="text-center fw-bold"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(7, 1fr)",
+          gap: "4px",
+        }}
+      >
+        {giorniSettimana.map((giorno, i) => (
+          <div key={i} className="giorno-settimana p-2">
+            {giorno}
+          </div>
+        ))}
       </div>
-
       <div
         className="text-center"
         style={{
@@ -94,7 +105,7 @@ function Calendario({ onDateChange }) {
           const isActive = isValid && isSelected(giorno);
           let className = "giorno";
           if (isValid) className += " p-2 m-1 rounded text-center";
-          if (isActive) className += " bg-primary text-white";
+          if (isActive) className += " sfondoRosa text-white";
 
           return (
             <div

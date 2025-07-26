@@ -231,13 +231,13 @@ const Carrello = () => {
                     <Col xs={2}>
                       <div className="d-flex align-items-center ">
                         {(item.quantità === 1 || item.quantita === 1) && (
-                          <div className=" border border-2 border-secondary rounded-start aggiungiETogli  bg-secondary-subtle text-white">
+                          <div className=" border border-2 border-secondary rounded-start cliccabile  bg-secondary-subtle text-white">
                             <p className="m-0 p-1 px-2">-</p>
                           </div>
                         )}
                         {(item.quantità > 1 || item.quantita > 1) && (
                           <div
-                            className=" bordiVerdi rounded-start aggiungiETogli"
+                            className=" bordiVerdi rounded-start cliccabile"
                             onClick={() => {
                               diminuisciQuantità(index);
                             }}
@@ -253,7 +253,7 @@ const Carrello = () => {
                         </div>
 
                         <div
-                          className=" bordiVerdi rounded-end me-5 aggiungiETogli"
+                          className=" bordiVerdi rounded-end me-5 cliccabile"
                           onClick={() => {
                             incrementaQuantità(index);
                           }}
