@@ -401,14 +401,17 @@ a {
 
 .contenitorePrenotazione{
     height: 500px;
+    max-height: 500px;
 }
 
-.react-datepicker {
-    width: 100%;
-  font-size: 1.4rem;
-  padding: 1rem;
-  height: auto;   
-  transform-origin: top left;
+.contenitoreCalendario{
+    width: 100%; 
+    font-Family: "Arial, sans-serif" 
+}
+
+.contenitoreGiorni{
+flex-Basis: 0;
+ min-Width: 0
 }
 
        

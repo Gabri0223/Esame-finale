@@ -60,73 +60,50 @@ function Calendario({ onDateChange }) {
       return false;
     }
   }
+  const renderGiorno = function (giorno) {
+    return <div key={giorno}>{giorno}</div>;
+  };
 
   return (
-    <div style={{ width: "100%", fontFamily: "Arial, sans-serif" }}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: "8px",
-          userSelect: "none",
-        }}
-      >
+    <div className="contenitoreCalndario">
+      <div className="d-flex justify-content-between mb-2">
         <button onClick={mesePrecedente}>{"<"}</button>
         <div>
-          {oggi.toLocaleString("it-IT", { month: "long", year: "numeric" })}
+          {new Date(anno, mese).toLocaleString("it-IT", {
+            month: "long",
+            year: "numeric",
+          })}
         </div>
         <button onClick={meseSuccessivo}>{">"}</button>
       </div>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(7, 1fr)",
-          textAlign: "center",
-          fontWeight: "bold",
-        }}
-      >
-        {giorniSettimana.map(function (giorno) {
-          return <div key={giorno}>{giorno}</div>;
-        })}
+      <div className="d-flex justify-content-between text-center fw-bold">
+        {giorniSettimana.map(renderGiorno)}
       </div>
 
       <div
+        className="text-center"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(7, 1fr)",
-          textAlign: "center",
+          gap: "4px",
         }}
       >
-        {giorniArray.map(function (giorno, idx) {
-          let sfondo = "transparent";
-          let colore = "black";
-          let cursore = "default";
-
-          if (giorno !== null) {
-            cursore = "pointer";
-            if (isSelected(giorno)) {
-              sfondo = "#007bff";
-              colore = "white";
-            }
-          }
+        {giorniArray.map((giorno, i) => {
+          const isValid = giorno !== null;
+          const isActive = isValid && isSelected(giorno);
+          let className = "giorno";
+          if (isValid) className += " p-2 m-1 rounded text-center";
+          if (isActive) className += " bg-primary text-white";
 
           return (
             <div
-              key={idx}
-              onClick={function () {
-                selezionaData(giorno);
-              }}
-              style={{
-                padding: "10px",
-                margin: "2px",
-                cursor: cursore,
-                backgroundColor: sfondo,
-                color: colore,
-                borderRadius: "4px",
-              }}
+              key={i}
+              onClick={() => isValid && selezionaData(giorno)}
+              className={className}
+              style={{ cursor: isValid ? "pointer" : "default" }}
             >
-              {giorno !== null ? giorno : ""}
+              {giorno || ""}
             </div>
           );
         })}
