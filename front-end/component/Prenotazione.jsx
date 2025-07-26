@@ -4,6 +4,7 @@ import Col from "react-bootstrap/Col";
 import { HiOutlineX } from "react-icons/hi";
 import Calendario from "./Calendario";
 import Orari from "./Orari";
+import Taglia from "./Taglia";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import React, { useState } from "react";
 
@@ -11,6 +12,7 @@ const Prenotazione = () => {
   const [dataSelezionata, setDataSelezionata] = useState(null);
   const [fasciaOraria, setFasciaOraria] = useState(null);
   const [animazioneAttiva, setAnimazioneAttiva] = useState(false);
+  const [calendarioNascosto, setCalendarioNascosto] = useState(false);
 
   const handlerCambiamentoData = (data) => {
     setDataSelezionata(data);
@@ -19,6 +21,7 @@ const Prenotazione = () => {
   const handlerSelezioneOrario = (fasciaOraria) => {
     setFasciaOraria(fasciaOraria);
     setAnimazioneAttiva(true);
+    setCalendarioNascosto(true);
   };
 
   return (
@@ -29,7 +32,7 @@ const Prenotazione = () => {
             <p
               className="m-0 p-2 fs-3 cliccabile"
               onClick={() => {
-                setAnimazioneAttiva(false);
+                setAnimazioneAttiva(false), setCalendarioNascosto(false);
               }}
             >
               <FaArrowLeftLong />
@@ -41,12 +44,15 @@ const Prenotazione = () => {
           </Col>
         </Row>
         <Row className="border contenitoreInformazioni">
-          <Col xs={6} className={`border ${animazioneAttiva ? "box" : ""}`}>
+          <Col xs={6} className={`p-0 border ${animazioneAttiva ? "box" : ""}`}>
             <p className="fw-bold fs-4 text-center my-auto py-3">
               Selezione una data
             </p>
           </Col>
-          <Col xs={6} className={`border ${animazioneAttiva ? "box2" : ""}`}>
+          <Col
+            xs={6}
+            className={` p-0 border ${animazioneAttiva ? "box2" : ""}`}
+          >
             {dataSelezionata != null && (
               <>
                 <p className="fw-bold fs-4 text-center my-auto py-3">
@@ -69,14 +75,23 @@ const Prenotazione = () => {
             <Calendario onDateChange={handlerCambiamentoData} />
           </Col>
           {dataSelezionata != null && (
-            <Col xs={6} className={` p-0 ${animazioneAttiva ? "box2" : ""}`}>
+            <Col
+              xs={6}
+              className={`p-0 border border-bottom-0 border-top-0 ${
+                animazioneAttiva ? "box2" : ""
+              }`}
+            >
               <Orari onSelezioneOrario={handlerSelezioneOrario} />
             </Col>
           )}
-          <Col
-            xs={6}
-            className={` p-0 ${animazioneAttiva ? "box2" : ""}`}
-          ></Col>
+          {calendarioNascosto && (
+            <Col
+              xs={6}
+              className=" p-0 border border-top-0 border-start-0 box3"
+            >
+              <Taglia />
+            </Col>
+          )}
         </Row>
       </Container>
     </div>

@@ -434,6 +434,11 @@ flex-Basis: 0;
 .box2{
     animation: muoviVersoSinistra 0.5s forwards
 }
+.box3{
+    position: absolute;
+    left: 100%;
+    animation: sopra 0.5s forwards;
+}
 
 .cliccato{
    border-top: 2px #D5AC86 solid;
@@ -452,6 +457,10 @@ flex-Basis: 0;
 
 .nonCliccato:hover{
     background-color: rgb(194, 193, 193);
+}
+
+.fotoProdottoToelettatore{
+    width: 10%;
 }
 
 
@@ -552,3 +561,54 @@ flex-Basis: 0;
 
 
 }
+
+@keyframes sopra {
+
+
+    0%{
+        transform: translateX(0);
+       
+    }
+    10%{
+        transform:translateX(-50px)
+    }
+    15%{
+        transform: translateX(-100px);
+      
+    }
+    20%{
+        transform: translateX(-150px);
+    }
+    25%{
+        transform: translateX(-200px);
+        
+    }
+    30%{
+        transform: translateX(-250px);
+    }
+    35%{
+        transform: translateX(-300px);
+        
+    }
+    50%{
+        transform: translateX(-350px);
+       
+    }
+    65%{
+        transform: translateX(-400px);
+      
+    }
+    75%{
+        transform: translateX(-450px);
+        
+    }
+    85%{
+        transform: translateX(-500px);
+       
+    }
+    100%{
+        transform: translateX(-668px );
+    }
+
+        
+    }

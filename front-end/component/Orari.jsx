@@ -2,12 +2,9 @@ import React, { useState } from "react";
 
 const Orari = ({ onSelezioneOrario }) => {
   const orari = [];
-  const [orarioInizio, setOrarioInizio] = useState(null);
-  const [orarioFine, setOrarioFine] = useState(null);
   const [cliccato, setCliccato] = useState(false);
+
   const creafasciaOraria = (inizio, fine) => {
-    setOrarioInizio(inizio);
-    setOrarioFine(fine);
     if (onSelezioneOrario) {
       onSelezioneOrario({ inizio, fine });
     }
