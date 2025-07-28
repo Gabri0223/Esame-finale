@@ -13,7 +13,8 @@ const Prenotazione = () => {
   const [fasciaOraria, setFasciaOraria] = useState(null);
   const [animazioneAttiva, setAnimazioneAttiva] = useState(false);
   const [calendarioNascosto, setCalendarioNascosto] = useState(false);
-
+  const [taglia, setTaglia] = useState("");
+  const [orariNascosti, setOrariNascosti] = useState(false);
   const handlerCambiamentoData = (data) => {
     setDataSelezionata(data);
   };
@@ -22,6 +23,10 @@ const Prenotazione = () => {
     setFasciaOraria(fasciaOraria);
     setAnimazioneAttiva(true);
     setCalendarioNascosto(true);
+  };
+
+  const handlerSelezioneTaglia = (taglia) => {
+    setTaglia(taglia);
   };
 
   return (
@@ -49,6 +54,7 @@ const Prenotazione = () => {
               Selezione una data
             </p>
           </Col>
+
           <Col
             xs={6}
             className={` p-0 border ${animazioneAttiva ? "box2" : ""}`}
@@ -64,6 +70,13 @@ const Prenotazione = () => {
               </>
             )}
           </Col>
+          {calendarioNascosto && (
+            <Col xs={6} className="box3">
+              <p className="fw-bold fs-4 text-center my-auto py-3">
+                Seleziona un servizio
+              </p>
+            </Col>
+          )}
         </Row>
         <Row className="contenitoreInformazioni ">
           <Col
@@ -89,7 +102,7 @@ const Prenotazione = () => {
               xs={6}
               className=" p-0 border border-top-0 border-start-0 box3"
             >
-              <Taglia />
+              <Taglia onSelezioneTaglia={handlerSelezioneTaglia} />
             </Col>
           )}
         </Row>

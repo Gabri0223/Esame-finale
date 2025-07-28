@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
-const Taglia = () => {
-  const [taglia, setTaglia] = useState("");
+const Taglia = ({ onSelezioneTaglia }) => {
   const [selezionato, setSelezionato] = useState(null);
   return (
     <div className="d-flex flex-column">
@@ -10,7 +9,7 @@ const Taglia = () => {
           selezionato === 1 ? "cliccato" : "nonCliccato"
         }`}
         onClick={() => {
-          setSelezionato(1), setTaglia("GRANDE");
+          setSelezionato(1), onSelezioneTaglia("GRANDE");
         }}
       >
         <div className="fotoProdottoToelettatore ps-2 me-2">
@@ -35,7 +34,7 @@ const Taglia = () => {
           selezionato === 2 ? "cliccato" : "nonCliccato"
         }`}
         onClick={() => {
-          setSelezionato(2), setTaglia("MEDIA");
+          setSelezionato(2), onSelezioneTaglia("MEDIA");
         }}
       >
         <div className="fotoProdottoToelettatore ps-2 me-2">
@@ -60,7 +59,7 @@ const Taglia = () => {
           selezionato === 3 ? "cliccato" : "nonCliccato"
         }`}
         onClick={() => {
-          setSelezionato(3), setTaglia("PICCOLA");
+          setSelezionato(3), onSelezioneTaglia("PICCOLA");
         }}
       >
         <div className="fotoProdottoToelettatore ps-2 me-2">
