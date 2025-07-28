@@ -2,10 +2,11 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { HiOutlineX } from "react-icons/hi";
+import { FaArrowLeftLong } from "react-icons/fa6";
 import Calendario from "./Calendario";
 import Orari from "./Orari";
 import Taglia from "./Taglia";
-import { FaArrowLeftLong } from "react-icons/fa6";
+import InformazioniUtente from "./InformazioniUtente";
 import React, { useState } from "react";
 
 const Prenotazione = () => {
@@ -15,6 +16,11 @@ const Prenotazione = () => {
   const [calendarioNascosto, setCalendarioNascosto] = useState(false);
   const [taglia, setTaglia] = useState("");
   const [orariNascosti, setOrariNascosti] = useState(false);
+  const [nome, setNome] = useState("");
+  const [cognome, setCognome] = useState("");
+  const [email, setEmail] = useState("");
+  const [dettagliAggiuntivi, setDettagliAggiuntivi] = useState("");
+
   const handlerCambiamentoData = (data) => {
     setDataSelezionata(data);
   };
@@ -27,8 +33,15 @@ const Prenotazione = () => {
 
   const handlerSelezioneTaglia = (taglia) => {
     setTaglia(taglia);
+    setOrariNascosti(true);
   };
 
+  const handlerCambiamentoDati = (dati) => {
+    setNome(dati.nome);
+    setCognome(dati.cognome);
+    setEmail(dati.email);
+    setDettagliAggiuntivi(dati.dettagliAggiuntivi);
+  };
   return (
     <div className="overlay-dark">
       <Container className="border mt-5 focus-element rounded contenitorePrenotazione">
@@ -57,11 +70,13 @@ const Prenotazione = () => {
 
           <Col
             xs={6}
-            className={` p-0 border ${animazioneAttiva ? "box2" : ""}`}
+            className={` p-0 border ${
+              orariNascosti ? "box4" : animazioneAttiva ? "box2" : ""
+            } `}
           >
             {dataSelezionata != null && (
               <>
-                <p className="fw-bold fs-4 text-center my-auto py-3">
+                <p className="fw-bold fs-4 text-center my-auto py-3 ">
                   {" "}
                   Seleziona una fascia oraria per il:{" "}
                   {dataSelezionata.getDate()}/{dataSelezionata.getMonth() + 1}/
@@ -71,7 +86,12 @@ const Prenotazione = () => {
             )}
           </Col>
           {calendarioNascosto && (
-            <Col xs={6} className="box3">
+            <Col
+              xs={6}
+              className={` ${
+                orariNascosti ? "box5 border border-start-0" : "box3"
+              }`}
+            >
               <p className="fw-bold fs-4 text-center my-auto py-3">
                 Seleziona un servizio
               </p>
@@ -91,18 +111,21 @@ const Prenotazione = () => {
             <Col
               xs={6}
               className={`p-0 border border-bottom-0 border-top-0 ${
-                animazioneAttiva ? "box2" : ""
-              }`}
+                orariNascosti ? "box4" : animazioneAttiva ? "box2" : ""
+              } `}
             >
               <Orari onSelezioneOrario={handlerSelezioneOrario} />
             </Col>
           )}
           {calendarioNascosto && (
-            <Col
-              xs={6}
-              className=" p-0 border border-top-0 border-start-0 box3"
-            >
+            <Col xs={6} className={` p-0 ${orariNascosti ? "box5" : "box3"}`}>
               <Taglia onSelezioneTaglia={handlerSelezioneTaglia} />
+            </Col>
+          )}
+          {orariNascosti && (
+            <Col xs={6} className="box3">
+              {" "}
+              <InformazioniUtente onChangeDatiUtente={handlerCambiamentoDati} />
             </Col>
           )}
         </Row>
