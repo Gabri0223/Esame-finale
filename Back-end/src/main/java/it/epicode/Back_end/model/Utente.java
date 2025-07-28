@@ -35,9 +35,6 @@ public class Utente implements UserDetails {
     @Enumerated(value = EnumType.STRING)
     private StatoRuolo ruolo;
 
-    @OneToMany(mappedBy = "utente")
-    private List<Prenotazione> prenotazioni= new ArrayList<>();
-
     @OneToOne(mappedBy = "utente")
     @JsonIgnore
     private Carrello carrello;

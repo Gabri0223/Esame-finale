@@ -35,6 +35,11 @@ public class PrenotazioneService {
         Prenotazione prenotazione = new Prenotazione();
         prenotazione.setDataPrenotazione(prenotazioneDto.getDataPrenotazione());
         prenotazione.setSpecialista(prenotazioneDto.getSpecialista());
+        prenotazione.setEmail(prenotazioneDto.getEmail());
+        prenotazione.setCognome(prenotazioneDto.getCognome());
+        prenotazione.setNome(prenotazioneDto.getNome());
+        prenotazione.setDettagliAggiuntivi(prenotazioneDto.getDettagliAggiuntivi());
+        prenotazione.setFasciaOraria(prenotazioneDto.getDettagliAggiuntivi());
         prenotazione.setUtente(utente);
 
         if (prenotazioneDto.getSpecialista() == TipoSpecialista.TOELETTATORE) {
@@ -46,18 +51,20 @@ public class PrenotazioneService {
         } else {
             prenotazione.setPrezzo(0);
         }
-
         return prenotazioneRepository.save(prenotazione);
     }
 
     public Prenotazione modificaPrenotazione(Long id,PrenotazioneDto prenotazioneDto) throws NotFoundException {
 
         Prenotazione prenotazioneDaModificare=prendiPrenotazione(id);
-
         prenotazioneDaModificare.setDataPrenotazione(prenotazioneDto.getDataPrenotazione());
         prenotazioneDaModificare.setSpecialista(prenotazioneDto.getSpecialista());
         prenotazioneDaModificare.setUtente(utenteService.getUtente(prenotazioneDto.getUtenteId()));
-
+        prenotazioneDaModificare.setEmail(prenotazioneDto.getEmail());
+        prenotazioneDaModificare.setCognome(prenotazioneDto.getCognome());
+        prenotazioneDaModificare.setNome(prenotazioneDto.getNome());
+        prenotazioneDaModificare.setDettagliAggiuntivi(prenotazioneDto.getDettagliAggiuntivi());
+        prenotazioneDaModificare.setFasciaOraria(prenotazioneDto.getDettagliAggiuntivi());
         return prenotazioneRepository.save( prenotazioneDaModificare);
     }
 
