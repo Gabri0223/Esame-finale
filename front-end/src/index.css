@@ -459,6 +459,10 @@ flex-Basis: 0;
     width: 10%;
 }
 
+.fotoProdottoAddestratore{
+    width: 10%;
+   
+}
 .box{
     animation: muoviVersoSinistraESparisci 0.5s forwards
 }

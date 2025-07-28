@@ -9,9 +9,15 @@ import Taglia from "./Taglia";
 import InformazioniUtente from "./InformazioniUtente";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
 const Prenotazione = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const queryParams = new URLSearchParams(location.search);
+  const specialista = queryParams.get("specialista").toUpperCase();
   const [dataSelezionata, setDataSelezionata] = useState(null);
   const [fasciaOraria, setFasciaOraria] = useState(null);
   const [animazioneAttiva, setAnimazioneAttiva] = useState(false);
@@ -24,7 +30,7 @@ const Prenotazione = () => {
   const [dettagliAggiuntivi, setDettagliAggiuntivi] = useState("");
   const [consenso, setConsenso] = useState(false);
   const [faiAnimazione, setFaiAnimazione] = useState(true);
-
+  const token = localStorage.getItem("token");
   const tuttiCompilati =
     dataSelezionata && fasciaOraria && taglia && nome && cognome && email;
 
@@ -50,6 +56,39 @@ const Prenotazione = () => {
     setEmail(dati.email);
     setDettagliAggiuntivi(dati.dettagliAggiuntivi);
   };
+
+  const salvaPrenotazione = () => {
+    fetch(`http://localhost:8080/prenotazione/${specialista}`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${token.trim()}`,
+      },
+      body: JSON.stringify({
+        dataPrenotazione: dataSelezionata.toISOString().split("T")[0],
+        tagliaCane: taglia,
+        nome: nome,
+        cognome: cognome,
+        email: email,
+        fasciaOraria: `${fasciaOraria.inizio}-${fasciaOraria.fine}`,
+        dettagliAggiuntivi: dettagliAggiuntivi,
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Errore durante la prenotazione");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        alert("Prenotazione effettuata con successo!");
+        navigate("/");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   return (
     <div className="overlay-dark">
       <Container className="border mt-5 focus-element rounded contenitorePrenotazione">
@@ -181,11 +220,17 @@ const Prenotazione = () => {
                   checked={consenso}
                   onChange={(e) => setConsenso(e.target.checked)}
                 />
-                {tuttiCompilati && consenso && (
-                  <Button className="bottoneRosa">
-                    Conferma la prenotazione
-                  </Button>
-                )}
+                <Button
+                  className={
+                    tuttiCompilati && consenso ? "bottoneRosa" : "bottoneGrigio"
+                  }
+                  disabled={!tuttiCompilati || !consenso}
+                  onClick={() => {
+                    salvaPrenotazione();
+                  }}
+                >
+                  Conferma la prenotazione
+                </Button>
               </div>
             </Col>
           )}

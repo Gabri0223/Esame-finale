@@ -29,27 +29,40 @@ public class PrenotazioneService {
         return prenotazioneRepository.findById(id).orElseThrow(()->new NotFoundException("prenotazione non trovata"));
     }
 
-    public Prenotazione salvaPrenotazione(PrenotazioneDto prenotazioneDto) throws NotFoundException {
+    public Prenotazione salvaPrenotazione(PrenotazioneDto prenotazioneDto, TipoSpecialista tipoSpecialista) throws NotFoundException {
         Utente utente = utenteService.getUtente(prenotazioneDto.getUtenteId());
 
         Prenotazione prenotazione = new Prenotazione();
         prenotazione.setDataPrenotazione(prenotazioneDto.getDataPrenotazione());
-        prenotazione.setSpecialista(prenotazioneDto.getSpecialista());
+        prenotazione.setSpecialista(tipoSpecialista);
         prenotazione.setEmail(prenotazioneDto.getEmail());
         prenotazione.setCognome(prenotazioneDto.getCognome());
         prenotazione.setNome(prenotazioneDto.getNome());
         prenotazione.setDettagliAggiuntivi(prenotazioneDto.getDettagliAggiuntivi());
-        prenotazione.setFasciaOraria(prenotazioneDto.getDettagliAggiuntivi());
+        prenotazione.setFasciaOraria(prenotazioneDto.getFasciaOraria());
         prenotazione.setUtente(utente);
 
-        if (prenotazioneDto.getSpecialista() == TipoSpecialista.TOELETTATORE) {
-            if (prenotazioneDto.getTagliaCane() == null) {
-                throw new IllegalArgumentException("La taglia del cane è obbligatoria per il toelettatore");
-            }
-            prenotazione.setTagliaCane(prenotazioneDto.getTagliaCane());
-            prenotazione.setPrezzo(calcolaPrezzoToelettatura(prenotazioneDto.getTagliaCane()));
-        } else {
-            prenotazione.setPrezzo(0);
+        switch (tipoSpecialista) {
+            case TOELETTATORE:
+                if (prenotazioneDto.getTagliaCane() == null) {
+                    throw new IllegalArgumentException("La taglia del cane è obbligatoria per il toelettatore");
+                }
+                prenotazione.setTagliaCane(TagliaCane.valueOf(prenotazioneDto.getTagliaCane()));
+                prenotazione.setPrezzo(calcolaPrezzoToelettatura(TagliaCane.valueOf(prenotazioneDto.getTagliaCane())));
+                break;
+
+            case ADDESTRATORE:
+                if (prenotazioneDto.getTagliaCane() == null) {
+                    throw new IllegalArgumentException("La taglia del cane è obbligatoria per l'addestratore");
+                }
+                prenotazione.setTagliaCane((TagliaCane.valueOf(prenotazioneDto.getTagliaCane())));
+                prenotazione.setPrezzo(calcolaPrezzoAddestratore(TagliaCane.valueOf(prenotazioneDto.getTagliaCane())));
+                break;
+
+            case VETERINARIO:
+            default:
+                prenotazione.setPrezzo(50.0);
+                break;
         }
         return prenotazioneRepository.save(prenotazione);
     }
@@ -58,13 +71,12 @@ public class PrenotazioneService {
 
         Prenotazione prenotazioneDaModificare=prendiPrenotazione(id);
         prenotazioneDaModificare.setDataPrenotazione(prenotazioneDto.getDataPrenotazione());
-        prenotazioneDaModificare.setSpecialista(prenotazioneDto.getSpecialista());
         prenotazioneDaModificare.setUtente(utenteService.getUtente(prenotazioneDto.getUtenteId()));
         prenotazioneDaModificare.setEmail(prenotazioneDto.getEmail());
         prenotazioneDaModificare.setCognome(prenotazioneDto.getCognome());
         prenotazioneDaModificare.setNome(prenotazioneDto.getNome());
         prenotazioneDaModificare.setDettagliAggiuntivi(prenotazioneDto.getDettagliAggiuntivi());
-        prenotazioneDaModificare.setFasciaOraria(prenotazioneDto.getDettagliAggiuntivi());
+        prenotazioneDaModificare.setFasciaOraria(prenotazioneDto.getFasciaOraria());
         return prenotazioneRepository.save( prenotazioneDaModificare);
     }
 
@@ -76,6 +88,19 @@ public class PrenotazioneService {
                 return 14.0;
             case GRANDE:
                 return 18.0;
+            default:
+                throw new IllegalArgumentException("Taglia non valida");
+        }
+    }
+
+    public double calcolaPrezzoAddestratore(TagliaCane taglia){
+        switch (taglia){
+            case PICCOLA:
+                return 40.0;
+            case MEDIA:
+                return 45.0;
+            case GRANDE:
+                return 50.0;
             default:
                 throw new IllegalArgumentException("Taglia non valida");
         }

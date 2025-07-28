@@ -2,8 +2,11 @@ package it.epicode.Back_end.controller;
 
 import it.epicode.Back_end.dto.LoginDto;
 import it.epicode.Back_end.dto.PrenotazioneDto;
+import it.epicode.Back_end.enumerated.TipoSpecialista;
 import it.epicode.Back_end.exception.NotFoundException;
 import it.epicode.Back_end.model.Prenotazione;
+import it.epicode.Back_end.model.Utente;
+import it.epicode.Back_end.security.JwtTool;
 import it.epicode.Back_end.service.PrenotazioneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -16,7 +19,8 @@ import java.util.List;
 public class PrenotazioneController {
     @Autowired
     private PrenotazioneService prenotazioneService;
-
+    @Autowired
+    private JwtTool jwtTool;
     @GetMapping("/{id}")
     public Prenotazione prendiPrenotazione(@PathVariable Long id) throws NotFoundException {
         return prenotazioneService.prendiPrenotazione(id);
@@ -27,9 +31,11 @@ public class PrenotazioneController {
         return prenotazioneService.prendiPrenotazioni();
     }
 
-    @PostMapping()
-    public Prenotazione salvaPrenotazione(@RequestBody @Validated  PrenotazioneDto prenotazioneDto) throws NotFoundException {
-        return prenotazioneService.salvaPrenotazione(prenotazioneDto);
+    @PostMapping("/{tipoSpecialista}")
+    public Prenotazione salvaPrenotazione(@RequestBody @Validated  PrenotazioneDto prenotazioneDto, @PathVariable TipoSpecialista tipoSpecialista, @RequestHeader("Authorization") String token) throws NotFoundException {
+        Utente utente = jwtTool.UtentedaToken(token);
+        prenotazioneDto.setUtenteId(utente.getId());
+        return prenotazioneService.salvaPrenotazione(prenotazioneDto, tipoSpecialista);
     }
 
     @PutMapping("/{id}")

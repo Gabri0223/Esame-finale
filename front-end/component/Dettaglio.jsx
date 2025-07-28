@@ -8,7 +8,6 @@ import { PiBirdDuotone } from "react-icons/pi";
 import { FaFishFins } from "react-icons/fa6";
 import { FaCartShopping } from "react-icons/fa6";
 import Button from "react-bootstrap/Button";
-
 import BottoneAggiungiCarrello from "../component/BottoneAggiungiCarrello";
 import ProdottiCorrelati from "../component/ProdottiCorrellati";
 import Form from "react-bootstrap/Form";

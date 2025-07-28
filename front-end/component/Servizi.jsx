@@ -22,7 +22,7 @@ const Servizi = () => {
 
           <Button
             className=" bottoneServizi w-75"
-            onClick={() => navigate("/prenotazione")}
+            onClick={() => navigate(`/prenotazione?specialista=Toelettatore`)}
           >
             Prenota subito
           </Button>
@@ -36,7 +36,12 @@ const Servizi = () => {
             src="../src/assets/ZampaSanaLogo (2).png"
             className="position-relative h-100"
           />
-          <Button className=" bottoneServizi w-75">Go somewhere</Button>
+          <Button
+            className=" bottoneServizi w-75"
+            onClick={() => navigate(`/prenotazione?specialista=Veterinario`)}
+          >
+            Prenota subito
+          </Button>
         </Card>
         <Card className="cardServizi rounded-bottom-3">
           <Card.Title className="text-center fw-bold sfondoMarrone rounded-top-2 p-2 m-0 bordoSottoGiallo rounded-bottom-3">
@@ -48,7 +53,12 @@ const Servizi = () => {
             src="../src/assets/ZampAcademyLogo.png"
             className="position-relative h-100"
           />
-          <Button className=" bottoneServizi w-75">Go somewhere</Button>
+          <Button
+            className=" bottoneServizi w-75"
+            onClick={() => navigate(`/prenotazione?specialista=Addestratore`)}
+          >
+            Prenota subito
+          </Button>
         </Card>
       </div>
     </div>
