@@ -43,7 +43,7 @@ const InformazioniUtente = ({ onChangeDatiUtente }) => {
           placeholder="Inserisci il tuo nome"
           className="bordiRosa w-100"
           onChange={(e) => {
-            e.target.value;
+            setEmail(e.target.value);
           }}
         />
 
@@ -55,14 +55,6 @@ const InformazioniUtente = ({ onChangeDatiUtente }) => {
             setDettagliAggiuntivi(e.target.value);
           }}
         />
-
-        <div className="d-flex align-items-center mt-3">
-          <Form.Check
-            type={"checkbox"}
-            id={`default-checkbox`}
-            label={`default checkbox`}
-          />
-        </div>
       </Form.Group>
     </div>
   );

@@ -7,6 +7,8 @@ import Calendario from "./Calendario";
 import Orari from "./Orari";
 import Taglia from "./Taglia";
 import InformazioniUtente from "./InformazioniUtente";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 import React, { useState } from "react";
 
 const Prenotazione = () => {
@@ -20,6 +22,11 @@ const Prenotazione = () => {
   const [cognome, setCognome] = useState("");
   const [email, setEmail] = useState("");
   const [dettagliAggiuntivi, setDettagliAggiuntivi] = useState("");
+  const [consenso, setConsenso] = useState(false);
+  const [faiAnimazione, setFaiAnimazione] = useState(true);
+
+  const tuttiCompilati =
+    dataSelezionata && fasciaOraria && taglia && nome && cognome && email;
 
   const handlerCambiamentoData = (data) => {
     setDataSelezionata(data);
@@ -34,6 +41,7 @@ const Prenotazione = () => {
   const handlerSelezioneTaglia = (taglia) => {
     setTaglia(taglia);
     setOrariNascosti(true);
+    setFaiAnimazione(true);
   };
 
   const handlerCambiamentoDati = (dati) => {
@@ -50,7 +58,14 @@ const Prenotazione = () => {
             <p
               className="m-0 p-2 fs-3 cliccabile"
               onClick={() => {
-                setAnimazioneAttiva(false), setCalendarioNascosto(false);
+                if (orariNascosti) {
+                  setOrariNascosti(false);
+                  setFaiAnimazione(false);
+                } else {
+                  setAnimazioneAttiva(false);
+                  setCalendarioNascosto(false);
+                  setFaiAnimazione(true);
+                }
               }}
             >
               <FaArrowLeftLong />
@@ -71,7 +86,13 @@ const Prenotazione = () => {
           <Col
             xs={6}
             className={` p-0 border ${
-              orariNascosti ? "box4" : animazioneAttiva ? "box2" : ""
+              !faiAnimazione
+                ? "box7"
+                : orariNascosti
+                ? "box4"
+                : animazioneAttiva
+                ? "box2"
+                : ""
             } `}
           >
             {dataSelezionata != null && (
@@ -89,11 +110,22 @@ const Prenotazione = () => {
             <Col
               xs={6}
               className={` ${
-                orariNascosti ? "box5 border border-start-0" : "box3"
+                !faiAnimazione
+                  ? "box6"
+                  : orariNascosti
+                  ? "box5 border border-start-0"
+                  : "box3"
               }`}
             >
               <p className="fw-bold fs-4 text-center my-auto py-3">
                 Seleziona un servizio
+              </p>
+            </Col>
+          )}
+          {orariNascosti && (
+            <Col xs={6} className="box3">
+              <p className="fw-bold fs-4 text-center my-auto py-3">
+                Inserisci i tuoi dati
               </p>
             </Col>
           )}
@@ -111,14 +143,25 @@ const Prenotazione = () => {
             <Col
               xs={6}
               className={`p-0 border border-bottom-0 border-top-0 ${
-                orariNascosti ? "box4" : animazioneAttiva ? "box2" : ""
+                !faiAnimazione
+                  ? "box7"
+                  : orariNascosti
+                  ? "box4"
+                  : animazioneAttiva
+                  ? "box2"
+                  : ""
               } `}
             >
               <Orari onSelezioneOrario={handlerSelezioneOrario} />
             </Col>
           )}
           {calendarioNascosto && (
-            <Col xs={6} className={` p-0 ${orariNascosti ? "box5" : "box3"}`}>
+            <Col
+              xs={6}
+              className={` p-0 ${
+                !faiAnimazione ? "box6" : orariNascosti ? "box5" : "box3"
+              }`}
+            >
               <Taglia onSelezioneTaglia={handlerSelezioneTaglia} />
             </Col>
           )}
@@ -126,6 +169,24 @@ const Prenotazione = () => {
             <Col xs={6} className="box3">
               {" "}
               <InformazioniUtente onChangeDatiUtente={handlerCambiamentoDati} />
+              <div
+                className="d-flex align-items-center justify-content-between mt-3"
+                style={{ cursor: "pointer" }}
+              >
+                <Form.Check
+                  className="cliccabile"
+                  type={"checkbox"}
+                  id={`default-checkbox`}
+                  label={`Accetto termini e condizioni`}
+                  checked={consenso}
+                  onChange={(e) => setConsenso(e.target.checked)}
+                />
+                {tuttiCompilati && consenso && (
+                  <Button className="bottoneRosa">
+                    Conferma la prenotazione
+                  </Button>
+                )}
+              </div>
             </Col>
           )}
         </Row>

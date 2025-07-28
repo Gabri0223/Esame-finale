@@ -182,7 +182,7 @@ a {
 }
 
 .cliccabile{
-    cursor: pointer;
+    cursor: pointer !important;
 }
 
 .bottoneGrigio{
@@ -481,6 +481,14 @@ flex-Basis: 0;
     position: absolute;
     left: 100%;
     animation:muoviVersoSinistra2 0.5s forwards;
+}
+.box6{
+    position: absolute;
+    left: 50%;
+}
+.box7{
+    position: absolute;
+    left: 0%;
 }
 
 @keyframes muoviVersoSinistraESparisci{
