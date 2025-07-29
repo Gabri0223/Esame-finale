@@ -110,8 +110,12 @@ const Prenotazione = () => {
               <FaArrowLeftLong />
             </p>
             <p className="text-end m-0 p-2 fw-bolder fs-3">
-              {" "}
-              <HiOutlineX />
+              <HiOutlineX
+                className="cliccabile"
+                onClick={() => {
+                  navigate("/");
+                }}
+              />
             </p>
           </Col>
         </Row>

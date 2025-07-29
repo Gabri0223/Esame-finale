@@ -1,9 +1,11 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router-dom";
+import { IoIosWarning } from "react-icons/io";
 import React from "react";
 
 const Servizi = () => {
+  const token = localStorage.getItem("token");
   const navigate = useNavigate();
   return (
     <div className="sfondoRosa pb-5 ">
@@ -19,9 +21,16 @@ const Servizi = () => {
             src="https://www.shutterstock.com/image-vector/dog-wash-logo-design-pet-600nw-2260572349.jpg"
             className="position-relative"
           />
-
+          {!token && (
+            <p className="scrittaAvviso fw-bold">
+              <IoIosWarning /> Devi essere loggato per prenotare
+            </p>
+          )}
           <Button
-            className=" bottoneServizi w-75"
+            className={`${
+              token ? "bottoneServizi" : "bottoneServiziGrigio"
+            } w-75 fw-bold`}
+            disabled={!token}
             onClick={() => navigate(`/prenotazione?specialista=Toelettatore`)}
           >
             Prenota subito
@@ -36,8 +45,16 @@ const Servizi = () => {
             src="../src/assets/ZampaSanaLogo (2).png"
             className="position-relative h-100"
           />
+          {!token && (
+            <p className="scrittaAvviso2 fw-bold">
+              <IoIosWarning /> Devi essere loggato per prenotare
+            </p>
+          )}
           <Button
-            className=" bottoneServizi w-75"
+            className={`${
+              token ? "bottoneServizi" : "bottoneServiziGrigio"
+            } w-75 fw-bold`}
+            disabled={!token}
             onClick={() => navigate(`/prenotazione?specialista=Veterinario`)}
           >
             Prenota subito
@@ -53,8 +70,16 @@ const Servizi = () => {
             src="../src/assets/ZampAcademyLogo.png"
             className="position-relative h-100"
           />
+          {!token && (
+            <p className="scrittaAvviso fw-bold">
+              <IoIosWarning /> Devi essere loggato per prenotare
+            </p>
+          )}
           <Button
-            className=" bottoneServizi w-75"
+            className={`${
+              token ? "bottoneServizi" : "bottoneServiziGrigio"
+            } w-75 fw-bold`}
+            disabled={!token}
             onClick={() => navigate(`/prenotazione?specialista=Addestratore`)}
           >
             Prenota subito

@@ -197,7 +197,7 @@ a {
 }
 
 .bottoneRosa:hover{
-     background-color:  #FF506F;
+    background-color:  #FF506F;
     transform: translateY(-2px);
     box-shadow: 0 10px 20px  #FF506F;
 }
@@ -364,6 +364,18 @@ a {
 .bordoSottoGiallo{
     border-bottom: solid 5px yellow !important;
 }
+.scrittaAvviso{
+    position: absolute;
+    bottom: 6%;
+    left: 20%;
+    color: #FF3B3F
+}
+.scrittaAvviso2{
+    position: absolute;
+    bottom: 6%;
+    left: 20%;
+    color: #FFB347
+}
 
 .bottoneServizi{
     position: absolute;
@@ -371,12 +383,29 @@ a {
     left:13%;
     background-color: #D5AC86 !important;
     border:none !important;
-    color: white;
+    color:black;
     padding: 30px;
     border-radius: 10px;
     max-width: px;
 }
 
+.bottoneServizi:hover{
+    background-color:  #be2a45;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px  #911b30;
+}
+
+.bottoneServiziGrigio{
+position: absolute;
+    bottom: 2%;
+    left:13%;
+    background-color: rgb(145, 145, 145) !important;
+    border:none !important;
+    color: white;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: px;
+}
 .cardServizi{
     width: 28%;
     box-shadow: 0 6px 16px rgba(77, 77, 77, 0.7);
@@ -461,8 +490,8 @@ flex-Basis: 0;
 
 .fotoProdottoAddestratore{
     width: 10%;
-   
 }
+
 .box{
     animation: muoviVersoSinistraESparisci 0.5s forwards
 }
